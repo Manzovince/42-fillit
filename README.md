@@ -1,6 +1,6 @@
-#Fillit
+# Fillit
 
-##To do
+## To do
 [x] Check if we have a file
 [x] Read file
 [] Check if there are errors in file
