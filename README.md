@@ -8,5 +8,7 @@
 - [ ] Transform file into tetriminos
 - [ ] Check if every tetrimino is valid
 - [ ] Backtracking for smallest square
-- [ ] Transform tetriminos with letters
+- [ ] Transform tetriminos to letters
 - [ ] Print result
+
+- [ ] Optimisation
