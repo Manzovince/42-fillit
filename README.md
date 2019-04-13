@@ -1,7 +1,6 @@
 # Fillit
 
-hulamy
-vmanzoni
+hulamy and vmanzoni
 
 ## To do
 
