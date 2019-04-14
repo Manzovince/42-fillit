@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/14 22:03:19 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/14 22:17:04 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ void	reduce_tetraminos(char **square, t_fillist *list)
 	y2 = 4;
 	find_start_and_end(square, &x1, &x2, &y1, &y2);
 	printf("de [%d,%d] a [%d,%d]\n",x1, y1, x2, y2);
-	(void)list;
+	list->size[0] = y2 - y1 + 1;
+	list->size[1] = x2 - x1 + 1;
+	printf("size [%d,%d]\n", list->size[0], list->size[1]);
 }
 
 int		add_to_list(char **square)
