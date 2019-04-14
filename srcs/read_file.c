@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 12:09:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 18:03:20 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 18:54:53 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,26 @@ char	*read_file(char *file)
 
 int		parse_input(char *input)
 {
-	int		i;
-	int		j;
-	int		nl;
+	char			/*NOM DE LA VARIABLE*/;
+	int				c;
+	int				i;
+	int				j;
 
-	i = 0;
-	nl = 0;
-	while (input[i])
+	c = 0;
+	while (input[c])
 	{
-		j = 0;
-		while (j != 4)
+		i = 0;
+		while (i < 4)
 		{
-			square[j][] =
-			j++;
+			j = 0;
+			while (j < 4)
+			{
+				/*NOM DE LA VARIABLE[j]*/ = input[c++];
+				j++;
+			}
+			c++;
+			i++;
 		}
+		c++;
 	}
 }
