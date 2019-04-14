@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 14:16:01 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 14:25:44 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int		ft_file_errors(char *file)
 		if (*file == '\n')
 			line_nbr++;
 		file++;
-		if (*file == '\n')
-		 	return (1);
+		//if (*file == '\n')
+		 	//return (1);
 	}
 	if (line_nbr < 4 || line_nbr > 129)
 		return (1);

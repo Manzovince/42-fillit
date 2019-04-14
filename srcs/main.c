@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 14:17:22 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 14:27:31 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int		main(int argc, char **argv)
 		Transform tetriminos with letters
 		Print result
 		*/
+		print_test(input);
 	}
 	else
 		ft_display_error("Error: Please submit a file.\n", 2);
 	return (0);
-	print_test(input);
 }
