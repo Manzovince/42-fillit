@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 17:30:30 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 17:46:32 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Function that display error message *s on fd
 */
 
-void	print_error(char *s, int fd)
+void	print_error(char *s)
 {
 	write(2, s, strlen(s));
 }
@@ -28,18 +28,20 @@ void	print_error(char *s, int fd)
 ** - two \n in a row
 */
 
-int		ft_file_errors(char *file)
+int		check_file_errors(char *file)
 {
+	int		i;
 	int		line_nbr;
 
+	i = 0;
 	line_nbr = 0;
-	while (*file)
+	while (file[i])
 	{
-		if (*file == '\n')
+		if (file[i] != '.' && file[i] != '#' && file[i] != '\n')
+			return (1);
+		if (file[i] == '\n')
 			line_nbr++;
-		file++;
-		if (*file == '\n')
-		 	return (1);
+		i++;
 	}
 	if (line_nbr < 4 || line_nbr > 129)
 		return (1);
