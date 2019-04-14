@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 14:31:26 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 16:32:21 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,14 @@ void	print_test(char *test);
 char	*read_file(char *file);
 void	print_error(char *s, int fd);
 int		ft_file_errors(char *file);
+
+typedef struct			s_fillist
+{
+	int					id;
+	char				**tetraminos;
+	int					position[2];
+	int					size[2];
+	struct s_fillist	*next;
+}						t_fillist;
 
 #endif
