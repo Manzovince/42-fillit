@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 14:25:44 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 14:39:12 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** Function that display error message *s on fd
 */
 
-void	ft_display_error(char *s, int fd)
+void	print_error(char *s)
 {
-	write(fd, s, strlen(s));
+	write(2, s, strlen(s));
 }
 
 /*
