@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/14 23:03:46 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/14 23:36:01 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	find_start_and_end(char **square, int *x1, int *x2, int *y1, int *y2)
 			i--;
 }
 
-char	**fill_reduced_tetraminos(char **square, int x1, int y1, int x2, int y2)
+char	**fill_tetraminos(char **square, int x1, int y1, int x2, int y2)
 {
 	char	**result;
 	int		height;
@@ -57,46 +57,38 @@ char	**fill_reduced_tetraminos(char **square, int x1, int y1, int x2, int y2)
 		i++;
 	}
 	i = -1;
-	while (++i < height && !(j = 0))
-		while (j < length && (result[i][j] = '.'))
-			j++;
+	while (++i < height && (j = -1))
+		while (++j < length)
+			result[i][j] = square[x1 + i][y1 + j];
 	return (result);
-}
-
-void	reduce_tetraminos(char **square, t_fillist *list)
-{
-	int	x1;
-	int	x2;
-	int	y1;
-	int	y2;
-	int	i;
-
-	x1 = -1;
-	y1 = -1;
-	x2 = 4;
-	y2 = 4;
-	find_start_and_end(square, &x1, &x2, &y1, &y2);
-	printf("de [%d,%d] a [%d,%d]\n",x1, y1, x2, y2);
-	list->size[0] = y2 - y1 + 1;
-	list->size[1] = x2 - x1 + 1;
-	printf("size [%d,%d]\n", list->size[0], list->size[1]);
-	list->area = list->size[0] * list->size[1];
-	printf("area %d\n", list->area);
-	list->tetraminos = fill_reduced_tetraminos(square, x1, y1, x2, y2);
-	i = -1;
-	while (++i < list->size[1])
-		printf("%s\n", list->tetraminos[i]);
-
 }
 
 int		add_to_list(char **square)
 {
 	t_fillist	*list;
+	int	x1;
+	int	x2;
+	int	y1;
+	int	y2;
 
-	square++;
+	x1 = -1;
+	y1 = -1;
+	x2 = 4;
+	y2 = 4;
+	square++;														// pour test avec av**
 	if (!(list = (t_fillist*)malloc(sizeof(*list))))
 		return (0);
-	reduce_tetraminos(square, list);
+	find_start_and_end(square, &x1, &x2, &y1, &y2);
+	list->size[0] = y2 - y1 + 1;
+	list->size[1] = x2 - x1 + 1;
+	list->area = list->size[0] * list->size[1];
+	list->tetraminos = fill_tetraminos(square, x1, y1, x2, y2);
+
+	int	i;															// test
+	i = -1;															// test
+	while (++i < list->size[1])										// test
+		printf("%s\n", list->tetraminos[i]);						// test
+
 	return (0);
 }
 
