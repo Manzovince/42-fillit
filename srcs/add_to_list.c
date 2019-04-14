@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/14 22:17:04 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/14 23:03:46 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,40 @@ void	find_start_and_end(char **square, int *x1, int *x2, int *y1, int *y2)
 			i--;
 }
 
+char	**fill_reduced_tetraminos(char **square, int x1, int y1, int x2, int y2)
+{
+	char	**result;
+	int		height;
+	int		length;
+	int		i;
+	int		j;
+
+	i = 0;
+	height = x2 - x1 + 1;
+	length = y2 - y1 + 1;
+	if (!(result = (char**)malloc(sizeof(*result) * (height + 1))))
+		return (NULL);
+	while (i < 4)
+	{
+		if (!(result[i] = (char*)malloc(sizeof(**result) * (length + 1))))
+			return (NULL);
+		result[i][length] = '\0';
+		i++;
+	}
+	i = -1;
+	while (++i < height && !(j = 0))
+		while (j < length && (result[i][j] = '.'))
+			j++;
+	return (result);
+}
+
 void	reduce_tetraminos(char **square, t_fillist *list)
 {
 	int	x1;
 	int	x2;
 	int	y1;
 	int	y2;
+	int	i;
 
 	x1 = -1;
 	y1 = -1;
@@ -52,6 +80,13 @@ void	reduce_tetraminos(char **square, t_fillist *list)
 	list->size[0] = y2 - y1 + 1;
 	list->size[1] = x2 - x1 + 1;
 	printf("size [%d,%d]\n", list->size[0], list->size[1]);
+	list->area = list->size[0] * list->size[1];
+	printf("area %d\n", list->area);
+	list->tetraminos = fill_reduced_tetraminos(square, x1, y1, x2, y2);
+	i = -1;
+	while (++i < list->size[1])
+		printf("%s\n", list->tetraminos[i]);
+
 }
 
 int		add_to_list(char **square)

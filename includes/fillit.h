@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 16:32:21 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/14 22:24:29 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_fillist
 	char				**tetraminos;
 	int					position[2];
 	int					size[2];
+	int					area;
 	struct s_fillist	*next;
 }						t_fillist;
 
