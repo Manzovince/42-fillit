@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_smallest_square.c                              :+:      :+:    :+:   */
+/*   print_fillit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/12 22:29:45 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 14:17:47 by vmanzoni         ###   ########.fr       */
+/*   Created: 2019/03/01 13:35:48 by vmanzoni          #+#    #+#             */
+/*   Updated: 2019/04/14 21:37:31 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fillit.h"
+#include "fillit.h"
 
 /*
-char	*get_smallest_square()
+void ft_print_fillit()
 {
 
 }
 */
+
+void	print_test(char *test)
+{
+	write(1, test, strlen(test));
+}
