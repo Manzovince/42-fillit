@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/15 00:04:26 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/15 00:07:50 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,19 @@ int		add_to_list(char **square)
 	list->area = list->size[0] * list->size[1];
 	list->tetraminos = fill_tetraminos(square, x1, y1, x2, y2);
 
-	int	i;															// test
-	i = -1;															// test
-	while (++i < list->size[1])										// test
-		printf("%s\n", list->tetraminos[i]);						// test
+//	int	i;															// pour imprimer
+//	i = -1;															//
+//	while (++i < list->size[1])										//
+//		printf("%s\n", list->tetraminos[i]);						//
 
 	return (0);
 }
 
-int		main(int ac, char **av)
-{
-	if (ac == 5)
-	{
-		add_to_list(++av);
-	}
-	return (0);
-}
+//	int		main(int ac, char **av)
+// 	{
+// 		if (ac == 5)
+// 		{
+// 			add_to_list(++av);
+// 		}
+// 		return (0);
+// 	}
