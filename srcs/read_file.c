@@ -6,11 +6,15 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 12:09:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 17:44:18 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 18:03:20 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fillit.h"
+
+/*
+** Function that read and return a ptr to file
+*/
 
 char	*read_file(char *file)
 {
@@ -34,4 +38,27 @@ char	*read_file(char *file)
 	result[i] = '\0';
 	close(fd);
 	return (result);
+}
+
+/*
+** Function that parse a file and return each tetrimino
+*/
+
+int		parse_input(char *input)
+{
+	int		i;
+	int		j;
+	int		nl;
+
+	i = 0;
+	nl = 0;
+	while (input[i])
+	{
+		j = 0;
+		while (j != 4)
+		{
+			square[j][] =
+			j++;
+		}
+	}
 }

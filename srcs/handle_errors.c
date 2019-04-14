@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 17:46:32 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 17:53:24 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,11 @@ int		check_file_errors(char *file)
 			return (1);
 		if (file[i] == '\n')
 			line_nbr++;
+		if (file[i] == '\n' && file[i+1] == '\n')
+			return (1);
 		i++;
 	}
 	if (line_nbr < 4 || line_nbr > 129)
 		return (1);
 	return (0);
 }
-
-/*
-int		ft_tetri_errors()
-{
-
-}
-*/
