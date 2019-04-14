@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/14 23:36:01 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/15 00:04:26 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		add_to_list(char **square)
 	y1 = -1;
 	x2 = 4;
 	y2 = 4;
-	square++;														// pour test avec av**
 	if (!(list = (t_fillist*)malloc(sizeof(*list))))
 		return (0);
 	find_start_and_end(square, &x1, &x2, &y1, &y2);
@@ -96,7 +95,7 @@ int		main(int ac, char **av)
 {
 	if (ac == 5)
 	{
-		add_to_list(av);
+		add_to_list(++av);
 	}
 	return (0);
 }
