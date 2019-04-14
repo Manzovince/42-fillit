@@ -6,7 +6,7 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/04/12 22:33:31 by vmanzoni         ###   ########.fr        #
+#    Updated: 2019/04/14 14:21:26 by vmanzoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,18 +28,18 @@ CC	=	gcc
 
 CFLAGS	=	-Wall -Werror -Wextra
 
-RM	=	rm -f
+RM	=	rm -rf
 
 all:	$(NAME)
 
-$(NAME)
+$(NAME):
 	$(CC) $(CFLAGS) -I$(HEADER) -c $(addprefix $(SRC_DIR), $(SRCS))
 	$(CC) $(OBJS) -o $(NAME)
 	mkdir $(OBJ_DIR)
-	mv *.o $(OBJ_DIR)
+	mv $(OBJS) $(OBJ_DIR)
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
 
 fclean:	clean
 	$(RM) $(NAME)
