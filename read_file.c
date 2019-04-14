@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 12:09:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 21:37:37 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 23:01:31 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*read_file(char *file)
 
 int		parse_input(char *input)
 {
-	char			/*NOM DE LA VARIABLE*/;
+	char			tetri;
 	int				c;
 	int				i;
 	int				j;
@@ -60,9 +60,11 @@ int		parse_input(char *input)
 			j = 0;
 			while (j < 4)
 			{
-				/*NOM DE LA VARIABLE[j]*/ = input[c++];
+				tetri[j] = input[c++];
 				j++;
 			}
+			if (check_tetri_errors(tetri))
+				print_error("Error: Tetrimino not valid.\n");
 			c++;
 			i++;
 		}

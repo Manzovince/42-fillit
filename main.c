@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 21:37:27 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 22:58:47 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int		main(int argc, char **argv)
 			print_error("Error: Could not read file.\n");
 		if (check_file_errors(input))
 			print_error("Error: Invalid file.\n");
+		if (check_tetri_errors(input))
+			print_error("Error: Tetrimino not valid.\n");
 		/*
 		Check if every tetrimino is valid
 		Transform input to tetriminos
@@ -31,7 +33,6 @@ int		main(int argc, char **argv)
 		*/
 	}
 	else
-		print_error("Error: Please submit a file.\n");
+		print_error("Usage: Please submit a file.\n");
 	return (0);
-	print_test(input);
 }
