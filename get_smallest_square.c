@@ -6,11 +6,11 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 22:29:45 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 14:17:47 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 21:37:19 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fillit.h"
+#include "fillit.h"
 
 /*
 char	*get_smallest_square()
