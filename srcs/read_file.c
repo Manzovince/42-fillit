@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_errors.c                                    :+:      :+:    :+:   */
+/*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 12:06:40 by vmanzoni         ###   ########.fr       */
+/*   Created: 2019/04/13 12:09:46 by vmanzoni          #+#    #+#             */
+/*   Updated: 2019/04/14 12:08:12 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fillit.h"
 
-void	ft_display_error(char *s, int fd)
+char	*read_file(char *file)
 {
-	write(fd, s, strlen(s));
-}
+	char	buf[BUFFER_SIZE];
+	int		fd;
+	int		rv;
+	int		i;
+	char	*result;
 
-/*
-int		ft_tetri_erros()
-{
-
+	if (((fd = open(file, O_RDONLY)) < 0) \
+		|| ((rv = read(fd, &buf, BUFFER_SIZE)) < 0) \
+		|| !(result =  malloc(sizeof(char))))
+		return (NULL);
+	buf[rv] = '\0';
+	i = 0;
+	while (rv--)
+	{
+		result[i] = buf[i];
+		i++;
+	}
+	close(fd);
+	return (result);
 }
-*/

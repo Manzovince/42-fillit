@@ -6,11 +6,13 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 22:31:30 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/12 22:31:51 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 12:08:58 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*tetri_to_letters(/*args*/)
+#include "../includes/fillit.h"
+
+char	*tetri_to_letters()
 {
-	
+
 }
