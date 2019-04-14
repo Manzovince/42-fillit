@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 12:13:35 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 12:34:30 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	print_test(char *test);
 
 char	*read_file(char *file);
 void	ft_display_error(char *s, int fd);
+int		ft_file_errors(char *file);
 
 #endif
