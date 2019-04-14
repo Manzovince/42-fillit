@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 12:34:30 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/14 17:29:58 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <stdio.h> // for debug printf
 #include <stdbool.h> // to use bool type
 
-# define BUFFER_SIZE 1024
+# define BUFF_SIZE 1024
 
 /*
 **	DELETE BEFORE EVALUATION
@@ -33,7 +33,7 @@ void	print_test(char *test);
 */
 
 char	*read_file(char *file);
-void	ft_display_error(char *s, int fd);
+void	print_error(char *s);
 int		ft_file_errors(char *file);
 
 #endif
