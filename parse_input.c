@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/15 15:10:01 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/15 20:14:43 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Function that parse a file and return each tetrimino
 */
-
+/*
 void	parse_input(char *input)
 {
 	char	*tetri;
@@ -32,3 +32,4 @@ void	parse_input(char *input)
 		}
 	}
 }
+*/

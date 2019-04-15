@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/15 17:16:09 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/15 20:19:55 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**fill_tetraminos(char **square, int *tab)
 }
 
 /*
-** this function calculate the line and columns where the tetraminos
+** This function calculate the line and columns where the tetraminos
 ** start and end, by skipping the empty lines
 **
 ** ! it has a little bug so far, i need to fix it
@@ -149,4 +149,3 @@ int		main(int ac, char **av)
 
 	return (0);
 }
-
