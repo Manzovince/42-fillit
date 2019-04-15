@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/15 00:24:25 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/15 14:38:43 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
+/*
+** Function that ...
+*/
 
 void	find_start_and_end(char **square, int *x1, int *x2, int *y1, int *y2)
 {
@@ -35,6 +38,10 @@ void	find_start_and_end(char **square, int *x1, int *x2, int *y1, int *y2)
 		while (i >= 0 && square[i][*y2] != '#')
 			i--;
 }
+
+/*
+** Function that ...
+*/
 
 char	**fill_tetraminos(char **square, int x1, int y1, int x2, int y2)
 {
@@ -62,6 +69,10 @@ char	**fill_tetraminos(char **square, int x1, int y1, int x2, int y2)
 			result[i][j] = square[x1 + i][y1 + j];
 	return (result);
 }
+
+/*
+** Function that ...
+*/
 
 int		add_to_list(char **square)
 {

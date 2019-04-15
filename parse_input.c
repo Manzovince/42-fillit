@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_file.c                                        :+:      :+:    :+:   */
+/*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/13 12:09:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/15 14:48:36 by vmanzoni         ###   ########.fr       */
+/*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
+/*   Updated: 2019/04/15 15:10:01 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-** Function that read and return a ptr to file content
+** Function that parse a file and return each tetrimino
 */
 
-char	*read_file(char *file)
+void	parse_input(char *input)
 {
-	char	buf[BUFF_SIZE];
-	int		fd;
-	int		rv;
+	char	*tetri;
 	int		i;
-	char	*result;
 
-	if (((fd = open(file, O_RDONLY)) < 0) \
-		|| ((rv = read(fd, &buf, BUFF_SIZE)) < 0) \
-		|| !(result =  malloc(sizeof(char) * rv)))
-		return (NULL);
-	buf[rv] = '\0';
 	i = 0;
-	while (buf[i])
+	while (input[i])
 	{
-		result[i] = buf[i];
-		i++;
+		tetri[i] = input[i];
+		if (i != 0 && i%19 == 0)
+		{
+
+			i+2;
+		}
 	}
-	result[i] = '\0';
-	close(fd);
-	return (result);
 }

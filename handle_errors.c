@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/15 00:13:18 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/15 14:41:19 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,21 @@ int		check_file_errors(char *file)
 			return (1);
 		if (file[i] == '\n')
 			line_nbr++;
-//		if (file[i] == '\n' && file[i+2] != '.' && file[i+2] != '#')
-//			return (1);
+		if (file[i] == '\n' && file[i+1] != '\0' && \
+			file[i+2] != '.' && file[i+2] != '#')
+			return (1);
 		i++;
 	}
 	if (line_nbr < 4 || line_nbr > 129)
 		return (1);
 	return (0);
 }
+
+/*
+** Function that check if tetrimino square contains:
+** - 4 '#'
+** - 12 '.'
+*/
 
 int		check_tetri_errors(char *tetri)
 {
@@ -73,6 +80,9 @@ int		check_tetri_errors(char *tetri)
 	return (0);
 }
 
+/*
+** Function that check if tetrimino parts are linked
+*/
 
 int		check_tetri_errors2(char *tetri)
 {
