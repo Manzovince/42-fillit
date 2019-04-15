@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/15 10:43:51 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/15 15:51:03 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ typedef struct			s_fillist
 	struct s_fillist	*next;
 }						t_fillist;
 
-int		add_to_list(char **square, t_fillist *list);
+int		add_to_list(char **square, t_fillist **list);
 
 #endif
