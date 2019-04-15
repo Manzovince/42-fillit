@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/15 16:23:18 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/15 20:53:57 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,6 @@
 # define BUFF_SIZE 1024
 
 /*
-**	DELETE BEFORE EVALUATION
-*/
-
-void	print_test(char *test);
-
-/*
-**	FUNCTIONS
-*/
-
-char	*read_file(char *file);
-void	print_error(char *s);
-int		check_file_errors(char *file);
-int		check_tetri_errors(char *tetri);
-int		check_tetri_errors2(char *tetri);
-
-/*
 **	STRUCTURE
 */
 
@@ -52,6 +36,17 @@ typedef struct			s_fillist
 	struct s_fillist	*next;
 }						t_fillist;
 
+/*
+**	FUNCTIONS
+*/
+
+void	print_test(char *test); //DELETE BEFORE EVALUATION
+char	*read_file(char *file);
+void	print_error(char *s);
+void	parse_input(char *input);
+int		check_file_errors(char *file);
+int		check_tetri_errors(char *tetri);
+int		check_tetri_errors2(char *tetri);
 int		add_to_list(char **square, t_fillist **list);
 
 #endif

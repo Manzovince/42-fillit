@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/15 20:19:55 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/15 20:49:33 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,13 @@ int		add_to_list(char **square, t_fillist **list)
 	return (1);
 }
 
-
+/*
 int		main(int ac, char **av)
 {
 	static t_fillist	*list = NULL;	// avant d'appeller add_to_list il faut declarer un pointeur static vers la structure
 	int					i;
 
-	if (ac > 4)
+	if (ac > 1)
 	{
 		add_to_list(++av, &list);		// l'appel de la fonction se fait avec un carre valide de 4*4 et l'adresse du pointeur vers la liste
 		if (ac == 9)
@@ -149,3 +149,4 @@ int		main(int ac, char **av)
 
 	return (0);
 }
+*/
