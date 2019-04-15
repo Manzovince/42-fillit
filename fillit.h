@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/15 13:39:50 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:23:18 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	print_error(char *s);
 int		check_file_errors(char *file);
 int		check_tetri_errors(char *tetri);
 int		check_tetri_errors2(char *tetri);
-int		add_to_list(char **square);
 
 /*
 **	STRUCTURE
@@ -52,5 +51,7 @@ typedef struct			s_fillist
 	int					area;
 	struct s_fillist	*next;
 }						t_fillist;
+
+int		add_to_list(char **square, t_fillist **list);
 
 #endif
