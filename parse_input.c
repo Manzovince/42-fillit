@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/16 15:28:11 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/16 16:08:03 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ char	**create_square(char *tetri)
 	int		k;
 
 	i = 0;
-	if (!(square = (char**)malloc(sizeof(*square) * 4)))
+	if (!(square = (char**)malloc(sizeof(*square) * (4 + 1))))
 		return (NULL);
+	square[4] = NULL;
 	while (*tetri && (k = -1))
 	{
 		if (!(square[i] = (char*)malloc(sizeof(**square) * (4 + 1))))

@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/16 15:32:14 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/16 16:08:24 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	**fill_tetraminos(char **square, int *tab)
 	length = tab[3] - tab[1] + 1;
 	if (!(result = (char**)malloc(sizeof(*result) * (height + 1))))
 		return (NULL);
+	result[height] = NULL;
 	while (i < height)
 	{
 		if (!(result[i] = (char*)malloc(sizeof(**result) * (length + 1))))
