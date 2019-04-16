@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/15 21:33:52 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/16 11:50:45 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,35 @@
 ** Function that parse a file and put each tetrimino in a linked list
 */
 
-void	parse_input(char *input)
+char	**create_square(char *tetri)
 {
-	//static t_fillist	*list = NULL;
-	char				**square;
-	int					i;
-	int					j;
-	int					k;
+	char	**square = NULL;
+	int		i;
+	int		k;
 
 	i = 0;
-	while (input[i])
+	while (tetri[i])
 	{
-		j = 0;
-		while (j < 4)
+		k = 0;
+		*square = malloc((sizeof(char)*4) + 1);
+		while (k < 4)
 		{
-			k = 0;
-			while (k < 4)
-				square[j][k++] = input[i++];
-			j++;
+			*square[k] = tetri[i];
+			k++;
+			i++;
 		}
-		printf("print:\n%s\n", *square);
-		//add_to_list(square, &list);
-		while (input[i] == '\n')
+		i++;
+		//printf("print:\n%s\n", *square);
+		while (tetri[i] == '\n')
 			i++;
 	}
+	return (square);
 }
 
-/*
 void	parse_input(char *input)
 {
-	//static t_fillist	*list = NULL;
-	char				square[19];
+	static t_fillist	*list = NULL;
+	char				tetri[20];
 	int					i;
 	int					j;
 
@@ -55,12 +53,13 @@ void	parse_input(char *input)
 	{
 		j = 0;
 		while (j < 19)
-			square[j++] = input[i++];
-		square[19] = '\0';
-		printf("PRINT:\n%s\n", square);
-		//add_to_list(square, &list);
+			tetri[j++] = input[i++];
+		tetri[19] = '\0';
+		//printf("PRINT:\n%s\n", tetri);
+		if (check_tetri_errors(tetri))
+			print_error("Error: Tetrimino not valid.");
+		add_to_list(create_square(tetri), &list);
 		while (input[i] == '\n')
 			i++;
 	}
 }
-*/
