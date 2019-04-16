@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/15 17:07:34 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/15 20:49:33 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
+
+/*
+** Function that fills the char **tetraminos section of the structure
+** with the most little rectangle that fit the tetraminos
+*/
 
 char	**fill_tetraminos(char **square, int *tab)
 {
@@ -40,6 +45,13 @@ char	**fill_tetraminos(char **square, int *tab)
 	return (result);
 }
 
+/*
+** This function calculate the line and columns where the tetraminos
+** start and end, by skipping the empty lines
+**
+** ! it has a little bug so far, i need to fix it
+*/
+
 void	find_start_and_end(char **square, int **x)
 {
 	int i;
@@ -66,6 +78,19 @@ void	find_start_and_end(char **square, int **x)
 			i--;
 }
 
+/*
+** this function first call find_start_and_end to find the coordinates
+** of start en end of the most little rectangle that fit the tetraminos
+**
+** it allows it to fill the structure with the size information
+** (for instance :
+** "##" ".#" ".#"
+** is a tatraminos of 2 by 3)
+** then it fills also the area information (2 * 3 = 6)
+**
+** and finally it calls fill_tetraminos to fill the char **tetraminos
+*/
+
 int		fill_list(char **square, t_fillist *list)
 {
 	int	*tab;
@@ -78,6 +103,14 @@ int		fill_list(char **square, t_fillist *list)
 	list->tetraminos = fill_tetraminos(square, tab);
 	return (1);
 }
+
+/*
+** this function first checks if the structure has been created
+** if not, it creates the first element, else it adds an element
+** and modifies the initial pointer to link to the new first element
+**
+** then it calls fill_list to fill the data of the structure
+*/
 
 int		add_to_list(char **square, t_fillist **list)
 {
@@ -94,12 +127,13 @@ int		add_to_list(char **square, t_fillist **list)
 	return (1);
 }
 
+/*
 int		main(int ac, char **av)
 {
 	static t_fillist	*list = NULL;	// avant d'appeller add_to_list il faut declarer un pointeur static vers la structure
 	int					i;
 
-	if (ac > 4)
+	if (ac > 1)
 	{
 		add_to_list(++av, &list);		// l'appel de la fonction se fait avec un carre valide de 4*4 et l'adresse du pointeur vers la liste
 		if (ac == 9)
@@ -115,3 +149,4 @@ int		main(int ac, char **av)
 
 	return (0);
 }
+*/
