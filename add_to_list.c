@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/15 20:49:33 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/16 15:32:14 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**fill_tetraminos(char **square, int *tab)
 	i = 0;
 	height = tab[2] - tab[0] + 1;
 	length = tab[3] - tab[1] + 1;
-	if (!(result = (char**)malloc(sizeof(*result) * (height))))
+	if (!(result = (char**)malloc(sizeof(*result) * (height + 1))))
 		return (NULL);
 	while (i < height)
 	{
@@ -128,25 +128,25 @@ int		add_to_list(char **square, t_fillist **list)
 }
 
 /*
-int		main(int ac, char **av)
-{
-	static t_fillist	*list = NULL;	// avant d'appeller add_to_list il faut declarer un pointeur static vers la structure
-	int					i;
-
-	if (ac > 1)
-	{
-		add_to_list(++av, &list);		// l'appel de la fonction se fait avec un carre valide de 4*4 et l'adresse du pointeur vers la liste
-		if (ac == 9)
-			add_to_list(av += 4, &list);
-		while (list && (i = -1))
-		{
-			while (++i < list->size[1])
-				printf("%s\n", list->tetraminos[i]);
-			printf("\n");
-			list = list->next;
-		}
-	}
-
-	return (0);
-}
+**int		main(int ac, char **av)
+**{
+**	static t_fillist	*list = NULL;	// avant d'appeller add_to_list il faut declarer un pointeur static vers la structure
+**	int					i;
+**
+**	if (ac > 1)
+**	{
+**		add_to_list(++av, &list);		// l'appel de la fonction se fait avec un carre valide de 4*4 et l'adresse du pointeur vers la liste
+**		if (ac == 9)
+**			add_to_list(av += 4, &list);
+**		while (list && (i = -1))
+**		{
+**			while (++i < list->size[1])
+**				printf("%s\n", list->tetraminos[i]);
+**			printf("\n");
+**			list = list->next;
+**		}
+**	}
+**
+**	return (0);
+**}
 */
