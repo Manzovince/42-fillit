@@ -6,14 +6,14 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/04/16 14:05:39 by hulamy           ###   ########.fr        #
+#    Updated: 2019/04/16 15:35:04 by hulamy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	fillit
 
-OBJ_DIR	=	./
-HEADER	=	./
+OBJ_DIR	=	objs./
+HEADER	=	includes./
 
 SRCS	=	*.c
 OBJS	=	$(SRCS:.c=.o)
