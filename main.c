@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/15 20:54:24 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/16 16:41:28 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ int		main(int argc, char **argv)
 			print_error("Error: Invalid file.\n");
 		parse_input(input);
 		/*
-		Transform input to tetriminos
 		Backtracking for smallest square
 		Transform tetriminos with letters
 		Print result
 		*/
-		//print_test(input);
 	}
 	else
 		print_error("Usage: Please submit a file.\n");

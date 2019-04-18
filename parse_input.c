@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/16 16:08:03 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/18 10:56:19 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	**create_square(char *tetri)
 			square[i][k] = *(tetri++);
 		while (*tetri == '\n')
 			tetri++;
-	//	printf("%s\n", square[i]);
 		i++;
 	}
 	return (square);
@@ -56,7 +55,6 @@ void	parse_input(char *input)
 		while (j < 19)
 			tetri[j++] = input[i++];
 		tetri[19] = '\0';
-		//printf("PRINT:\n%s\n", tetri);
 		if (check_tetri_errors(tetri))
 			print_error("Error: Tetrimino not valid.");
 		test = create_square(tetri);
