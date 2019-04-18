@@ -6,7 +6,7 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/04/16 16:39:00 by vmanzoni         ###   ########.fr        #
+#    Updated: 2019/04/18 12:27:12 by vmanzoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,13 @@ NAME	=	fillit
 OBJ_DIR	=	objs./
 HEADER	=	fillit.h
 
-SRCS	=	*.c
+SRCS	=	main.c					\
+			read_file.c				\
+			handle_errors.c			\
+			parse_input.c			\
+			get_smallest_square.c	\
+			print_fillit.c
+
 OBJS	=	$(SRCS:.c=.o)
 LIB		=	libft/
 
