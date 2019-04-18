@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/18 13:07:56 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:09:24 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ short	create_tetribit(char *tetri)
 		if (tetri[i] != '\n')		// Pour comparer avec le tetri en char
 			printf("%c", tetri[i]);
 		if (tetri[i] == '#')
-		{
 			tetribit = tetribit | 1;
-			tetribit <<= 1;
-		}
 		else
 			tetribit <<= 1;
 		i++;
