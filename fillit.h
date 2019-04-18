@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/15 20:53:57 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/18 11:46:51 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct			s_fillist
 **	FUNCTIONS
 */
 
-void	print_test(char *test); //DELETE BEFORE EVALUATION
 char	*read_file(char *file);
 void	print_error(char *s);
 void	parse_input(char *input);
