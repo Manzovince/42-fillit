@@ -32,7 +32,7 @@ void	compare(int initial, int compare)
 		print_bits(compare);
 		print_bits(initial & compare);
 		!(initial & compare) ? ft_putendl("&: fit") : ft_putendl("&: not fit");
-		compare <<= 1;
+		compare >>= 1;
 	}
 	print_bits(initial);
 	print_bits(compare);
