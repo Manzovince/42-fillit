@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/18 11:46:51 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:52:10 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@
 
 typedef struct			s_fillist
 {
-	int					id;
-	char				**tetraminos;
-	int					position[2];
-	int					size[2];
-	int					area;
+	short				tetribit;
+	short				tibirtet;
+	int					position;
 	struct s_fillist	*next;
 }						t_fillist;
 
@@ -46,6 +44,6 @@ void	parse_input(char *input);
 int		check_file_errors(char *file);
 int		check_tetri_errors(char *tetri);
 int		check_tetri_errors2(char *tetri);
-int		add_to_list(char **square, t_fillist **list);
+int		add_to_list(char *square, t_fillist **list);
 
 #endif

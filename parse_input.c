@@ -6,7 +6,11 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/04/18 16:09:24 by vmanzoni         ###   ########.fr       */
+=======
+/*   Updated: 2019/04/19 12:53:40 by hulamy           ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +88,8 @@ void	parse_input(char *input)
 	short				test; //DELETE BEFORE EVAL
 
 	i = 0;
+	printf("input: %s\n", input);
+	printf("end\n");
 	while (input[i])
 	{
 		j = 0;
