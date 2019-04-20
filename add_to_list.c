@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/19 15:33:04 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/19 23:02:00 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_bits(short line)
 {
 	int mask;
 
-	mask = 1 << 16;
+	mask = 1 << 27;
 	while (mask >>= 1)
 		(line & mask) ? ft_putnbr(1) : ft_putnbr(0);
 	ft_putchar('\n');
@@ -35,7 +35,8 @@ void	print_bits(short line)
 
 int		fill_list(char *line, t_fillist *list)
 {
-	short tmp;
+	short	tmp;
+	int	 	test;
 
 	while (*line)
 	{
@@ -53,6 +54,10 @@ int		fill_list(char *line, t_fillist *list)
 		list->tibirtet <<= 1;
 		tmp >>= 1;
 	}
+	test = list->tibirtet;
+	print_bits(test);
+	while (test <<= 1)
+		print_bits(test);
 	return (0);
 }
 
