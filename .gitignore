@@ -5,3 +5,7 @@ objs/
 a\.out\.dSYM/
 
 a\.out
+
+*.swo
+
+*.swp

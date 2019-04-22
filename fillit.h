@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/19 14:52:10 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/22 15:57:43 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 #include <stdio.h> // for debug printf
 #include <stdbool.h> // to use bool type
 
-# define BUFF_SIZE 1024
+#include "libft/includes/libft.h"
+
+//# define BUFF_SIZE 1024
 
 /*
 **	STRUCTURE
@@ -45,5 +47,6 @@ int		check_file_errors(char *file);
 int		check_tetri_errors(char *tetri);
 int		check_tetri_errors2(char *tetri);
 int		add_to_list(char *square, t_fillist **list);
+int		fill_list(char *line, t_fillist *list);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/22 15:12:47 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/22 15:58:39 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
-#include "libft/includes/libft.h"
+//#include "libft/includes/libft.h"
 
 /*
 ** this function prints a 16 bites short
@@ -24,8 +24,8 @@ void	print_bits(short line)
 
 	mask = 1 << 27;
 	while (mask >>= 1)
-		(line & mask) ? ft_putnbr(1) : ft_putnbr(0);
-	ft_putchar('\n');
+		(line & mask) ? write(1, "1", 1) : write(1, "0", 1);
+	write(1, "\n", 1);
 }
 
 /*
@@ -33,17 +33,19 @@ void	print_bits(short line)
 ** then it fills it and its reverse into the list
 */
 
-int		fill_list(char *line, t_fillist *list)
+int		fill_list(char line[], t_fillist *list)
 {
 	short	tmp;
 	int	 	test;
+	int		i;
 
-	while (*line)
+	i = 0;
+	while (line[i])
 	{
 		list->tetribit <<= 1;
-		if (*line == '\n')
-			line++;
-		if (*(line++) == '#')
+		if (line[i] == '\n')
+			i++;
+		if (line[i++] == '#')
 			list->tetribit |= 1;
 	}
 	tmp = list->tetribit;
@@ -128,7 +130,7 @@ void	test(unsigned int map[])
 		mask = (mask >> 1) | (((1 << (i % 32)) & map[j]) << (31 - (i % 32)));
 	}
 }
-
+/*
 int		main(int ac, char **av)
 {
 	static t_fillist	*list = NULL;	// avant d'appeller add_to_list il faut declarer un pointeur static vers la structure
@@ -150,3 +152,4 @@ int		main(int ac, char **av)
 
 	return (0);
 }
+*/
