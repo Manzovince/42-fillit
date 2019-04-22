@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/21 13:42:46 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/22 15:12:47 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ int		add_to_list(char *line, t_fillist **list)
 	return (1);
 }
 
+/*
+** Print octet
+*/
+
 void	print_test(int octet)
 {
 	unsigned int i;
@@ -91,6 +95,10 @@ void	print_test(int octet)
 		i >>= 1;
 	}
 }
+
+/*
+** ???
+*/
 
 void	test(unsigned int map[])
 {
@@ -142,4 +150,3 @@ int		main(int ac, char **av)
 
 	return (0);
 }
-
