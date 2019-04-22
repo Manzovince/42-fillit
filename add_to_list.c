@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/19 23:02:00 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/21 13:42:46 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,51 @@ int		add_to_list(char *line, t_fillist **list)
 	return (1);
 }
 
+void	print_test(int octet)
+{
+	unsigned int i;
+
+	i = 1 << 31;
+	while (i)
+	{
+		(octet & i) ? printf("1") : printf("0");
+		i >>= 1;
+	}
+}
+
+void	test(unsigned int map[])
+{
+	int 			i;
+	int 			j;
+	int 			k;
+	int 			l;
+	unsigned int	mask;
+
+	mask = map[9];
+
+	i = -1;
+	j = 9;
+	while (j >= 0)
+	{
+		if (!(++i % 32) && j-- && (k = -1))
+		{
+			while (++k < 10)
+				print_test(map[k]);
+			printf("\n");
+		}
+		l = 0;
+		while (l++ < 320 - 32 - i)
+			printf(" ");
+		print_test(mask);
+		printf("\n");
+		mask = (mask >> 1) | (((1 << (i % 32)) & map[j]) << (31 - (i % 32)));
+	}
+}
+
 int		main(int ac, char **av)
 {
 	static t_fillist	*list = NULL;	// avant d'appeller add_to_list il faut declarer un pointeur static vers la structure
+	unsigned int		map[10] = {1568713153, 817645681, 654186132, 538171355, 1718453135, 551286515, 1631843343, 3413834313, 1155555555, 999999999};
 	int					i;
 
 	if (ac > 1)
@@ -96,6 +138,7 @@ int		main(int ac, char **av)
 			list = list->next;
 		}
 	}
+	test(map);
 
 	return (0);
 }
