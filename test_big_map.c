@@ -40,12 +40,12 @@ void	test(unsigned int map[])
 
 	tetri = (1 << 4) | (1 << 5) | (1 << 6);
 	mask = map[9];
-	i = 0;
+	i = -1;
 	j = 9;
-	while ((9 - (i / 32)) > 0)
+	while (j >= 0)
 	{
 		// a chaque fois que mask s'est decale jusqu'au int precedant du tableau, le if suivant reaffiche le tableau en une ligne
-		if (!(i % 32) && (10 - (i / 32)) && (k = -1))
+		if (!(++i % 32) && j-- && (k = -1))
 		{
 			while (++k < 10)
 				print_bits(map[k]);
@@ -74,15 +74,22 @@ void	test(unsigned int map[])
 		// (0000000000000010000000 & map[j]) recupere la valeur du bit de map[j] (qui est la map precedante sur le tableau d'int) a la position du 1
 		// (0000000000000010000000 << (31 - (i % 32))) = 100000000000000000000
 		// (mask >> 1) | 1000000000000000000000 = insere le 32eme bit dans mask
-		mask = (mask >> 1) | (((1 << (i % 32)) & map[(8 - (i / 32))]) << (31 - (i % 32)));
-		i++;
+		mask = (mask >> 1) | (((1 << (i % 32)) & map[j]) << (31 - (i % 32)));
 	}
 }
 
 int		main()
 {
 	unsigned int	map[10] = {1568713153, 817645681, 654186132, 538171355, 1718453135, 551286515, 1631843343, 3413834313, 1155555555, 999999999};
+	int i;
 
+	i = -1;
+	while (++i < 10)
+	{
+		print_bits(map[i]);
+		printf(" ");
+	}
+	printf("\n");
 	test(map);
 	return (0);
 }
