@@ -6,7 +6,7 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/04/22 15:32:49 by vmanzoni         ###   ########.fr        #
+#    Updated: 2019/04/23 15:16:05 by vmanzoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,10 @@ SRCS	=	main.c					\
 			read_file.c				\
 			handle_errors.c			\
 			parse_input.c			\
-			get_smallest_square.c	\
-			print_fillit.c			\
-			add_to_list.c
+			add_to_list.c			\
+#			get_smallest_square.c	\
+			print_fillit.c
+
 
 OBJS	=	$(SRCS:.c=.o)
 LIB		=	libft/
