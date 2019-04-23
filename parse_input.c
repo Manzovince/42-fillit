@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/23 15:18:00 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:24:46 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ void	parse_input(char *input)
 		while (input[i] == '\n')
 			i++;
 	}
-	/*
-	** ce qui suit sert juste a afficher le contenu de tous les tetraminos de la liste chainee
-	** pour debug, a effacer au rendu
-	*/
+/*
+**	ce qui suit sert juste a afficher le contenu de tous les tetraminos de la liste chainee
+**	pour debug, a effacer au rendu
+*/
 	/*
 	while (list && (i = -1))
 	{
