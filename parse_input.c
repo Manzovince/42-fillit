@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/23 16:01:12 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:09:40 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	parse_input(char *input)
 		if (check_tetri_errors(tetri))
 			print_error("Error: Tetrimino not valid.");
 		add_to_list(tetri, &list);
+		printf("added to list !!\n");
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
