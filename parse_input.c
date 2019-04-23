@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/22 17:06:51 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:18:00 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*
 ** Function that parse a file and put each tetrimino in a linked list
+** DELETE BEFORE EVAL - NOT USED ANYMORE
 */
 
 char	**create_square(char *tetri)
