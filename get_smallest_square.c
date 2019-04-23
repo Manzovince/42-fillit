@@ -6,15 +6,37 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 22:29:45 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/14 21:37:19 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:34:32 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-/*
-char	*get_smallest_square()
+unsigned int	*initialize_map(int size)
 {
+	unsigned int	*map[0];
+	int				i;
 
+	i = size;
+	while (size--)
+		map[i] = malloc(sizeof(unsigned int) * i);
+	return (map);
 }
-*/
+
+int				*get_smallest_square(t_fillist list, int size, unsigned int map[])
+{
+	unsigned int	mask;
+	int				i;
+	int				j;
+
+	i = 0;
+	mask = map[size];
+	while (list.tetribit != NULL)
+	{
+		mask = (mask >> 1) | (((1 << (i % 32)) & map[j]) << (31 - (i % 32)));
+		if (!(tetri & mask))
+			return (1);
+		i++;
+	}
+	return (0);
+}
