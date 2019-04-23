@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/23 21:09:40 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:23:47 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,13 @@ void	parse_input(char *input)
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
-	/*DEBUG PART - Print each tetribit*/
-/*
-	while (list != NULL)
-	{
-		printf("%i\n", list->tetribit);
-		printf("\n");
-		list = list->next;
-	}
-*/
+/*DEBUG PART - Print each tetribit*/
+//	while (list != NULL)
+//	{
+//		printf("%i\n", list->tetribit);
+//		printf("\n");
+//		list = list->next;
+//	}
 }
 
 /*

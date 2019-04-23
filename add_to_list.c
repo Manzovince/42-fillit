@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/23 21:04:43 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:36:37 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	print_bits(short line)
 }
 
 /*
-** this function transforme a tetrminos char* into a short of 16 bites
+** Function that transforme a tetrminos char* into a short of 16 bites
 ** then it fills it and its reverse into the list
 */
 
 int		fill_list(char line[], t_fillist *list)
 {
-	short	tmp;
+//	short	tmp;
 	int		i;
 
 	i = 0;
@@ -48,14 +48,15 @@ int		fill_list(char line[], t_fillist *list)
 		if (line[i++] == '#')
 			list->tetribit |= 1;
 	}
-	tmp = list->tetribit;
-	while (tmp)
-	{
-		if (tmp & 1)
-			list->tibirtet |= 1;
-		list->tibirtet <<= 1;
-		tmp >>= 1;
-	}
+//	tmp = list->tetribit;
+//	while (tmp)
+//	{
+//		if (tmp & 1)
+//			list->tibirtet |= 1;
+//		list->tibirtet <<= 1;
+//		tmp >>= 1;
+//	}
+	print_bits(list->tetribit);
 	return (0);
 }
 
@@ -98,7 +99,7 @@ void	print_test(int octet)
 
 /*
 ** DELETE BEFORE EVAL - TEST FUNCTION
-** Test
+** Test for big map
 */
 
 void	test(unsigned int map[])

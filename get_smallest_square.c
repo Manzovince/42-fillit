@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 22:29:45 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/23 21:03:10 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:42:35 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@
 unsigned int	*initialize_map(int size)
 {
 	unsigned int	*map[0];
-	int				i;
 
-	i = size;
 	while (size--)
-		map[i] = malloc(sizeof(unsigned int) * i);
+		map[size] = 0;
 	return (map);
 }
 
