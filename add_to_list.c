@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/22 15:58:39 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:15:10 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	print_bits(short line)
 int		fill_list(char line[], t_fillist *list)
 {
 	short	tmp;
-	int	 	test;
 	int		i;
 
 	i = 0;
@@ -56,10 +55,6 @@ int		fill_list(char line[], t_fillist *list)
 		list->tibirtet <<= 1;
 		tmp >>= 1;
 	}
-	test = list->tibirtet;
-	print_bits(test);
-	while (test <<= 1)
-		print_bits(test);
 	return (0);
 }
 
@@ -99,7 +94,7 @@ void	print_test(int octet)
 }
 
 /*
-** ???
+** Test
 */
 
 void	test(unsigned int map[])
@@ -130,6 +125,11 @@ void	test(unsigned int map[])
 		mask = (mask >> 1) | (((1 << (i % 32)) & map[j]) << (31 - (i % 32)));
 	}
 }
+
+/*
+** MAIN FOR TEST
+*/
+
 /*
 int		main(int ac, char **av)
 {
