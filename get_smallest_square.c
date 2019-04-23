@@ -6,11 +6,15 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 22:29:45 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/23 14:34:32 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:03:10 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*
+** Function that initialize a int map equivalent to a square size*size
+*/
 
 unsigned int	*initialize_map(int size)
 {
@@ -22,6 +26,10 @@ unsigned int	*initialize_map(int size)
 		map[i] = malloc(sizeof(unsigned int) * i);
 	return (map);
 }
+
+/*
+** Function that bruteforce with backtracking for smallest square
+*/
 
 int				*get_smallest_square(t_fillist list, int size, unsigned int map[])
 {

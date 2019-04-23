@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/23 16:15:10 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:04:43 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 //#include "libft/includes/libft.h"
 
 /*
-** this function prints a 16 bites short
+** DELETE BEFORE EVAL - TEST FUNCTION
+** Function that prints a 16 bites short
 */
 
 void	print_bits(short line)
@@ -59,7 +60,8 @@ int		fill_list(char line[], t_fillist *list)
 }
 
 /*
-** this function create the linked list and add a new structure linked each time needed
+** Function that create the linked list and add a new structure
+** linked each time needed
 */
 
 int		add_to_list(char *line, t_fillist **list)
@@ -78,6 +80,7 @@ int		add_to_list(char *line, t_fillist **list)
 }
 
 /*
+** DELETE BEFORE EVAL - TEST FUNCTION
 ** Print octet
 */
 
@@ -94,6 +97,7 @@ void	print_test(int octet)
 }
 
 /*
+** DELETE BEFORE EVAL - TEST FUNCTION
 ** Test
 */
 
@@ -127,7 +131,7 @@ void	test(unsigned int map[])
 }
 
 /*
-** MAIN FOR TEST
+** DELETE BEFORE EVAL - MAIN FOR TEST
 */
 
 /*
