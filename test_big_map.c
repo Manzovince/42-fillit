@@ -68,6 +68,21 @@ void	test(unsigned int map[])
 			print_short(tetri);
 			printf("\n");
 		}
+/*
+		else
+		{
+			l = 0;
+			while (l++ < 320 - 32 + 16 - i)
+				printf(" ");
+			print_short(tetri);
+			printf("\n");
+		}
+		l = 0;
+		while (l++ < 320 - 32 + 16 - i)
+			printf(" ");
+		print_short(tetri & mask);
+		printf("\n");
+*/
 		// fait tourner le mask le long du tableau d'int
 		// (mask >> 1) decale le mask vers la droite (perd le bit le plus a droite et insere un bit a gauche)
 		// (1 << (i % 32)) creer un mask avec un 1 a la premiere place a droite, puis a la deuxieme, puis la troisieme, etc.. jusqu'a 32, et recommence
