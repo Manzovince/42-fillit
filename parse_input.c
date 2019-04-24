@@ -6,23 +6,28 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/24 12:52:26 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/24 13:48:21 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	print_short(short octet)
-{
-	unsigned int i;
+/*
+** DELETE BEFORE EVAL
+** Function that print a short in bites
+*/
 
-	i = 1 << 15;
-	while (i)
-	{
-		(octet & i) ? printf("1") : printf("0");
-		i >>= 1;
-	}
-}
+//void	print_short(short octet)
+//{
+//	unsigned int i;
+//
+//	i = 1 << 15;
+//	while (i)
+//	{
+//		(octet & i) ? printf("1") : printf("0");
+//		i >>= 1;
+//	}
+//}
 
 /*
 ** Function that parse a file and put each tetrimino in a linked list
@@ -36,7 +41,7 @@ void	parse_input(char *input)
 	int					j;
 
 	i = 0;
-	printf("%s", input);
+//	printf("%s", input);
 	while (input[i])
 	{
 		j = 0;
@@ -46,20 +51,20 @@ void	parse_input(char *input)
 		if (check_tetri_errors(tetri))
 			print_error("Error: Tetrimino not valid.");
 		add_to_list(tetri, &list);
-		printf("added to list !!\n");
+//		printf("added to list !!\n");
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
 /*	DEBUG PART - Print each tetribit*/
-	while (list != NULL)
-	{
-		printf("%i\n", list->tetribit);
-		print_short(list->tetribit);
-		printf("\n");
-		print_short(list->tibirtet);
-		printf("\n");
-		list = list->next;
-	}
+//	while (list != NULL)
+//	{
+//		printf("%i\n", list->tetribit);
+//		print_short(list->tetribit);
+//		printf("\n");
+//		print_short(list->tibirtet);
+//		printf("\n");
+//		list = list->next;
+//	}
 }
 
 /*

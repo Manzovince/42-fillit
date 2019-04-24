@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/24 13:38:22 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/24 13:45:53 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 ** then it fills it and its reverse into the list
 */
 
-int		fill_list(char line[], t_fillist *list)
+void	fill_list(char line[], t_fillist *list)
 {
 	unsigned short	tmp;
 	int				i;
@@ -57,7 +57,6 @@ int		fill_list(char line[], t_fillist *list)
 			list->tibirtet |= 1;
 		tmp >>= 1;
 	}
-	return (0);
 }
 
 /*

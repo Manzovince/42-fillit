@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/24 13:02:34 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/24 13:46:32 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ int		check_file_errors(char *file);
 int		check_tetri_errors(char *tetri);
 int		check_tetri_errors_proxy(char *tetri);
 int		add_to_list(char *square, t_fillist **list);
-int		fill_list(char *line, t_fillist *list);
 
 #endif
