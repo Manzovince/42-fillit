@@ -6,28 +6,63 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/24 13:48:21 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/24 15:12:32 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-** DELETE BEFORE EVAL
-** Function that print a short in bites
+** Function that transforme a tetrminos char* into a short of 16 bites
+** and then fills it and its reversed into the list
 */
 
-//void	print_short(short octet)
-//{
-//	unsigned int i;
-//
-//	i = 1 << 15;
-//	while (i)
-//	{
-//		(octet & i) ? printf("1") : printf("0");
-//		i >>= 1;
-//	}
-//}
+void	fill_list(char line[], t_fillist *list)
+{
+	unsigned short	tmp;
+	int				i;
+
+	i = 0;
+	while (line[i])
+	{
+		list->tetribit <<= 1;
+		if (line[i] == '\n')
+			i++;
+		if (line[i++] == '#')
+			list->tetribit |= 1;
+	}
+	while (!(list->tetribit & (1 << 15)))
+		list->tetribit <<= 1;
+	tmp = list->tetribit;
+	while (tmp)
+	{
+		list->tibirtet <<= 1;
+		if (tmp & 1)
+			list->tibirtet |= 1;
+		tmp >>= 1;
+	}
+}
+
+/*
+** Function that creates the linked list and add a new structure
+** linked each time needed
+*/
+
+int		add_to_list(char *line, t_fillist **list)
+{
+	t_fillist	*tmp;
+
+	if (!(tmp = (t_fillist*)malloc(sizeof(*tmp))))
+		return (0);
+	if (!(*list))
+		tmp->next = NULL;
+	else
+		tmp->next = *list;
+	*list = tmp;
+	fill_list(line, *list);
+	return (1);
+}
+
 
 /*
 ** Function that parse a file and put each tetrimino in a linked list
@@ -41,7 +76,6 @@ void	parse_input(char *input)
 	int					j;
 
 	i = 0;
-//	printf("%s", input);
 	while (input[i])
 	{
 		j = 0;
@@ -51,47 +85,8 @@ void	parse_input(char *input)
 		if (check_tetri_errors(tetri))
 			print_error("Error: Tetrimino not valid.");
 		add_to_list(tetri, &list);
-//		printf("added to list !!\n");
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
-/*	DEBUG PART - Print each tetribit*/
-//	while (list != NULL)
-//	{
-//		printf("%i\n", list->tetribit);
-//		print_short(list->tetribit);
-//		printf("\n");
-//		print_short(list->tibirtet);
-//		printf("\n");
-//		list = list->next;
-//	}
 }
 
-/*
-** DELETE BEFORE EVAL - NOT USED ANYMORE
-** Function that parse a file and put each tetrimino in a linked list
-*/
-
-// char	**create_square(char *tetri)
-// {
-// 	char	**square;
-// 	int		i;
-// 	int		k;
-// 
-// 	i = 0;
-// 	if (!(square = (char**)malloc(sizeof(*square) * (4 + 1))))
-// 		return (NULL);
-// 	square[4] = NULL;
-// 	while (*tetri && (k = -1))
-// 	{
-// 		if (!(square[i] = (char*)malloc(sizeof(**square) * (4 + 1))))
-// 			return (NULL);
-// 		square[i][4] = '\0';
-// 		while (++k < 4)
-// 			square[i][k] = *(tetri++);
-// 		while (*tetri == '\n')
-// 			tetri++;
-// 		i++;
-// 	}
-// 	return (square);
-// }

@@ -6,49 +6,43 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/04/24 13:49:48 by hulamy           ###   ########.fr        #
+#    Updated: 2019/04/24 15:44:55 by hulamy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	fillit
+# - - - - - - - - - - - - - - - #
+#          VARIABLES            #
+# - - - - - - - - - - - - - - - #
 
-OBJ_DIR	=	./objs
-HEADER	=	fillit.h
+NAME = fillit
+CC = gcc
 
-SRCS	=	main.c					\
-			read_file.c				\
-			handle_errors.c			\
-			parse_input.c			\
-			add_to_list.c			\
-#			get_smallest_square.c	\
-			print_fillit.c
+CFLAGS = -I.
+CFLAGS += -Wall -Wextra -Werror
+
+LDFLAGS = -L./libft/
+LDLIBS = -lft
+
+SRCS = $(shell find . -depth 1 -type f -not -name '.*' -not -name 'test*' -name '*.c')
 
 
-OBJS	=	$(SRCS:.c=.o)
-LIB		=	libft/
+# - - - - - - - - - - - - - - - #
+#          RULES                #
+# - - - - - - - - - - - - - - - #
 
-CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra
+all: $(NAME)
 
-RM		=	rm -rf
+$(NAME): $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
 
-all:	$(NAME)
+debug:
+	$(CC) -g $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
 
-$(NAME):
-	make -C $(LIB)
-	$(CC) $(CFLAGS) -I$(HEADER) -c $(SRCS)
-	$(CC) -o $(NAME) $(OBJS) -L $(LIB) -lft
-	mkdir $(OBJ_DIR)
-	mv $(OBJS) $(OBJ_DIR)
+lib:
+	make -C ./libft/
 
 clean:
-	make -C libft/ clean
-	$(RM) $(OBJ_DIR)
+	/bin/rm -rf $(NAME)
+	/bin/rm -rf $(NAME).dSYM
 
-fclean:	clean
-	make -C libft/ fclean
-	$(RM) $(NAME)
-
-re:	fclean all
-
-.PHONY: all clean fclean re
+re: clean all
