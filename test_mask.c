@@ -40,16 +40,16 @@ void	compare(int initial, int compare)
 	!(initial & compare) ? ft_putendl("&: fit") : ft_putendl("&: not fit");
 
 /*
-//	j = 1 << 12;
-//	while (j >>= 1)
-//		(initial | compare) & j ? ft_putnbr(1) : ft_putnbr(0);
-//	ft_putchar('\n');
-//	(initial | compare) ? ft_putendl("|: fit") : ft_putendl("|: not fit");
-//	j = 1 << 12;
-//	while (j >>= 1)
-//		(initial ^ compare) & j ? ft_putnbr(1) : ft_putnbr(0);
-//	ft_putchar('\n');
-//	(initial ^ compare) ? ft_putendl("^: fit") : ft_putendl("^: not fit");
+	j = 1 << 12;
+	while (j >>= 1)
+		(initial | compare) & j ? ft_putnbr(1) : ft_putnbr(0);
+	ft_putchar('\n');
+	(initial | compare) ? ft_putendl("|: fit") : ft_putendl("|: not fit");
+	j = 1 << 12;
+	while (j >>= 1)
+		(initial ^ compare) & j ? ft_putnbr(1) : ft_putnbr(0);
+	ft_putchar('\n');
+	(initial ^ compare) ? ft_putendl("^: fit") : ft_putendl("^: not fit");
 */
 }
 
@@ -74,19 +74,19 @@ int		main(int ac, char **av)
 }
 
 /*
-**int		main(int ac, char **av)
-**{
-**	int	init;
-**	int	mask;
-**
-**	mask = (1 << 4);
-**	if (ac == 4)
-**	{
-**		ft_putendl(ft_convertbase(av[1], av[2], av[3]));
-**		ft_putnbrendl(init);
-**		init |= mask;
-**		ft_putnbrendl(init);
-**	}
-**	return (0);
-**}
+int		main(int ac, char **av)
+{
+	int	init;
+	int	mask;
+
+	mask = (1 << 4);
+	if (ac == 4)
+	{
+		ft_putendl(ft_convertbase(av[1], av[2], av[3]));
+		ft_putnbrendl(init);
+		init |= mask;
+		ft_putnbrendl(init);
+	}
+	return (0);
+}
 */

@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/15 14:41:19 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:05:16 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		check_tetri_errors(char *tetri)
 			dot++;
 		i++;
 	}
-	if (htg != 4 || dot != 12 || check_tetri_errors2(tetri))
+	if (htg != 4 || dot != 12 || check_tetri_errors_proxy(tetri))
 		return (1);
 	return (0);
 }
@@ -84,7 +84,7 @@ int		check_tetri_errors(char *tetri)
 ** Function that check if tetrimino parts are linked
 */
 
-int		check_tetri_errors2(char *tetri)
+int		check_tetri_errors_proxy(char *tetri)
 {
 	int		i;
 

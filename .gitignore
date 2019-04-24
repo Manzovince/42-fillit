@@ -5,3 +5,11 @@ objs/
 a\.out\.dSYM/
 
 a\.out
+
+*.swo
+
+*.swp
+
+fillit
+
+test_fillit\.c

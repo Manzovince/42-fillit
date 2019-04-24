@@ -98,13 +98,8 @@ int		main()
 	unsigned int	map[10] = {1568713153, 817645681, 654186132, 538171355, 1718453135, 551286515, 1631843343, 3413834313, 1155555555, 999999999};
 	int i;
 
-	i = -1;
-	while (++i < 10)
-	{
-		print_bits(map[i]);
-		printf(" ");
-	}
-	printf("\n");
+	//while (i < 10)
+	//	printf("%d\n", map[i++]);
 	test(map);
 	return (0);
 }

@@ -6,16 +6,17 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/22 15:10:14 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/24 12:15:47 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
-#include "libft/includes/libft.h"
+//#include "libft/includes/libft.h"
 
 /*
-** this function prints a 16 bites short
+** DELETE BEFORE EVAL - TEST FUNCTION
+** Function that prints a 16 bites short
 */
 
 void	print_bits(short line)
@@ -24,45 +25,44 @@ void	print_bits(short line)
 
 	mask = 1 << 27;
 	while (mask >>= 1)
-		(line & mask) ? ft_putnbr(1) : ft_putnbr(0);
-	ft_putchar('\n');
+		(line & mask) ? write(1, "1", 1) : write(1, "0", 1);
+	write(1, "\n", 1);
 }
 
 /*
-** this function transforme a tetrminos char* into a short of 16 bites
+** Function that transforme a tetrminos char* into a short of 16 bites
 ** then it fills it and its reverse into the list
 */
 
-int		fill_list(char *line, t_fillist *list)
+int		fill_list(char line[], t_fillist *list)
 {
-	short	tmp;
-	int	 	test;
+//	short	tmp;
+	int		i;
 
-	while (*line)
+	i = 0;
+	while (line[i])
 	{
 		list->tetribit <<= 1;
-		if (*line == '\n')
-			line++;
-		if (*(line++) == '#')
+		if (line[i] == '\n')
+			i++;
+		if (line[i++] == '#')
 			list->tetribit |= 1;
 	}
-	tmp = list->tetribit;
-	while (tmp)
-	{
-		if (tmp & 1)
-			list->tibirtet |= 1;
-		list->tibirtet <<= 1;
-		tmp >>= 1;
-	}
-	test = list->tibirtet;
-	print_bits(test);
-	while (test <<= 1)
-		print_bits(test);
+//	tmp = list->tetribit;
+//	while (tmp)
+//	{
+//		if (tmp & 1)
+//			list->tibirtet |= 1;
+//		list->tibirtet <<= 1;
+//		tmp >>= 1;
+//	}
+	print_bits(list->tetribit);
 	return (0);
 }
 
 /*
-** this function create the linked list and add a new structure linked each time needed
+** Function that create the linked list and add a new structure
+** linked each time needed
 */
 
 int		add_to_list(char *line, t_fillist **list)
@@ -80,6 +80,11 @@ int		add_to_list(char *line, t_fillist **list)
 	return (1);
 }
 
+/*
+** DELETE BEFORE EVAL - TEST FUNCTION
+** Print octet
+*/
+
 void	print_test(int octet)
 {
 	unsigned int i;
@@ -91,6 +96,11 @@ void	print_test(int octet)
 		i >>= 1;
 	}
 }
+
+/*
+** DELETE BEFORE EVAL - TEST FUNCTION
+** Test for big map
+*/
 
 void	test(unsigned int map[])
 {
@@ -121,6 +131,11 @@ void	test(unsigned int map[])
 	}
 }
 
+/*
+** DELETE BEFORE EVAL - MAIN FOR TEST
+*/
+
+/*
 int		main(int ac, char **av)
 {
 	static t_fillist	*list = NULL;	// avant d'appeller add_to_list il faut declarer un pointeur static vers la structure
@@ -142,4 +157,4 @@ int		main(int ac, char **av)
 
 	return (0);
 }
-
+*/

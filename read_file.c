@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 12:09:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/19 12:50:32 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/22 15:16:18 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,9 @@ char	*read_file(char *file)
 		|| !(result =  malloc(sizeof(char) * rv)))
 		return (NULL);
 	buf[rv] = '\0';
-	i = 0;
-	while (buf[i])
-	{
+	i = -1;
+	while (buf[++i])
 		result[i] = buf[i];
-		i++;
-	}
 	result[i] = '\0';
 	close(fd);
 	return (result);
