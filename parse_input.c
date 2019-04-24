@@ -6,11 +6,23 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/23 21:23:47 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/24 12:52:26 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+void	print_short(short octet)
+{
+	unsigned int i;
+
+	i = 1 << 15;
+	while (i)
+	{
+		(octet & i) ? printf("1") : printf("0");
+		i >>= 1;
+	}
+}
 
 /*
 ** Function that parse a file and put each tetrimino in a linked list
@@ -38,13 +50,16 @@ void	parse_input(char *input)
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
-/*DEBUG PART - Print each tetribit*/
-//	while (list != NULL)
-//	{
-//		printf("%i\n", list->tetribit);
-//		printf("\n");
-//		list = list->next;
-//	}
+/*	DEBUG PART - Print each tetribit*/
+	while (list != NULL)
+	{
+		printf("%i\n", list->tetribit);
+		print_short(list->tetribit);
+		printf("\n");
+		print_short(list->tibirtet);
+		printf("\n");
+		list = list->next;
+	}
 }
 
 /*
@@ -52,26 +67,26 @@ void	parse_input(char *input)
 ** Function that parse a file and put each tetrimino in a linked list
 */
 
-char	**create_square(char *tetri)
-{
-	char	**square;
-	int		i;
-	int		k;
-
-	i = 0;
-	if (!(square = (char**)malloc(sizeof(*square) * (4 + 1))))
-		return (NULL);
-	square[4] = NULL;
-	while (*tetri && (k = -1))
-	{
-		if (!(square[i] = (char*)malloc(sizeof(**square) * (4 + 1))))
-			return (NULL);
-		square[i][4] = '\0';
-		while (++k < 4)
-			square[i][k] = *(tetri++);
-		while (*tetri == '\n')
-			tetri++;
-		i++;
-	}
-	return (square);
-}
+// char	**create_square(char *tetri)
+// {
+// 	char	**square;
+// 	int		i;
+// 	int		k;
+// 
+// 	i = 0;
+// 	if (!(square = (char**)malloc(sizeof(*square) * (4 + 1))))
+// 		return (NULL);
+// 	square[4] = NULL;
+// 	while (*tetri && (k = -1))
+// 	{
+// 		if (!(square[i] = (char*)malloc(sizeof(**square) * (4 + 1))))
+// 			return (NULL);
+// 		square[i][4] = '\0';
+// 		while (++k < 4)
+// 			square[i][k] = *(tetri++);
+// 		while (*tetri == '\n')
+// 			tetri++;
+// 		i++;
+// 	}
+// 	return (square);
+// }

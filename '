@@ -6,12 +6,12 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/24 13:38:22 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/24 13:36:26 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-//#include <stdio.h>
+#include <stdio.h>
 
 /*
 ** DELETE BEFORE EVAL - TEST FUNCTION

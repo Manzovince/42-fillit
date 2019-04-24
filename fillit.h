@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/23 16:19:19 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:02:34 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdio.h> // for printf (DELETE BEFORE EVAL)
 
 #include "libft/includes/libft.h"
+# define BUFF_SIZE 1024
 
 /*
 **	STRUCTURE
@@ -26,8 +27,8 @@
 
 typedef struct			s_fillist
 {
-	short				tetribit;
-	short				tibirtet;
+	unsigned short		tetribit;
+	unsigned short		tibirtet;
 	int					position;
 	struct s_fillist	*next;
 }						t_fillist;
