@@ -45,7 +45,7 @@ void	print_map(unsigned int *tab, int s)
 
 		/*
 		** second version :
-		** n'utilise pas le mask m
+		** n'utilise pas le mask m et le tmp
 		*/
 		if (!(i % s))
 			ft_putchar('\n');
@@ -54,6 +54,43 @@ void	print_map(unsigned int *tab, int s)
 		i++;
 	}
 	write(1, "\n", 1);
+}
+
+void	find_place(unsigned int *tab, char *line, int s)
+{
+	unsigned short	tetri;
+	int				i;
+	unsigned int	m;
+	unsigned int	tmp;
+
+	ft_putendl("# . . # # # # T T # . # . # # # # # . . # # . # T # . # # # # . . # . # . . # # T . . # # # . # # . # # # . . . # # # # . . # . . # . # # . . # . . . # . . . . # . . . # # . # . . . # . # # .");
+	// create tetri
+	i = 0;
+	while (line[i])
+	{
+		tetri <<= 1;
+		if (line[i] == '\n')
+			i++;
+		if (line[i++] == '#')
+			tetri |= 1;
+	}
+	while (!(tetri & (1 << 15)))
+		tetri <<= 1;
+	print_bits(tetri, 16);
+	write(1, "\n", 1);
+
+	m = 15 << (32 - 4);
+	i = 0;
+	while (i < 20)
+	{
+		while (i < 4 * s)
+		{
+			tmp = (m & (tab[i / 32] << i)) | (m & (tab[(i + s) / 32] >> (32 - i)));
+			print_bits(tmp, 32);
+			i += s;
+		}
+		i++;
+	}
 }
 
 int		main(int ac, char **av)
@@ -84,6 +121,9 @@ int		main(int ac, char **av)
 		if (av[0][0] == 'b' && ac > 2)
 			ft_putendl(ft_convertbase(av[1], "01", "0123456789"));
 		print_map(tab, 16);
+		write(1, "\n", 1);
+		if (av[0][0] == 't' && ac > 2)
+			find_place(tab, av[1], 16);
 	}
 	return (0);
 }
