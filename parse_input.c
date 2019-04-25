@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/24 15:12:32 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/24 16:18:16 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ int		add_to_list(char *line, t_fillist **list)
 	return (1);
 }
 
+void	find_map(t_fillist *list)
+{
+	unsigned int	map[10];
+
+	fill_map(list, map);
+	print_maop(map);
+}
 
 /*
 ** Function that parse a file and put each tetrimino in a linked list
@@ -88,5 +95,6 @@ void	parse_input(char *input)
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
+	find_map(list);
 }
 
