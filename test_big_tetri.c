@@ -44,11 +44,13 @@ void	find_place(unsigned int *tab, char *line, int size)
 	int				j;
 	unsigned int	mask;
 	unsigned int	tmp;
+	int				large;
 
 //	ft_putendl("# . . # # # # T T # . # . # # # # # . . # # . # T # . # # # # . . # . # . . # # T . . # # # . # # . # # # . . . # # # # . . # . . # . # # . . # . . . # . . . . # . . . # # . # . . . # . # # .");
 	/////////////// create tetri ///////////////
 	i = 0;
 	tmp = 0;
+	large = 3;
 	while (line[i])
 	{
 		tetri <<= 1;
@@ -61,30 +63,31 @@ void	find_place(unsigned int *tab, char *line, int size)
 		tetri <<= 1;
 	print_bits(tetri, 16);
 	tmp = (tetri | tmp) << 16;
-	print_map(&tmp, 4);
+	print_map(&tmp, large);
 	/////////////// create tetri ///////////////
 
-	mask = 15 << (32 - 4);
+	mask = ~0;
+	mask <<= 32 - large;
+	ft_putendl("mask: ");
+	print_bits(mask, 32);
 	i = 0;
-	while (i < 16)
+	while (i < 20)
 	{
 		tmp = 0;
 		j = 3 * size + i;
 		while (j >= i)
 		{
-			tmp >>= 4;
+			tmp >>= large;
 			tmp |= (mask & (tab[j / 32] << j));
 			tmp |= (mask & (tab[(j + size) / 32] >> (32 - j)));
-		//	print_bits(tmp, 32);
 			j -= size;
 		}
-		//write(1, "\n", 1);
-		print_map(&tmp, 4);
+		print_map(&tmp, large);
 		print_bits(tmp >> 16, 32);
 		print_bits(tetri, 32);
-		//print_bits((tmp >> 16) & tetri, 32);
-		if (i % size == size - 4)
-			i += 3;
+		print_bits((tmp >> 16) & tetri, 32);
+		if (i % size == size - large)
+			i += large - 1;
 		i++;
 	}
 }
