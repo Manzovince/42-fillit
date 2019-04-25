@@ -6,11 +6,46 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/25 15:02:26 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/25 18:46:32 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+void	print_bits(unsigned int bits, int size)
+{
+	unsigned int	mask;
+
+	mask = 1 << (size - 1);
+	while (mask)
+	{
+		(bits & mask) ? write(1, "#", 1) : write(1, ".", 1);
+		write(1, " ", 1);
+		mask >>= 1;
+	}
+	write(1, "\n", 1);
+}
+
+void	print_map(unsigned int *tab, int large, int height)
+{
+	int				i;
+	unsigned int	mask;
+
+	i = 0;
+	mask = 0;
+	while (i++ < large)
+		mask = (mask >> 1) | ((mask | 1) << 31);
+	i = 0;
+	while (i < large * height)
+	{
+		if (!(i % large))
+			ft_putchar('\n');
+		tab[i / 32] & (1 << (31 - i % 32)) ? ft_putchar('#') : ft_putchar('.');
+		ft_putchar(' ');
+		i++;
+	}
+	write(1, "\n", 1);
+}
 
 /*
 ** Function that transforme a tetrminos char* into a short of 16 bites
@@ -19,10 +54,12 @@
 
 void	fill_list(char line[], t_fillist *list)
 {
-	unsigned short	tmp;
+	unsigned int	tmp;
+	unsigned short	mask;
 	int				i;
 
 	i = 0;
+	// transforme la ligne de . et # en un short de 0 et 1
 	while (line[i])
 	{
 		list->tetribit <<= 1;
@@ -31,16 +68,35 @@ void	fill_list(char line[], t_fillist *list)
 		if (line[i++] == '#')
 			list->tetribit |= 1;
 	}
+	// deplace le tetriminos tout en haut a gauche
 	while (!(list->tetribit & (1 << 15)))
 		list->tetribit <<= 1;
+	// cree un mask avec des 1 sur la colonne de droite
+	mask = (1 << 15) | (1 << 11) | (1 << 7) | (1 << 3);
+	// utilise le mask pour trouver la largeur que prend le tetriminos
+	i = -1;
+	while (i++ < 4 && mask & list->tetribit)
+		mask >>= 1;
+	list->large = i;
+	// cree un mask avec des 1 a gauche sur la largeur du tetriminos
+	mask = ~0;
+	mask <<= 16 - i;
+	// fabrique la ligne pour le tetriminos de la bonne largeur
 	tmp = list->tetribit;
-	while (tmp)
-	{
-		list->tibirtet <<= 1;
-		if (tmp & 1)
-			list->tibirtet |= 1;
-		tmp >>= 1;
-	}
+	list->tetribit = (mask & tmp) | ((mask & tmp << 4) >> i);
+	list->tetribit |= ((mask & tmp << 8) >> 2 * i);
+	list->tetribit |= ((mask & tmp << 12) >> 3 * i);
+	// trouve la hauteur du tetri
+	i = 1;
+	print_bits(tmp, 32);
+	while (i && !(tmp & 1 << i))
+		i++;
+	ft_putnbrendl((16 - i) / 4 + ((16 - i) % 4 != 0));
+	list->height = ((16 - i) / 4 + ((16 - i) % 4 != 0));
+
+	tmp = list->tetribit;
+	tmp <<= 16;
+	print_map(&tmp, list->large, 4);
 }
 
 /*
