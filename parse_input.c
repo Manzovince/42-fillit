@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/24 13:48:21 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/25 13:03:52 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@
 ** Function that parse a file and put each tetrimino in a linked list
 */
 
-void	parse_input(char *input)
+void	parse_input(char *input, t_fillist *list)
 {
-	static t_fillist	*list = NULL;
 	char				tetri[20];
 	int					i;
 	int					j;
@@ -51,24 +50,13 @@ void	parse_input(char *input)
 		if (check_tetri_errors(tetri))
 			print_error("Error: Tetrimino not valid.");
 		add_to_list(tetri, &list);
-//		printf("added to list !!\n");
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
-/*	DEBUG PART - Print each tetribit*/
-//	while (list != NULL)
-//	{
-//		printf("%i\n", list->tetribit);
-//		print_short(list->tetribit);
-//		printf("\n");
-//		print_short(list->tibirtet);
-//		printf("\n");
-//		list = list->next;
-//	}
 }
 
 /*
-** DELETE BEFORE EVAL - NOT USED ANYMORE
+** DELETE BEFORE EVAL // NOT USED ANYMORE
 ** Function that parse a file and put each tetrimino in a linked list
 */
 

@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/24 13:45:53 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/25 13:06:01 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 ** Function that prints a 16 bites short
 */
 
-//void	print_bits(short line)
-//{
-//	int	mask;
-//
-//	mask = 1 << 16;
-//	while (mask >>= 1)
-//		(line & mask) ? write(1, "1", 1) : write(1, "0", 1);
-//	write(1, "\n", 1);
-//}
+void	print_bits(short line)
+{
+	int mask;
+
+	mask = 1 << 16;
+	while (mask >>= 1)
+		(line & mask) ? write(1, "1", 1) : write(1, "0", 1);
+	write(1, "\n", 1);
+}
 
 /*
 ** Function that transforme a tetrminos char* into a short of 16 bites
@@ -46,17 +46,18 @@ void	fill_list(char line[], t_fillist *list)
 			i++;
 		if (line[i++] == '#')
 			list->tetribit |= 1;
+		print_bits(list->tetribit);
 	}
-	while (!(list->tetribit & (1 << 15)))
-		list->tetribit <<= 1;
-	tmp = list->tetribit;
-	while (tmp)
-	{
-		list->tibirtet <<= 1;
-		if (tmp & 1)
-			list->tibirtet |= 1;
-		tmp >>= 1;
-	}
+//	tmp = list->tetribit;
+//	while (tmp)
+//	{
+//		if (tmp & 1)
+//			list->tibirtet |= 1;
+//		list->tibirtet <<= 1;
+//		tmp >>= 1;
+//	}
+//	print_bits(list->tetribit);
+	return (0);
 }
 
 /*
