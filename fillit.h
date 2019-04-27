@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/27 00:34:44 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/27 21:00:53 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ void	parse_input(char *input);
 int		check_file_errors(char *file);
 int		check_tetri_errors(char *tetri);
 int		check_tetri_errors_proxy(char *tetri);
+void	search_map(t_fillist *list);
+void	print_map(unsigned int *tab, int width, int height);
 
 #endif

@@ -6,56 +6,11 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/27 02:00:45 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/27 22:55:32 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-/*
-** DELETE BEFORE EVAL - TEST FUNCTION
-** prints a ligne of size bits
-*/
-
-void	print_bits(unsigned int bits, int size)
-{
-	unsigned int	mask;
-
-	mask = 1 << (size - 1);
-	while (mask)
-	{
-		(bits & mask) ? write(1, "#", 1) : write(1, ".", 1);
-		write(1, " ", 1);
-		mask >>= 1;
-	}
-	write(1, "\n", 1);
-}
-
-/*
-** DELETE BEFORE EVAL - TEST FUNCTION
-** print a map of height and width
-*/
-
-void	print_map(unsigned int *tab, int width, int height)
-{
-	int				i;
-	unsigned int	mask;
-
-	i = 0;
-	mask = 0;
-	while (i++ < width)
-		mask = (mask >> 1) | ((mask | 1) << 31);
-	i = 0;
-	while (i < width * height)
-	{
-		if (i && !(i % width))
-			ft_putchar('\n');
-		tab[i / 32] & (1 << (31 - i % 32)) ? ft_putchar('#') : ft_putchar('.');
-		ft_putchar(' ');
-		i++;
-	}
-	write(1, "\n", 1);
-}
 
 /*
 ** function that transform a tab of . and # into a binary tab of int
@@ -106,7 +61,7 @@ unsigned short	reduce_tetri(unsigned short tetri, int width)
 
 void	fill_list(char line[], t_fillist *list)
 {
-	unsigned int	tmp;
+//	unsigned int	tmp;
 	unsigned int	mask;
 	int				i;
 
@@ -133,13 +88,6 @@ void	fill_list(char line[], t_fillist *list)
 	list->height = i;
 	// fabrique la ligne pour le tetriminos de la bonne largeur
 	list->tetribit = reduce_tetri(list->tetribit, list->width);
-
-	// imression pour tests
-	ft_putchar('\n');
-	tmp = list->tetribit;
-	tmp <<= 16;
-	print_map(&tmp, list->width, list->height);
-	tmp >>= 16;
 }
 
 /*
@@ -150,15 +98,21 @@ void	fill_list(char line[], t_fillist *list)
 int		add_to_list(char *line, t_fillist **list)
 {
 	t_fillist	*tmp;
+	t_fillist	*test;
 
 	if (!(tmp = (t_fillist*)malloc(sizeof(*tmp))))
 		return (0);
-	if (!(*list))
-		tmp->next = NULL;
+	tmp->next = NULL;
+	test = *list;
+	if (!test)
+		*list = tmp;
 	else
-		tmp->next = *list;
-	*list = tmp;
-	fill_list(line, *list);
+	{
+		while(test->next)
+			test = test->next;
+		test->next = tmp;
+	}
+	fill_list(line, tmp);
 	return (1);
 }
 
@@ -186,5 +140,6 @@ void	parse_input(char *input)
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
+	search_map(list);
 }
 
