@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/25 13:04:13 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/27 02:03:20 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 typedef struct			s_fillist
 {
 	unsigned short		tetribit;
-	unsigned short		tibirtet;
+	int					width;
+	int					height;
 	int					position;
 	struct s_fillist	*next;
 }						t_fillist;

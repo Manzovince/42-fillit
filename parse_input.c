@@ -6,11 +6,16 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/25 18:46:32 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/27 02:04:18 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*
+** DELETE BEFORE EVAL - TEST FUNCTION
+** prints a ligne of size bits
+*/
 
 void	print_bits(unsigned int bits, int size)
 {
@@ -26,19 +31,24 @@ void	print_bits(unsigned int bits, int size)
 	write(1, "\n", 1);
 }
 
-void	print_map(unsigned int *tab, int large, int height)
+/*
+** DELETE BEFORE EVAL - TEST FUNCTION
+** print a map of height and width
+*/
+
+void	print_map(unsigned int *tab, int width, int height)
 {
 	int				i;
 	unsigned int	mask;
 
 	i = 0;
 	mask = 0;
-	while (i++ < large)
+	while (i++ < width)
 		mask = (mask >> 1) | ((mask | 1) << 31);
 	i = 0;
-	while (i < large * height)
+	while (i < width * height)
 	{
-		if (!(i % large))
+		if (i && !(i % width))
 			ft_putchar('\n');
 		tab[i / 32] & (1 << (31 - i % 32)) ? ft_putchar('#') : ft_putchar('.');
 		ft_putchar(' ');
@@ -48,55 +58,88 @@ void	print_map(unsigned int *tab, int large, int height)
 }
 
 /*
-** Function that transforme a tetrminos char* into a short of 16 bites
+** function that transform a tab of . and # into a binary tab of int
+*/
+
+unsigned short	tab_to_bin(char line[])
+{
+	unsigned short	tmp;
+	int				i;
+
+	i = 0;
+	tmp = 0;
+	while (line[i])
+	{
+		tmp <<= 1;
+		if (line[i] == '\n')
+			i++;
+		if (line[i++] == '#')
+			tmp |= 1;
+	}
+	return (tmp);
+}
+
+/*
+** function that take a tetrimino of 4*4 and reduce it to its right size, in binary
+*/
+
+unsigned short	reduce_tetri(unsigned short tetri, int width)
+{
+	unsigned int	mask;
+	unsigned int	tmp;
+
+	// cree un mask avec des 1 a gauche sur la largeur du tetriminos
+	mask = ~0u << (32 - width) >> 16;
+	// fabrique la ligne pour le tetriminos de la bonne largeur
+	tmp = tetri;
+	tmp = (mask & tetri);
+	tmp |= ((mask & tetri << 4) >> width);
+	tmp |= ((mask & tetri << 8) >> (2 * width));
+	tmp |= ((mask & tetri << 12) >> (3 * width));
+	return (tmp);
+}
+
+/*
+** Function that transforme a tetriminos char* into a short of 16 bites
 ** and then fills it and its reversed into the list
 */
 
 void	fill_list(char line[], t_fillist *list)
 {
 	unsigned int	tmp;
-	unsigned short	mask;
+	unsigned int	mask;
 	int				i;
 
-	i = 0;
 	// transforme la ligne de . et # en un short de 0 et 1
-	while (line[i])
-	{
-		list->tetribit <<= 1;
-		if (line[i] == '\n')
-			i++;
-		if (line[i++] == '#')
-			list->tetribit |= 1;
-	}
-	// deplace le tetriminos tout en haut a gauche
-	while (!(list->tetribit & (1 << 15)))
-		list->tetribit <<= 1;
+	list->tetribit = tab_to_bin(line);
 	// cree un mask avec des 1 sur la colonne de droite
 	mask = (1 << 15) | (1 << 11) | (1 << 7) | (1 << 3);
 	// utilise le mask pour trouver la largeur que prend le tetriminos
-	i = -1;
-	while (i++ < 4 && mask & list->tetribit)
+	i = 0;
+	while (!(mask & list->tetribit) && i++ < 4)
 		mask >>= 1;
-	list->large = i;
-	// cree un mask avec des 1 a gauche sur la largeur du tetriminos
-	mask = ~0;
-	mask <<= 16 - i;
-	// fabrique la ligne pour le tetriminos de la bonne largeur
-	tmp = list->tetribit;
-	list->tetribit = (mask & tmp) | ((mask & tmp << 4) >> i);
-	list->tetribit |= ((mask & tmp << 8) >> 2 * i);
-	list->tetribit |= ((mask & tmp << 12) >> 3 * i);
+	list->width = i;
+	while (mask & list->tetribit && ++i < 4)
+		mask >>= 1;
+	list->width = i - list->width;
+	// deplace le tetriminos tout en haut a gauche (i - list->width = le nombre de colonne vide a gauche)
+	list->tetribit <<= (i - list->width);
+	while (!(list->tetribit & (~0u << 12)))
+		list->tetribit <<= 4;
 	// trouve la hauteur du tetri
-	i = 1;
-	print_bits(tmp, 32);
-	while (i && !(tmp & 1 << i))
+	i = 0;
+	while (i < 4 && list->tetribit & (~0u << 28 >> (i * 4 + 16)))
 		i++;
-	ft_putnbrendl((16 - i) / 4 + ((16 - i) % 4 != 0));
-	list->height = ((16 - i) / 4 + ((16 - i) % 4 != 0));
+	list->height = i;
+	// fabrique la ligne pour le tetriminos de la bonne largeur
+	list->tetribit = reduce_tetri(list->tetribit, list->width);
 
+	// imression pour tests
+	ft_putchar('\n');
 	tmp = list->tetribit;
 	tmp <<= 16;
-	print_map(&tmp, list->large, 4);
+	print_map(&tmp, list->width, list->height);
+	tmp >>= 16;
 }
 
 /*
