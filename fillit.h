@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/27 14:52:54 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:11:06 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdio.h> // for printf (DELETE BEFORE EVAL)
 
 #include "../42-libft/includes/libft.h"
-# define BUFF_SIZE 1024
+//# define BUFF_SIZE 1024
 
 /*
 **	STRUCTURE

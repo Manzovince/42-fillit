@@ -7,14 +7,14 @@
 - [x] Check if we have a file
 - [x] Read file
 - [x] Check if there are errors in file
-  - At least 1 tetrimino or less than 26
 - [x] Check if every tetrimino is valid
-  - 4 char * 4 lines
-  - 4 blocks in 1 tetrimino
-  - No solo block
 - [x] Transform file into tetriminos
 - [ ] Backtracking for smallest square
 - [ ] Transform tetriminos to letters
 - [ ] Print result
+- [ ] Free everything (NO LEAKS)
 
+## BONUS
 - [ ] Optimisation
+- [ ] `ft_check_tetri_errors` indicate which tetri is wrong
+- [ ] Add colors to tetri when printing result map

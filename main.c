@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/27 14:47:35 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:14:37 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int		main(int argc, char **argv)
 		*/
 	}
 	else
-		print_error("Usage: Please submit a file.\n");
+		print_error("Usage: Please submit a file.\n>>> ./fillit file.fillit\n");
 	return (0);
 }

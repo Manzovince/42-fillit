@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/27 02:04:18 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/27 15:15:53 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** DELETE BEFORE EVAL - TEST FUNCTION
-** prints a ligne of size bits
+** Prints a ligne of size bits
 */
 
 void	print_bits(unsigned int bits, int size)
@@ -33,7 +33,7 @@ void	print_bits(unsigned int bits, int size)
 
 /*
 ** DELETE BEFORE EVAL - TEST FUNCTION
-** print a map of height and width
+** Print a map of height and width
 */
 
 void	print_map(unsigned int *tab, int width, int height)
@@ -58,7 +58,7 @@ void	print_map(unsigned int *tab, int width, int height)
 }
 
 /*
-** function that transform a tab of . and # into a binary tab of int
+** Function that transform a tab of . and # into a binary tab of int
 */
 
 unsigned short	tab_to_bin(char line[])
@@ -80,7 +80,8 @@ unsigned short	tab_to_bin(char line[])
 }
 
 /*
-** function that take a tetrimino of 4*4 and reduce it to its right size, in binary
+** Function that take a tetrimino of 4*4
+** and reduce it to its right size, in binary
 */
 
 unsigned short	reduce_tetri(unsigned short tetri, int width)
@@ -187,4 +188,3 @@ void	parse_input(char *input)
 			i++;
 	}
 }
-

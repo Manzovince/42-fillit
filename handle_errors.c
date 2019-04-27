@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/23 14:05:16 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:06:26 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int		check_file_errors(char *file)
 
 /*
 ** Function that check if tetrimino square contains:
-** - 4 '#'
-** - 12 '.'
+** - 4 x #
+** - 12 x .
 */
 
 int		check_tetri_errors(char *tetri)
@@ -81,7 +81,7 @@ int		check_tetri_errors(char *tetri)
 }
 
 /*
-** Function that check if tetrimino parts are linked
+** Function that check if 4 # (tetrimino parts) are linked
 */
 
 int		check_tetri_errors_proxy(char *tetri)

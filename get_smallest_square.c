@@ -6,30 +6,17 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 22:29:45 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/24 21:01:26 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:04:46 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-** Function that initialize a int map equivalent to a square size*size
+** Function to bruteforce with backtracking for smallest square
 */
 
-unsigned int	*initialize_map(int size)
-{
-	unsigned int	*map[0];
-
-	while (size--)
-		map[size] = 0;
-	return (map);
-}
-
-/*
-** Function that bruteforce with backtracking for smallest square
-*/
-
-int				*get_smallest_square(t_fillist list, int size, unsigned int map[])
+int		*get_smallest_square(t_fillist list, int size, unsigned int map[])
 {
 	unsigned int	mask;
 	int				i;
