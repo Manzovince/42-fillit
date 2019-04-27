@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/25 13:06:01 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/27 14:54:11 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** DELETE BEFORE EVAL - TEST FUNCTION
 ** Function that prints a 16 bites short
 */
-
+/*
 void	print_bits(short line)
 {
 	int mask;
@@ -27,6 +27,7 @@ void	print_bits(short line)
 		(line & mask) ? write(1, "1", 1) : write(1, "0", 1);
 	write(1, "\n", 1);
 }
+*/
 
 /*
 ** Function that transforme a tetrminos char* into a short of 16 bites
@@ -35,7 +36,6 @@ void	print_bits(short line)
 
 void	fill_list(char line[], t_fillist *list)
 {
-	unsigned short	tmp;
 	int				i;
 
 	i = 0;
@@ -46,18 +46,9 @@ void	fill_list(char line[], t_fillist *list)
 			i++;
 		if (line[i++] == '#')
 			list->tetribit |= 1;
-		print_bits(list->tetribit);
+		print_bits(list->tetribit, 16);
 	}
-//	tmp = list->tetribit;
-//	while (tmp)
-//	{
-//		if (tmp & 1)
-//			list->tibirtet |= 1;
-//		list->tibirtet <<= 1;
-//		tmp >>= 1;
-//	}
 //	print_bits(list->tetribit);
-	return (0);
 }
 
 /*
@@ -102,4 +93,3 @@ int		add_to_list(char *line, t_fillist **list)
 //	}
 //	return (0);
 //}
-

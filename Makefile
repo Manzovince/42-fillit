@@ -6,7 +6,7 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/04/24 13:49:48 by hulamy           ###   ########.fr        #
+#    Updated: 2019/04/27 14:50:31 by vmanzoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS	=	main.c					\
 
 
 OBJS	=	$(SRCS:.c=.o)
-LIB		=	libft/
+LIB		=	../42-libft/
 
 CC		=	gcc
 CFLAGS	=	-Wall -Werror -Wextra
@@ -42,7 +42,7 @@ $(NAME):
 	mv $(OBJS) $(OBJ_DIR)
 
 clean:
-	make -C libft/ clean
+	make -C $(LIB) clean
 	$(RM) $(OBJ_DIR)
 
 fclean:	clean

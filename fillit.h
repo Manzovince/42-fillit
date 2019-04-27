@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/27 02:03:20 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/27 14:52:54 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <fcntl.h> // for system call open
 #include <stdio.h> // for printf (DELETE BEFORE EVAL)
 
-#include "libft/includes/libft.h"
+#include "../42-libft/includes/libft.h"
 # define BUFF_SIZE 1024
 
 /*
@@ -40,12 +40,13 @@ typedef struct			s_fillist
 
 char	*read_file(char *file);
 void	print_error(char *s);
-void	parse_input(char *input, t_fillist *list);
+void    parse_input(char *input);
 int		check_file_errors(char *file);
 int		check_tetri_errors(char *tetri);
 int		check_tetri_errors_proxy(char *tetri);
 int		add_to_list(char *square, t_fillist **list);
-int		fill_list(char *line, t_fillist *list);
-void	print_bits(short line); //TO DELETE BEFORE EVAL
+void    fill_list(char line[], t_fillist *list);
+
+void    print_bits(unsigned int bits, int size); //TO DELETE BEFORE EVAL
 
 #endif
