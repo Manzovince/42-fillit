@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/28 01:08:55 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/28 01:44:50 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	print_map(unsigned int *tab, int width, int height)
 	write(1, "\n", 1);
 }
 
-void	find_place(unsigned int *tab, t_fillist *list, int size)
+int		find_place(unsigned int *tab, t_fillist *list, int size)
 {
 	int				i;
 	int				j;
@@ -62,7 +62,7 @@ void	find_place(unsigned int *tab, t_fillist *list, int size)
 	tmp = mask;
 	i = 0;
 	// boucle jusqu'a la dernier place pour le tetri dans la map ou qu'il fit dans un trou
-	while (i < (size - list->height + 1) * size && (tmp >> 16) & list->tetribit)
+	while (i < (size - list->height + 1) * size)
 	{
 		tmp = 0;
 		j = list->height * size + i;
@@ -73,14 +73,14 @@ void	find_place(unsigned int *tab, t_fillist *list, int size)
 			tmp |= (mask & (tab[(j + size) / 32] >> (32 - j)));
 			j -= size;
 		}
-		// test pour imprimer la "photo de la map"
-		print_bits(tmp >> 16, 32);
+//		print_bits(tmp >> 16, 32);	// test pour imprimer la "photo de la map"
+		if (!((tmp >> 16) & list->tetribit))
+			return (i + 1);
 		if (i % size == size - list->width)
 			i += list->width - 1;
 		i++;
 	}
-	// ligne de test pour imprimer la position a laquelle le tetri a trouve une place
-	ft_putnbrendl(((i - list->width) % size == size - list->width) ? i - list->width : i);
+	return (0);
 }
 
 void	search_map(t_fillist *list)
@@ -106,8 +106,8 @@ void	search_map(t_fillist *list)
 		tmp = print->tetribit;
 		tmp <<= 16;
 		print_map(&tmp, print->width, print->height);
+		ft_putnbrendl(find_place(tab, print, 10));
 		ft_putchar('\n');
-		find_place(tab, print, 10);
 		print = print->next;
 	}
 //	find_place(tab, list, 10);
