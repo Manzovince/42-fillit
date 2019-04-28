@@ -6,7 +6,7 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/04/24 15:44:55 by hulamy           ###   ########.fr        #
+#    Updated: 2019/04/28 16:48:38 by hulamy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,11 @@ LDLIBS = -lft
 
 SRCS = $(shell find . -depth 1 -type f -not -name '.*' -not -name 'test*' -name '*.c')
 
+TRASH = $(shell find . -depth 1 -type f -name '*.dSYM')
+TRASH += $(shell find . -depth 1 -type f -name '*.o')
+TRASH += $(shell find . -depth 1 -type f -name '*.swp')
+TRASH += $(shell find . -depth 1 -type f -name '*.swo')
+TRASH += $(shell find . -depth 1 -type f -name '*.swn')
 
 # - - - - - - - - - - - - - - - #
 #          RULES                #
@@ -35,14 +40,16 @@ all: $(NAME)
 $(NAME): $(SRCS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
 
-debug:
+debug: $(SRCS)
 	$(CC) -g $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
 
 lib:
 	make -C ./libft/
 
 clean:
+	/bin/rm -rf $(TRASH)
+
+fclean: clean
 	/bin/rm -rf $(NAME)
-	/bin/rm -rf $(NAME).dSYM
 
 re: clean all
