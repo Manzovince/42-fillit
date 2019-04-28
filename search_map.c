@@ -6,11 +6,16 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/28 01:44:50 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/28 16:23:19 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*
+** DELETE BEFORE EVAL - TEST FUNCTION
+** print a int in binary
+*/
 
 void	print_bits(unsigned int bits, int size)
 {
@@ -25,7 +30,6 @@ void	print_bits(unsigned int bits, int size)
 	}
 	write(1, "\n", 1);
 }
-
 
 /*
 ** DELETE BEFORE EVAL - TEST FUNCTION
@@ -66,6 +70,7 @@ int		find_place(unsigned int *tab, t_fillist *list, int size)
 	{
 		tmp = 0;
 		j = list->height * size + i;
+		// construit un tmp qui est une photo de la map de la taille du tetri a un emplacement donne
 		while (j >= i)
 		{
 			tmp >>= list->width;
@@ -75,7 +80,7 @@ int		find_place(unsigned int *tab, t_fillist *list, int size)
 		}
 //		print_bits(tmp >> 16, 32);	// test pour imprimer la "photo de la map"
 		if (!((tmp >> 16) & list->tetribit))
-			return (i + 1);
+			return ((list->position = i + 1));
 		if (i % size == size - list->width)
 			i += list->width - 1;
 		i++;
@@ -83,13 +88,31 @@ int		find_place(unsigned int *tab, t_fillist *list, int size)
 	return (0);
 }
 
+/*
+int		fill_map(unsigned int map, t_fillist *list, int size)
+{
+	if (!list)
+		return (1);
+	while (find_place(tab, list, size))
+	{
+		add_to_map(map, list);		// to create
+		if (fill_map(map, size, list->next)
+				return (1);
+		remove_from_map(map, list);	// to create
+		list->position++;
+	}
+	return (0);
+}
+*/
+
 void	search_map(t_fillist *list)
 {
-	unsigned int	tmp;
-	unsigned int	tab[8];
-	t_fillist		*print;
+	t_fillist		*tmp;
 
+	//////////////////////////// TEST ////////////////////////////
 	// ce tableau permet de monter jusqu'a une map de 16*16
+	unsigned int	print;
+	unsigned int	tab[8];
 	tab[0] = 2656554334;
 	tab[1] = 1394456818;
 	tab[2] = 1494256918;
@@ -99,17 +122,44 @@ void	search_map(t_fillist *list)
 	tab[6] = 2154339230;
 	tab[7] = 1576493154;
 	print_map(tab, 10, 10);
-	print = list;
-	while (print)
+	tmp = list;
+	while (tmp)
 	{
 		// imression pour tests
-		tmp = print->tetribit;
-		tmp <<= 16;
-		print_map(&tmp, print->width, print->height);
-		ft_putnbrendl(find_place(tab, print, 10));
+		print = tmp->tetribit;
+		print <<= 16;
+		print_map(&print, tmp->width, tmp->height);
+		ft_putnbrendl(find_place(tab, tmp, 10));
 		ft_putchar('\n');
-		print = print->next;
+		tmp = tmp->next;
 	}
-//	find_place(tab, list, 10);
+	//////////////////////////// TEST ////////////////////////////
+
+	/*
+	//////////////////////////// en cours ////////////////////////////
+	unsigned int	*map;
+	int				size;
+	int				i;
+
+	size = 2;
+	i = 1;
+	tmp = list;
+	// trouve le nombre de tetri en parcourant la liste chainee
+	while ((tmp = tmp->next))
+		i++;
+	// trouve la taille minimale de la map
+	while (size * size < i * 4)
+		size++;
+	// alloue une map de la taille du nombre d'int necesaire pour contenir la taille de la map (size * size)
+	map = (unsigned int *)malloc(sizeof(*map) * ((size * size) / 32 + 1));
+	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
+	while (!fill_map(map, list, size))
+	{
+		size++;
+		free(map);
+		map = (unsigned int *)malloc(sizeof(*map) * ((size * size) / 32 + 1));
+	}
+	//////////////////////////// en cours ////////////////////////////
+	*/
 }
 
