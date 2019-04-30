@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/30 14:19:32 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/30 15:30:53 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,15 @@ unsigned short	reduce_tetri(unsigned short tetri, int width)
 
 void	fill_list(char line[], t_fillist *list)
 {
-//	unsigned int	tmp;
+	unsigned int	tmp;
 	unsigned int	mask;
 	int				i;
 
 	// transforme la ligne de . et # en un short de 0 et 1
 	list->tetribit = tab_to_bin(line);
-	// cree un mask avec des 1 sur la colonne de droite
+	ft_putstr("BEFORE: ");
+	print_bits(list->tetribit, 16);
+	// cree un mask avec des 1 sur la colonne de droite (#...#...#...#...)
 	mask = (1 << 15) | (1 << 11) | (1 << 7) | (1 << 3);
 	// utilise le mask pour trouver la largeur que prend le tetriminos
 	i = 0;
@@ -78,7 +80,8 @@ void	fill_list(char line[], t_fillist *list)
 	while (mask & list->tetribit && ++i < 4)
 		mask >>= 1;
 	list->width = i - list->width;
-	// deplace le tetriminos tout en haut a gauche (i - list->width = le nombre de colonne vide a gauche)
+	// deplace le tetriminos tout en haut a gauche
+	//(i - list->width = le nombre de colonne vide a gauche)
 	list->tetribit <<= (i - list->width);
 	while (!(list->tetribit & (~0u << 12)))
 		list->tetribit <<= 4;
@@ -91,11 +94,15 @@ void	fill_list(char line[], t_fillist *list)
 	list->tetribit = reduce_tetri(list->tetribit, list->width);
 
 	// imression pour tests
-//	ft_putchar('\n');
-//	tmp = list->tetribit;
-//	tmp <<= 16;
-//	print_map(&tmp, list->width, list->height);
-//	tmp >>= 16;
+	ft_putchar('\n');
+	ft_putstr("AFTER: ");
+	print_bits(list->tetribit, 16);
+	ft_putstr("\n");
+	tmp = list->tetribit;
+	tmp <<= 16;
+	ft_putstr("\n");
+	print_map(&tmp, list->width, list->height);
+	tmp >>= 16;
 }
 
 /*
@@ -143,7 +150,10 @@ void	parse_input(char *input)
 			tetri[j++] = input[i++];
 		tetri[19] = '\0';
 		if (check_tetri_errors(tetri))
-			print_error("Error: Tetrimino not valid.");
+		{
+			ft_putstr(tetri);
+			print_error("\n\nerror: This tetrimino is not valid.\n");
+		}
 		add_to_list(tetri, &list);
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
