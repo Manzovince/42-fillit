@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/28 16:23:19 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/30 12:50:06 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	print_map(unsigned int *tab, int width, int height)
 	write(1, "\n", 1);
 }
 
+/*
+** function that look for the first place in the map for a tetri
+*/
+
 int		find_place(unsigned int *tab, t_fillist *list, int size)
 {
 	int				i;
@@ -75,10 +79,12 @@ int		find_place(unsigned int *tab, t_fillist *list, int size)
 		{
 			tmp >>= list->width;
 			tmp |= (mask & (tab[j / 32] << j));
-			tmp |= (mask & (tab[(j + size) / 32] >> (32 - j)));
+			tmp |= (mask & (tab[(j + size) / 32] >> (32 - j)));	// cette deuxieme ligne est la au cas ou on serait a cheval sur deux int du tab
 			j -= size;
 		}
-//		print_bits(tmp >> 16, 32);	// test pour imprimer la "photo de la map"
+//		print_map(&tmp, list->width, list->height);		// test pour imprimer la photo en map
+//		write(1, "\n", 1);
+//		print_bits(tmp >> 16, 32);						// test pour imprimer la photo en bits
 		if (!((tmp >> 16) & list->tetribit))
 			return ((list->position = i + 1));
 		if (i % size == size - list->width)
@@ -89,20 +95,60 @@ int		find_place(unsigned int *tab, t_fillist *list, int size)
 }
 
 /*
-int		fill_map(unsigned int map, t_fillist *list, int size)
+** function that add or remove a tetri on the map
+*/
+
+//void	add_remove(unsigned int *map, t_fillist *list)
+//{
+//	unsigned int	mask;
+//	unsigned int	tmp;
+//	int	i;
+//
+//	mask = ~0u << (32 - list->width);
+//	tmp = 0;
+//	/*
+//	 *	trouver comment faire ;)
+//	 */
+//}
+
+/*
+** function that recursively try to fill the map with the tetris
+*/
+
+//int		fill_map(unsigned int *map, t_fillist *list, int size)
+//{
+//	if (!list)
+//		return (1);
+//	while (find_place(map, list, size))
+//	{
+//		add_remove(map, list, size);
+//		print_map(map, size, size);
+//		if (fill_map(map, size, list->next)
+//				return (1);
+//		add_remove(map, list, size);
+//		list->position++;
+//	}
+//	return (0);
+//}
+
+/*
+** function that init the map to the right size fill with int equal to zeros
+*/
+
+unsigned int	*init_map(int i)
 {
-	if (!list)
-		return (1);
-	while (find_place(tab, list, size))
-	{
-		add_to_map(map, list);		// to create
-		if (fill_map(map, size, list->next)
-				return (1);
-		remove_from_map(map, list);	// to create
-		list->position++;
-	}
-	return (0);
+	unsigned int	*new;
+	int				size;
+
+	size = (i * i) / 32 + 1;
+	new = (unsigned int *)malloc(sizeof(*new) * size);
+	while (size)
+		new[size--] = 0;
+	return (new);
 }
+
+/*
+** function that send to "fill_map" a map of a certain size and increment its size untill it's solved
 */
 
 void	search_map(t_fillist *list)
@@ -128,15 +174,15 @@ void	search_map(t_fillist *list)
 		// imression pour tests
 		print = tmp->tetribit;
 		print <<= 16;
-		print_map(&print, tmp->width, tmp->height);
+//		print_map(&print, tmp->width, tmp->height);		// test, imprime le tetri
+//		ft_putchar('\n');
 		ft_putnbrendl(find_place(tab, tmp, 10));
 		ft_putchar('\n');
 		tmp = tmp->next;
 	}
 	//////////////////////////// TEST ////////////////////////////
 
-	/*
-	//////////////////////////// en cours ////////////////////////////
+	////////////////////////// en cours //////////////////////////
 	unsigned int	*map;
 	int				size;
 	int				i;
@@ -150,16 +196,12 @@ void	search_map(t_fillist *list)
 	// trouve la taille minimale de la map
 	while (size * size < i * 4)
 		size++;
-	// alloue une map de la taille du nombre d'int necesaire pour contenir la taille de la map (size * size)
-	map = (unsigned int *)malloc(sizeof(*map) * ((size * size) / 32 + 1));
+	map = init_map(size);
 	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
-	while (!fill_map(map, list, size))
-	{
-		size++;
-		free(map);
-		map = (unsigned int *)malloc(sizeof(*map) * ((size * size) / 32 + 1));
-	}
-	//////////////////////////// en cours ////////////////////////////
-	*/
+//	ft_putstr("test ");
+//	ft_putnbrendl(size);
+//	while (!fill_map(map, list, size))
+//		map = init_map(size++);
+	////////////////////////// en cours //////////////////////////
 }
 
