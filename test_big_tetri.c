@@ -14,21 +14,17 @@ void	print_bits(unsigned int bits, int size)
 	write(1, "\n", 1);
 }
 
-void	print_map(unsigned int *tab, int size)
+void	print_map(unsigned int *tab, int width, int height)
 {
 	int				i;
 	unsigned int	mask;
-	unsigned int	tmp;
 
 	i = 0;
-	mask = 0;
 	// creer un mask avec les size bits de gauche a 1 (ex: 11111110000000000000000000000000)
-	while (i++ < size)
-		mask = (mask >> 1) | ((mask | 1) << 31);
-	i = 0;
-	while (i < size * size)
+	mask = ~0u << (32 - width);
+	while (i < width * height)
 	{
-		if (!(i % size))
+		if (!(i % width))
 			ft_putchar('\n');
 		tab[i / 32] & (1 << (31 - i % 32)) ? ft_putchar('#') : ft_putchar('.');
 		ft_putchar(' ');
@@ -44,13 +40,14 @@ void	find_place(unsigned int *tab, char *line, int size)
 	int				j;
 	unsigned int	mask;
 	unsigned int	tmp;
-	int				large;
+	int				width;
+	int				height;
 
-//	ft_putendl("# . . # # # # T T # . # . # # # # # . . # # . # T # . # # # # . . # . # . . # # T . . # # # . # # . # # # . . . # # # # . . # . . # . # # . . # . . . # . . . . # . . . # # . # . . . # . # # .");
 	/////////////// create tetri ///////////////
 	i = 0;
 	tmp = 0;
-	large = 3;
+	width = 3;
+	height = 2;
 	while (line[i])
 	{
 		tetri <<= 1;
@@ -63,31 +60,31 @@ void	find_place(unsigned int *tab, char *line, int size)
 		tetri <<= 1;
 	print_bits(tetri, 16);
 	tmp = (tetri | tmp) << 16;
-	print_map(&tmp, large);
+	print_map(&tmp, width, height);
 	/////////////// create tetri ///////////////
 
 	mask = ~0;
-	mask <<= 32 - large;
+	mask <<= 32 - width;
 	ft_putendl("mask: ");
 	print_bits(mask, 32);
 	i = 0;
-	while (i < 20)
+	while (i < (size - height + 1) * size)
 	{
 		tmp = 0;
-		j = 3 * size + i;
+		j = height * size + i;
 		while (j >= i)
 		{
-			tmp >>= large;
+			tmp >>= width;
 			tmp |= (mask & (tab[j / 32] << j));
 			tmp |= (mask & (tab[(j + size) / 32] >> (32 - j)));
 			j -= size;
 		}
-		print_map(&tmp, large);
+		print_map(&tmp, width, height);
 		print_bits(tmp >> 16, 32);
 		print_bits(tetri, 32);
 		print_bits((tmp >> 16) & tetri, 32);
-		if (i % size == size - large)
-			i += large - 1;
+		if (i % size == size - width)
+			i += width - 1;
 		i++;
 	}
 }
@@ -119,11 +116,10 @@ int		main(int ac, char **av)
 		// mettre l'option "b" pour afficher la troisieme argument en binaire
 		if (av[0][0] == 'b' && ac > 2)
 			ft_putendl(ft_convertbase(av[1], "01", "0123456789"));
-		print_map(tab, 10);
+		print_map(tab, 10, 10);
 		write(1, "\n", 1);
 		if (av[0][0] == 't' && ac > 2)
 			find_place(tab, av[1], 10);
 	}
 	return (0);
 }
-

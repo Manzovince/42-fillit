@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:20:53 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/27 14:54:11 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:14:32 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	print_bits(short line)
 
 /*
 ** Function that transforme a tetrminos char* into a short of 16 bites
-** then it fills it and its reverse into the list
+** and then fills it and its reversed into the list
 */
 
 void	fill_list(char line[], t_fillist *list)

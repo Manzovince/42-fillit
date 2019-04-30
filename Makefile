@@ -6,49 +6,50 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/04/27 15:12:16 by vmanzoni         ###   ########.fr        #
+#    Updated: 2019/04/30 14:20:52 by hulamy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	fillit
+# - - - - - - - - - - - - - - - #
+#          VARIABLES            #
+# - - - - - - - - - - - - - - - #
 
-OBJ_DIR	=	./objs
-HEADER	=	fillit.h
+NAME = fillit
+CC = gcc
 
-SRCS	=	main.c					\
-			read_file.c				\
-			handle_errors.c			\
-			parse_input.c			\
-#			add_to_list.c			\ #DELETE BEFORE EVAL - NOT USED ANYMORE
-#			get_smallest_square.c	\
-			print_fillit.c
+CFLAGS = -I.
+CFLAGS += -Wall -Wextra -Werror
 
+LDFLAGS = -L./libft/
+LDLIBS = -lft
 
-OBJS	=	$(SRCS:.c=.o)
-LIB		=	../42-libft/
+SRCS = $(shell find . -depth 1 -type f -not -name '.*' -not -name 'test*' -name '*.c')
 
-CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra
+TRASH = $(shell find . -depth 1 -type f -name '*.dSYM')
+TRASH += $(shell find . -depth 1 -type f -name '*.o')
+TRASH += $(shell find . -depth 1 -type f -name '*.swp')
+TRASH += $(shell find . -depth 1 -type f -name '*.swo')
+TRASH += $(shell find . -depth 1 -type f -name '*.swn')
 
-RM		=	rm -rf
+# - - - - - - - - - - - - - - - #
+#          RULES                #
+# - - - - - - - - - - - - - - - #
 
-all:	$(NAME)
+all: $(NAME)
 
-$(NAME):
-	make -C $(LIB)
-	$(CC) $(CFLAGS) -I$(HEADER) -c $(SRCS)
-	$(CC) -o $(NAME) $(OBJS) -L $(LIB) -lft
-	mkdir $(OBJ_DIR)
-	mv $(OBJS) $(OBJ_DIR)
+$(NAME): $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
+
+debug: $(SRCS)
+	$(CC) -g $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
+
+lib:
+	make -C ./libft/
 
 clean:
-	make -C $(LIB) clean
-	$(RM) $(OBJ_DIR)
+	/bin/rm -rf $(TRASH)
 
-fclean:	clean
-	make -C $(LIB) fclean
-	$(RM) $(NAME)
+fclean: clean
+	/bin/rm -rf $(NAME)
 
-re:	fclean all
-
-.PHONY: all clean fclean re
+re: clean all
