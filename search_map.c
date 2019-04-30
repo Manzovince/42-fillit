@@ -6,53 +6,11 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/30 12:50:06 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/30 13:25:42 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-/*
-** DELETE BEFORE EVAL - TEST FUNCTION
-** print a int in binary
-*/
-
-void	print_bits(unsigned int bits, int size)
-{
-	unsigned int	mask;
-
-	mask = 1 << (size - 1);
-	while (mask)
-	{
-		(bits & mask) ? write(1, "#", 1) : write(1, ".", 1);
-		write(1, " ", 1);
-		mask >>= 1;
-	}
-	write(1, "\n", 1);
-}
-
-/*
-** DELETE BEFORE EVAL - TEST FUNCTION
-** print a map of height and width
-*/
-
-void	print_map(unsigned int *tab, int width, int height)
-{
-	int				i;
-	unsigned int	mask;
-
-	i = 0;
-	mask = ~0u << (32 - width);
-	while (i < width * height)
-	{
-		if (i && !(i % width))
-			ft_putnbrendl(i);	// pour imprimer les tailles du tableaux pour faciliter sa verification
-		tab[i / 32] & (1 << (31 - i % 32)) ? ft_putchar('#') : ft_putchar('.');
-		ft_putchar(' ');
-		i++;
-	}
-	write(1, "\n", 1);
-}
 
 /*
 ** function that look for the first place in the map for a tetri
