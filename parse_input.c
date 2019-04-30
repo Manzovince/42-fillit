@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/30 15:30:53 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/04/30 19:30:54 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ void	fill_list(char line[], t_fillist *list)
 
 	// transforme la ligne de . et # en un short de 0 et 1
 	list->tetribit = tab_to_bin(line);
-	ft_putstr("BEFORE: ");
-	print_bits(list->tetribit, 16);
 	// cree un mask avec des 1 sur la colonne de droite (#...#...#...#...)
 	mask = (1 << 15) | (1 << 11) | (1 << 7) | (1 << 3);
 	// utilise le mask pour trouver la largeur que prend le tetriminos
@@ -93,15 +91,11 @@ void	fill_list(char line[], t_fillist *list)
 	// fabrique la ligne pour le tetriminos de la bonne largeur
 	list->tetribit = reduce_tetri(list->tetribit, list->width);
 
-	// imression pour tests
-	ft_putchar('\n');
-	ft_putstr("AFTER: ");
-	print_bits(list->tetribit, 16);
-	ft_putstr("\n");
+	// impression pour tests
 	tmp = list->tetribit;
 	tmp <<= 16;
-	ft_putstr("\n");
-	print_map(&tmp, list->width, list->height);
+//	ft_putstr("\n");
+//	print_map(&tmp, list->width, list->height);
 	tmp >>= 16;
 }
 

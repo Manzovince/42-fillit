@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:24:28 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/30 13:25:18 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/04/30 19:26:01 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,30 @@ void    print_bits(unsigned int bits, int size)
         (bits & mask) ? write(1, "#", 1) : write(1, ".", 1);
         write(1, " ", 1);
         mask >>= 1;
+    }
+    write(1, "\n", 1);
+}
+
+/*
+** DELETE BEFORE EVAL - TEST FUNCTION
+** Prints a tetri from its bit form
+*/
+
+void    print_tetri(unsigned int bits, int size)
+{
+    unsigned int    mask;
+	short			i;
+
+	i = 0;
+    mask = 1 << (size - 1);
+    while (mask)
+    {
+		if (i % 4 == 0)
+			write(1, "\n", 1);
+		(bits & mask) ? write(1, "#", 1) : write(1, ".", 1);
+		write(1, " ", 1);
+		mask >>= 1;
+		i++;
     }
     write(1, "\n", 1);
 }
@@ -56,4 +80,3 @@ void    print_map(unsigned int *tab, int width, int height)
     }
     write(1, "\n", 1);
 }
-
