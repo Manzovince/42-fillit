@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/01 23:12:57 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/01 23:21:27 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,35 +53,26 @@ int		find_place(unsigned int *tab, t_fillist *list, int size)
 ** function that add or remove a tetri on the map
 */
 
-void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
+void	add_remove(unsigned int *map, t_fillist *list, int size)
 {
 	unsigned int	mask;
-	unsigned int	tmp;
-	int				j;
+	unsigned short	tetri;
 	int				i;
+	int				j;
 
+	tetri = list->tetribit;
 	mask = ~0u << (32 - list->width);
-	tmp = 0;
 	i = (list->height - 1) * list->width;
-	j = (list->height - 1) * size + pos;
+	j = (list->height - 1) * size + list->position;
 	// change les bits du tetri sur la map a la position donnee
-	while (j >= pos)
+	while (j >= list->position)
 	{
-								print_map(map, size, size);																						// POUR DEBUG
-								ft_putstr("map[j / 32]    : "); print_bits(map[j / 32], 32);													// POUR DEBUG
-								ft_putstr("mask           : "); print_bits((mask & list->tetribit << (16 + i)) >> (j - 1), 32);					// POUR DEBUG
-		map[j / 32] ^= (mask & list->tetribit << (16 + i)) >> (j - 1);
-								ft_putstr("map[j / 32]    : "); print_bits(map[j / 32], 32);													// POUR DEBUG
-								ft_putstr("map[(j+s) / 32]: "); print_bits(map[(j + size) / 32], 32);											// POUR DEBUG
-								ft_putstr("mask 2         : "); print_bits((mask & list->tetribit << (16 + i)) << ((j % 32) + 1), 32);			// POUR DEBUG
-								ft_putstr("(j % 32) + 1   : "); ft_putnbrendl((j % 32) + 1);													// POUR DEBUG
-								ft_putstr("j              : "); ft_putnbrendl(j);																// POUR DEBUG
-		map[(j + size) / 32] ^= (mask & list->tetribit << (16 + i)) << ((j % 32) + 1);
-								ft_putstr("map[(j+s) / 32]: "); print_bits(map[(j + size) / 32], 32);											// POUR DEBUG
+		map[j / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
+		map[(j + size) / 32] ^= (mask & tetri << (16 + i)) << (j % 32 + 1);
 		j -= size;
 		i -= list->width;
 	}
-								print_map(map, size, size);																						// POUR DEBUG
+	print_map(map, size, size);								// POUR DEBUG
 	ft_putchar('\n');
 }
 
@@ -95,12 +86,11 @@ int		fill_map(unsigned int *map, t_fillist *list, int size)
 		return (1);
 	while (find_place(map, list, size))
 	{
-		add_remove(map, list, size, list->position);
-		print_map(map, size, size);			// POUR DEBUG
-		ft_putendl("add_remove");			// POUR DEBUG
+		ft_putchar('\n'); ft_putendl("add_remove");			// POUR DEBUG
+		add_remove(map, list, size);
 		if (fill_map(map, list->next, size))
 				return (1);
-		add_remove(map, list, size, list->position);
+		add_remove(map, list, size);
 		list->position++;
 	}
 	return (0);
