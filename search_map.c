@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/30 14:07:47 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/01 14:21:49 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,15 @@ int		find_place(unsigned int *tab, t_fillist *list, int size)
 	while (i < (size - list->height + 1) * size)
 	{
 		tmp = 0;
-		j = list->height * size + i;
 		// construit un tmp qui est une photo de la map de la taille du tetri a un emplacement donne
+		j = (list->height - 1) * size + i;
 		while (j >= i)
 		{
 			tmp >>= list->width;
 			tmp |= (mask & (tab[j / 32] << j));
-			tmp |= (mask & (tab[(j + size) / 32] >> (32 - j)));	// cette deuxieme ligne est la au cas ou on serait a cheval sur deux int du tab
+			tmp |= (mask & (tab[(j + list->width) / 32] >> (32 - j)));
 			j -= size;
 		}
-//		print_map(&tmp, list->width, list->height);		// test pour imprimer la photo en map
-//		write(1, "\n", 1);
-//		print_bits(tmp >> 16, 32);						// test pour imprimer la photo en bits
 		if (!((tmp >> 16) & list->tetribit))
 			return ((list->position = i + 1));
 		if (i % size == size - list->width)
@@ -61,19 +58,24 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 	unsigned int	mask;
 	unsigned int	tmp;
 	int				j;
+	int				i;
 
 	mask = ~0u << (32 - list->width);
 	tmp = 0;
-	j = list->height * size + pos;
-//	(void)map;
-	// construit un tmp qui est une photo de la map de la taille du tetri a un emplacement donne
-//	ft_putnbrendl(pos);
+	i = (list->height - 1) * list->width;
+	j = (list->height - 1) * size + pos;
+	// change les bits du tetri sur la map a la position donnee
 	while (j >= pos)
 	{
-		map[j / 32] |= ((mask >> (32 - j)) ^ map[j / 32]);
-		map[(j + size) / 32] |= ((mask << j) ^ map[(j + size) / 32]);	// cette deuxieme ligne est la au cas ou on serait a cheval sur deux int du tab
+		print_map(map, size, size);			// POUR DEBUG
+		map[j / 32] ^= (mask >> i & list->tetribit << 16) >> (j - i - 1);
+		map[(j + size) / 32] ^= (mask >> i & list->tetribit << 16)
+			<< (list->width * (list->height - 1) + ((33 - (j % 32)) % 32));
 		j -= size;
+		i -= list->width;
 	}
+	print_map(map, size, size);				// POUR DEBUG
+	ft_putchar('\n');
 }
 
 /*
@@ -87,7 +89,8 @@ int		fill_map(unsigned int *map, t_fillist *list, int size)
 	while (find_place(map, list, size))
 	{
 		add_remove(map, list, size, list->position);
-		print_map(map, size, size);
+	//	print_map(map, size, size);			// POUR DEBUG
+		ft_putendl("add_remove");			// POUR DEBUG
 		if (fill_map(map, list->next, size))
 				return (1);
 		add_remove(map, list, size, list->position);
@@ -120,34 +123,6 @@ void	search_map(t_fillist *list)
 {
 	t_fillist		*tmp;
 
-	//////////////////////////// TEST ////////////////////////////
-	// ce tableau permet de monter jusqu'a une map de 16*16
-	unsigned int	print;
-	unsigned int	tab[8];
-	tab[0] = 2656554334;
-	tab[1] = 1394456818;
-	tab[2] = 1494256918;
-	tab[3] = 2656554334;
-	tab[4] = 1592453883;
-	tab[5] = 1444352908;
-	tab[6] = 2154339230;
-	tab[7] = 1576493154;
-	print_map(tab, 10, 10);
-	tmp = list;
-	while (tmp)
-	{
-		// imression pour tests
-		print = tmp->tetribit;
-		print <<= 16;
-//		print_map(&print, tmp->width, tmp->height);		// test, imprime le tetri
-//		ft_putchar('\n');
-		ft_putnbrendl(find_place(tab, tmp, 10));
-		ft_putchar('\n');
-		tmp = tmp->next;
-	}
-	//////////////////////////// TEST ////////////////////////////
-
-	////////////////////////// en cours //////////////////////////
 	unsigned int	*map;
 	int				size;
 	int				i;
@@ -162,17 +137,9 @@ void	search_map(t_fillist *list)
 	while (size * size < i * 4)
 		size++;
 	map = init_map(size);
-
-	// en cours de test :
-	// quand add_remove_marchera la ligne d'apres imprimera la map avec les pixels du tetri rajoutes a la bonne place
-	add_remove(tab, list, 10, find_place(tab, list, 10));
-	print_map(tab, 10, 10);
-
 	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
-//	ft_putstr("test ");
-//	ft_putnbrendl(size);
-//	while (!fill_map(map, list, size))
-//		map = init_map(size++);
-	////////////////////////// en cours //////////////////////////
+	ft_putstr("test "); ft_putnbrendl(size);	// POUR DEBUG
+	while (!fill_map(map, list, size))
+		map = init_map(size++);
 }
 
