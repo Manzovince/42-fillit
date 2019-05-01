@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/30 20:58:29 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/01 12:34:29 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,21 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 //	ft_putnbrendl(pos);
 	while (j >= pos)
 	{
+		/* tests pour trouver l'equation
 		ft_putstr("j:"); ft_putnbr(j); ft_putstr(" (32 - j):"); ft_putnbr(32 - j); ft_putstr(" i:"); ft_putnbr(i); ft_putstr(" pos:"); ft_putnbrendl(pos);
 		print_bits(map[j / 32], 32);
 		print_bits(list->tetribit << 16, 32);
-//		print_bits(mask >> i, 32);
-//		print_bits((mask >> i & list->tetribit << 16), 32);
+		print_bits(mask >> i, 32);
+		print_bits((mask >> i & list->tetribit << 16), 32);
 		print_bits((mask >> i & list->tetribit << 16) >> (j - i - 1), 32);
 		print_bits((map[j / 32] | (mask >> i & list->tetribit << 16) >> (j - i - 1)), 32);
 
 		print_bits(map[(j + list->width) / 32], 32);
 		print_bits((mask >> i & list->tetribit << 16), 32);
-		print_bits((mask >> i & list->tetribit << 16) << (i + (j + list->width) % 32), 32);
-//		map[j / 32] |= ((list->tetribit >> (32 - j)) | map[j / 32]);
-//		map[(j + size) / 32] |= ((list->tetribit << j) | map[(j + size) / 32]);	// cette deuxieme ligne est la au cas ou on serait a cheval sur deux int du tab
+		print_bits((mask >> i & list->tetribit << 16) << (list->width * (list->height - 1) + ((33 - (j % 32)) % 32)), 32);
+		*/
+		map[j / 32] |= (mask >> i & list->tetribit << 16) >> (j - i - 1);
+		map[(j + size) / 32] |= (mask >> i & list->tetribit << 16) << (list->width * (list->height - 1) + ((33 - (j % 32)) % 32));	// cette deuxieme ligne est la au cas ou on serait a cheval sur deux int du tab
 		j -= size;
 		i -= list->width;
 	}
@@ -180,7 +182,9 @@ void	search_map(t_fillist *list)
 	// en cours de test :
 	// quand add_remove_marchera la ligne d'apres imprimera la map avec les pixels du tetri rajoutes a la bonne place
 	add_remove(tab, list, 10, find_place(tab, list, 10));
+	print_map(tab, 10, 10);
 	add_remove(tab, list->next, 10, find_place(tab, list->next, 10));
+	print_map(tab, 10, 10);
 	add_remove(tab, list->next->next, 10, find_place(tab, list->next->next, 10));
 	print_map(tab, 10, 10);
 
