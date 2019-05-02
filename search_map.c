@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/02 00:11:48 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/02 16:42:47 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 	tmp = mask;
 	i = pos;
 	// boucle jusqu'a la dernier place pour le tetri dans la map ou qu'il fit dans un trou
-	while (i <= (size - list->height) * size)
+	while (i < (size - list->height + 1) * size)
 	{
-		// pour ne pas deborder a droite de la map
-		if (i % size == size - list->width + 1)
-			i += list->width - 1;
 		tmp = 0;
 		// construit un tmp qui est une photo de la map de la taille du tetri a un emplacement donne
 		j = (list->height - 1) * size + i;
@@ -45,6 +42,9 @@ int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 		}
 		if (!((tmp >> 16) & list->tetribit))
 			return (i + 1);
+		// pour ne pas deborder a droite de la map
+		if (i % size == size - list->width + 1)
+			i += list->width - 1;
 		i++;
 	}
 	return (0);
@@ -88,15 +88,10 @@ int		fill_map(unsigned int *map, t_fillist *list, int size)
 		return (1);
 	while ((pos = find_place(map, list, size, pos)))
 	{
-//		ft_putchar('\n'); ft_putendl("add_remove");			// POUR DEBUG
 		add_remove(map, list, size, pos);
-		print_map(map, size, size);							// POUR DEBUG
-		ft_putchar('\n');									// POUR DEBUG
 		if (fill_map(map, list->next, size))
 			return (list->position = pos);
 		add_remove(map, list, size, pos);
-//		print_map(map, size, size);							// POUR DEBUG
-//		ft_putchar('\n');									// POUR DEBUG
 	}
 	return (0);
 }
@@ -141,8 +136,8 @@ void	search_map(t_fillist *list)
 	map = init_map(size);
 	
 	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
-	ft_putstr("test "); ft_putnbrendl(size);	// POUR DEBUG
 	while (!fill_map(map, list, size))
 		map = init_map(size++);
+	print_map(map, size, size);
 }
 
