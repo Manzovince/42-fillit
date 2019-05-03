@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/03 16:10:34 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/03 19:01:49 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct			s_fillist
 
 char	*read_file(char *file);
 void	print_error(char *s);
+void	print_error_extended(int error);
 void    parse_input(char *input);
 int		check_file_errors(char *file);
 int		check_tetri_errors(char *tetri);

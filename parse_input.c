@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/03 16:10:12 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/03 19:08:42 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ unsigned short	reduce_tetri(unsigned short tetri, int width)
 
 void	fill_list(char line[], t_fillist *list)
 {
-	unsigned int	tmp;
+//	unsigned int	tmp;
 	unsigned int	mask;
 	int				i;
 
@@ -142,7 +142,8 @@ void	parse_input(char *input)
 		if (check_tetri_errors(tetri))
 		{
 			ft_putstr(tetri);
-			print_error("\n\nerror: This tetrimino is not valid.\n");
+			print_error_extended(check_tetri_errors(tetri));
+			//print_error("\n\nerror: This tetrimino is not valid.\n");
 		}
 		add_to_list(tetri, &list, letter++);
 		while (input[i] && input[i] != '.' && input[i] != '#')

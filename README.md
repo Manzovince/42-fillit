@@ -17,6 +17,6 @@ Le but de ce projet est d’agencer les Tetriminos entre eux pour former le plus
 - [ ] Free everything (NO LEAKS)
 
 ## BONUS
-- [x] `ft_check_tetri_errors` indicate which tetri is wrong
+- [x] Best error handler (more details on why there is an error.)
 - [ ] Optimisation
 - [ ] Add colors to tetri when printing result map

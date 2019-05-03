@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/27 16:36:09 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:12:47 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int		main(int argc, char **argv)
 		if (!(input = read_file(argv[1])))
 			print_error("error: Could not read file.\n");
 		if (check_file_errors(input))
-			print_error("error: Invalid file.\n");
+			print_error_extended(check_file_errors(input));
+//		print_error("error: Invalid file.\n");
 		parse_input(input);
 		/*
 		Backtracking for smallest square
