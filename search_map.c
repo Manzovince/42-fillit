@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/02 16:42:47 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/03 14:19:42 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,6 @@ void	search_map(t_fillist *list)
 	while (!fill_map(map, list, size))
 		map = init_map(size++);
 	print_map(map, size, size);
+	print_final_map(list, size);
 }
 

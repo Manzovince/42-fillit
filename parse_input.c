@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/02 00:40:23 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/03 14:24:00 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	fill_list(char line[], t_fillist *list)
 ** linked each time needed
 */
 
-int		add_to_list(char *line, t_fillist **list)
+int		add_to_list(char *line, t_fillist **list, char letter)
 {
 	t_fillist	*tmp;
 	t_fillist	*test;
@@ -114,6 +114,7 @@ int		add_to_list(char *line, t_fillist **list)
 		test->next = tmp;
 	}
 	fill_list(line, tmp);
+	tmp->letter = letter;
 	return (1);
 }
 
@@ -127,8 +128,11 @@ void	parse_input(char *input)
 	char				tetri[20];
 	int					i;
 	int					j;
+	int					letter;
 
 	i = 0;
+	letter = 'A';
+	--letter;
 	while (input[i])
 	{
 		j = 0;
@@ -137,7 +141,7 @@ void	parse_input(char *input)
 		tetri[19] = '\0';
 		if (check_tetri_errors(tetri))
 			print_error("Error: Tetrimino not valid.");
-		add_to_list(tetri, &list);
+		add_to_list(tetri, &list, letter++);
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
