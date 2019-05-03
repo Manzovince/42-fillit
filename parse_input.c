@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/03 14:24:00 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/03 15:24:28 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ void	parse_input(char *input)
 
 	i = 0;
 	letter = 'A';
-	--letter;
 	while (input[i])
 	{
 		j = 0;

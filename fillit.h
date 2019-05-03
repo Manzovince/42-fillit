@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/03 14:22:25 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/03 15:23:22 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		add_to_list(char *square, t_fillist **list, char letter);
 void    fill_list(char line[], t_fillist *list);
 void    print_bits(unsigned int bits, int size); //TO DELETE BEFORE EVAL
 void	search_map(t_fillist *list);
-void	print_map(unsigned int *tab, int width, int height);
+void	print_map(unsigned int *tab, int width, int height, char letter);
 void    print_final_map(t_fillist *list, int size);
 
 #endif
