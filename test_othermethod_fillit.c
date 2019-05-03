@@ -6,11 +6,12 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 15:25:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/01 20:07:41 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:08:26 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/includes/libft.h"
+#include <stdio.h>
 
 typedef struct			s_fillist
 {
@@ -67,7 +68,7 @@ void	error(char *str)
 
 char	*read_file(char *file)
 {
-	char	buf[130];
+	char	buf[1000];
 	int	fd;
 	int	rv;
 	int	i;
@@ -128,7 +129,7 @@ unsigned int	tetri_to_binary(char line[])
 {
 	unsigned int	tmp;
 	int				i;
-	unsigned int	mask;
+//	unsigned int	mask;
 
 	i = 0;
 	tmp = 0;
@@ -140,11 +141,11 @@ unsigned int	tetri_to_binary(char line[])
 		if (line[i++] == '#')
 			tmp |= 1;
 	}
-	mask = (1 << 3 | 1 << 2 | 1 << 1) + 1;
+//	mask = (1 << 3 | 1 << 2 | 1 << 1) + 1;
 //	while ((tmp & mask) < 8) //place le tetri le plus en bas a droite possible sans le casser
 //		tmp /= 2;
-	print_bits("before\n", tmp, 32);
-	print_bits("after\n", tetribit_resize(tmp, 4, 5), 32);
+//	print_bits("before\n", tmp, 32);
+//	print_bits("after\n", tetribit_resize(tmp, 4, 5), 32);
 	return (tmp);
 }
 
@@ -169,9 +170,65 @@ int		add_to_list(char *line, t_fillist **list)
 	return (1);
 }
 
-void	parse_file(char *file)
+unsigned int	*init_map(int i)
 {
-	static t_fillist	*list = NULL;
+	unsigned int	*new;
+	int				size;
+
+	size = (i * i) / 32 + 1;
+	new = (unsigned int *)malloc(sizeof(*new) * size);
+	while (size)
+		new[size--] = 0;
+	return (new);
+}
+
+int		find_place(unsigned int *map, t_fillist *list)
+{
+	ft_putstr(">>>\n");
+	print_bits("map: ", *map, 32);
+	print_bits("lst: ", list->tetribit, 32);
+	print_bits("m&l: ", (*map & (short)(list->tetribit)), 32);
+	while ((*map & (int)(list->tetribit)) == 0
+			&& ((int)(list->tetribit) & (1 << 31)))
+	{
+		list->tetribit = list->tetribit << 1;
+		print_bits("lst: ", list->tetribit, 32);
+		ft_putnbr(list->tetribit);
+	}
+	return (0);
+}
+
+int		backtracking(t_fillist *list)
+{
+	unsigned int	*map;
+
+	map = init_map(1);
+	if (!list)
+		return (0);
+//	while (list)
+//	{
+//		print_bits("test: ", list->tetribit, 16);
+//		list = list->next;
+//	}
+	find_place(map, list);
+//	list = list->next;
+//	find_place(map, list);
+	/*
+	while (find_place(map, list))
+	{
+		add_remove(map, list, size, list->position);
+		if (fill_map(map, list->next))
+				return (1);
+		add_remove(map, list, size, list->position);
+		list->position++;
+	}
+	*/
+	return (0);
+//		mask = (mask >> 1) | (((1 << (i % 32)) & map[j]) << (31 - (i % 32)));
+}
+
+void	parse_file(char *file, t_fillist *list)
+{
 	char				tetri[20];
 	int					i;
 	int					j;
@@ -189,11 +246,14 @@ void	parse_file(char *file)
 		while (file[i] && file[i] != '.' && file[i] != '#')
 			i++;
 	}
+	backtracking(list);
 }
 
 int		solve(char *file)
 {
-	parse_file(read_file(file));
+	static t_fillist	*list = NULL;
+
+	parse_file(read_file(file), list);
 	return (1);
 }
 
