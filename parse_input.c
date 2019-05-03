@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/04/30 19:30:54 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:10:12 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,6 @@ void	fill_list(char line[], t_fillist *list)
 	list->height = i;
 	// fabrique la ligne pour le tetriminos de la bonne largeur
 	list->tetribit = reduce_tetri(list->tetribit, list->width);
-
-	// impression pour tests
-	tmp = list->tetribit;
-	tmp <<= 16;
-//	ft_putstr("\n");
-//	print_map(&tmp, list->width, list->height);
-	tmp >>= 16;
 }
 
 /*
@@ -104,7 +97,7 @@ void	fill_list(char line[], t_fillist *list)
 ** linked each time needed
 */
 
-int		add_to_list(char *line, t_fillist **list)
+int		add_to_list(char *line, t_fillist **list, char letter)
 {
 	t_fillist	*tmp;
 	t_fillist	*test;
@@ -122,6 +115,7 @@ int		add_to_list(char *line, t_fillist **list)
 		test->next = tmp;
 	}
 	fill_list(line, tmp);
+	tmp->letter = letter;
 	return (1);
 }
 
@@ -135,8 +129,10 @@ void	parse_input(char *input)
 	char				tetri[20];
 	int					i;
 	int					j;
+	int					letter;
 
 	i = 0;
+	letter = 'A';
 	while (input[i])
 	{
 		j = 0;
@@ -148,7 +144,7 @@ void	parse_input(char *input)
 			ft_putstr(tetri);
 			print_error("\n\nerror: This tetrimino is not valid.\n");
 		}
-		add_to_list(tetri, &list);
+		add_to_list(tetri, &list, letter++);
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}

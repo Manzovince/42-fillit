@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:24:28 by hulamy            #+#    #+#             */
-/*   Updated: 2019/04/30 19:26:01 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:07:51 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@
 ** Prints a ligne of size bits
 */
 
-void    print_bits(unsigned int bits, int size)
+void	print_bits(unsigned int bits, int size)
 {
-    unsigned int    mask;
+	unsigned int	mask;
 
-    mask = 1 << (size - 1);
-    while (mask)
-    {
-        (bits & mask) ? write(1, "#", 1) : write(1, ".", 1);
-        write(1, " ", 1);
-        mask >>= 1;
-    }
-    write(1, "\n", 1);
+	mask = 1 << (size - 1);
+	while (mask)
+	{
+		(bits & mask) ? write(1, "#", 1) : write(1, ".", 1);
+		write(1, " ", 1);
+		mask >>= 1;
+	}
+	write(1, "\n", 1);
 }
 
 /*
@@ -60,23 +60,69 @@ void    print_tetri(unsigned int bits, int size)
 ** Print a map of height and width
 */
 
-void    print_map(unsigned int *tab, int width, int height)
+void	print_map(unsigned int *tab, int width, int height, char letter)
 {
-    int             i;
-    unsigned int    mask;
+	int				i;
+	unsigned int	mask;
 
-    i = 0;
-    mask = 0;
-    while (i++ < width)
-        mask = (mask >> 1) | ((mask | 1) << 31);
-    i = 0;
-    while (i < width * height)
-    {
-        if (i && !(i % width))
-            ft_putchar('\n');
-        tab[i / 32] & (1 << (31 - i % 32)) ? ft_putchar('#') : ft_putchar('.');
-        ft_putchar(' ');
-        i++;
-    }
-    write(1, "\n", 1);
+	i = 0;
+	mask = 0;
+	while (i++ < width)
+		mask = (mask >> 1) | ((mask | 1) << 31);
+	i = 0;
+	while (i < width * height)
+	{
+		if (i && !(i % width))
+			ft_putchar('\n');
+		tab[i / 32] & (1 << (31 - i % 32)) ? ft_putchar(letter) : ft_putchar('.');
+		ft_putchar(' ');
+		i++;
+	}
+	write(1, "\n", 1);
+}
+
+/*
+** Print the final map with the letters
+*/
+
+void	print_final_map(t_fillist *list, int size)
+{
+	unsigned int	print;	// DEBUG
+	t_fillist	*tmp;
+	char		*map;
+	int			i;
+	int			j;
+
+	map = (char *)malloc(sizeof(*map) * (size * size + 1));
+	map[size*size] = '\0';
+	i = -1;
+	while (++i < size * size)
+		map[i] = '.';
+	tmp = list;
+	while (tmp)
+	{
+		j = 0;
+		i = -1;
+		while (++i < tmp->width * tmp->height)
+		{
+			if (i && i % tmp->width == 0)
+				j += size - tmp->width;
+			if (1 << (15 - i) & tmp->tetribit)
+				map[tmp->position + i + j - 1] = tmp->letter;
+		}
+		ft_putstr("position: "); ft_putnbrendl(tmp->position);		// DEBUG
+		print = tmp->tetribit << 16;								// DEBUG
+		print_map(&print, tmp->width, tmp->height, tmp->letter);	// DEBUG
+		ft_putchar('\n');											// DEBUG
+		tmp = tmp->next;
+	}
+	i = -1;
+	while (++i < size * size)
+	{
+		if (i && i % size == 0)
+			ft_putchar('\n');
+		ft_putchar(map[i]);
+		ft_putchar(' ');
+	}
+	ft_putchar('\n');
 }

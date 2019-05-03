@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/01 14:21:49 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/03 16:05:23 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** function that look for the first place in the map for a tetri
 */
 
-int		find_place(unsigned int *tab, t_fillist *list, int size)
+int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 {
 	int				i;
 	int				j;
@@ -26,7 +26,7 @@ int		find_place(unsigned int *tab, t_fillist *list, int size)
 	// creer un mask avec les size bits de gauche a 1 (ex: 11111110000000000000000000000000)
 	mask = ~0u << (32 - list->width);
 	tmp = mask;
-	i = 0;
+	i = pos;
 	// boucle jusqu'a la dernier place pour le tetri dans la map ou qu'il fit dans un trou
 	while (i < (size - list->height + 1) * size)
 	{
@@ -41,8 +41,9 @@ int		find_place(unsigned int *tab, t_fillist *list, int size)
 			j -= size;
 		}
 		if (!((tmp >> 16) & list->tetribit))
-			return ((list->position = i + 1));
-		if (i % size == size - list->width)
+			return (i + 1);
+		// pour ne pas deborder a droite de la map
+		if (i % size == size - list->width + 1)
 			i += list->width - 1;
 		i++;
 	}
@@ -56,26 +57,22 @@ int		find_place(unsigned int *tab, t_fillist *list, int size)
 void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 {
 	unsigned int	mask;
-	unsigned int	tmp;
-	int				j;
+	unsigned short	tetri;
 	int				i;
+	int				j;
 
+	tetri = list->tetribit;
 	mask = ~0u << (32 - list->width);
-	tmp = 0;
 	i = (list->height - 1) * list->width;
 	j = (list->height - 1) * size + pos;
 	// change les bits du tetri sur la map a la position donnee
 	while (j >= pos)
 	{
-		print_map(map, size, size);			// POUR DEBUG
-		map[j / 32] ^= (mask >> i & list->tetribit << 16) >> (j - i - 1);
-		map[(j + size) / 32] ^= (mask >> i & list->tetribit << 16)
-			<< (list->width * (list->height - 1) + ((33 - (j % 32)) % 32));
+		map[j / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
+		map[(j + size) / 32] ^= (mask & tetri << (16 + i)) << (j % 32 + 1);
 		j -= size;
 		i -= list->width;
 	}
-	print_map(map, size, size);				// POUR DEBUG
-	ft_putchar('\n');
 }
 
 /*
@@ -84,17 +81,17 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 
 int		fill_map(unsigned int *map, t_fillist *list, int size)
 {
+	int	pos;
+
+	pos = 0;
 	if (!list)
 		return (1);
-	while (find_place(map, list, size))
+	while ((pos = find_place(map, list, size, pos)))
 	{
-		add_remove(map, list, size, list->position);
-	//	print_map(map, size, size);			// POUR DEBUG
-		ft_putendl("add_remove");			// POUR DEBUG
+		add_remove(map, list, size, pos);
 		if (fill_map(map, list->next, size))
-				return (1);
-		add_remove(map, list, size, list->position);
-		list->position++;
+			return (list->position = pos);
+		add_remove(map, list, size, pos);
 	}
 	return (0);
 }
@@ -137,9 +134,12 @@ void	search_map(t_fillist *list)
 	while (size * size < i * 4)
 		size++;
 	map = init_map(size);
+	
 	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
-	ft_putstr("test "); ft_putnbrendl(size);	// POUR DEBUG
 	while (!fill_map(map, list, size))
 		map = init_map(size++);
+	print_final_map(list, size);	// DEBUG
+	ft_putchar('\n');				// DEBUG
+	print_map(map, size, size, '#');
 }
 
