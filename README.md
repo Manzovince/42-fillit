@@ -11,9 +11,9 @@ Le but de ce projet est d’agencer les Tetriminos entre eux pour former le plus
 - [x] Check if there are errors in file
 - [x] Check if every tetrimino is valid
 - [x] Transform file into tetriminos
-- [ ] Backtracking for smallest square
-- [ ] Transform tetriminos to letters
-- [ ] Print result (Can be done with above step)
+- [x] Backtracking for smallest square
+- [x] Transform tetriminos to letters
+- [x] Print result (Can be done with above step)
 - [ ] Free everything (NO LEAKS)
 
 ## BONUS
