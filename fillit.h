@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/03 19:01:49 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/04 19:01:21 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,20 @@
 #include <stdio.h> // for printf (DELETE BEFORE EVAL)
 
 #include "libft/includes/libft.h"
+
+/*
+** DEFINE
+*/
+
 # define BUFF_SIZE 1024
+
+#define RED   "\x1B[31m"
+#define GRN   "\x1B[32m"
+#define YEL   "\x1B[33m"
+#define BLU   "\x1B[34m"
+#define MAG   "\x1B[35m"
+#define CYN   "\x1B[36m"
+#define RESET "\x1B[0m"
 
 /*
 **	STRUCTURE
@@ -53,5 +66,6 @@ void    print_tetri(unsigned int bits, int size); //TO DELETE BEFORE EVAL
 void	search_map(t_fillist *list);
 void	print_map(unsigned int *tab, int width, int height, char letter);
 void    print_final_map(t_fillist *list, int size);
+void	ft_put_tetri_color(char c);
 
 #endif

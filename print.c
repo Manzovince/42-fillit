@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:24:28 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/03 16:07:51 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/04 19:05:59 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,21 @@ void	print_bits(unsigned int bits, int size)
 
 void    print_tetri(unsigned int bits, int size)
 {
-    unsigned int    mask;
+	unsigned int    mask;
 	short			i;
 
 	i = 0;
-    mask = 1 << (size - 1);
-    while (mask)
-    {
+	mask = 1 << (size - 1);
+	while (mask)
+	{
 		if (i % 4 == 0)
 			write(1, "\n", 1);
 		(bits & mask) ? write(1, "#", 1) : write(1, ".", 1);
 		write(1, " ", 1);
 		mask >>= 1;
 		i++;
-    }
-    write(1, "\n", 1);
+	}
+	write(1, "\n", 1);
 }
 
 /*
@@ -121,7 +121,8 @@ void	print_final_map(t_fillist *list, int size)
 	{
 		if (i && i % size == 0)
 			ft_putchar('\n');
-		ft_putchar(map[i]);
+		//ft_putchar(map[i]);
+		ft_put_tetri_color(map[i]);
 		ft_putchar(' ');
 	}
 	ft_putchar('\n');
