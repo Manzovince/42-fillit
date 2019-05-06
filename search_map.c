@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/06 20:03:20 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/06 20:24:37 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 		}
 		if (!((tmp >> 16) & list->tetribit))
 			return (i + 1);
+		i++;
 		// pour ne pas deborder a droite de la map
 		if (i % size == size - list->width + 1)
 			i += list->width - 1;
-		i++;
 	}
 	return (0);
 }
