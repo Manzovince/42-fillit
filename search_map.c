@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/06 23:23:40 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/06 23:28:01 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,7 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 	// change les bits du tetri sur la map a la position donnee
 	while (j >= pos)
 	{
-//		tests pour trouver la nouvelle equation
-//		ft_putstr("[j:"); ft_putnbr(j); ft_putstr("] [32 - j:"); ft_putnbr(32 - j); ft_putstr("] [i:"); ft_putnbr(i); ft_putstr("] [pos:"); ft_putnbr(pos); ft_putendl("]");
-//		ft_putstr("map[j / 32]         :"); print_bits(map[j / 32], 32);
-//		ft_putstr("mask                :"); print_bits((mask & list->tetribit << (16 + i)) >> (j - 1), 32);
-//		ft_putstr("map[] ^ mask        :"); print_bits((map[j / 32] ^ (mask & list->tetribit << (16 + i)) >> (j - 1)), 32);
 		map[j / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
-//		ft_putchar('\n');
-//		ft_putstr("map[(j + size) / 32]:"); print_bits(map[(j + size) / 32], 32);
-//		ft_putstr("mask                :"); print_bits((mask & list->tetribit << (16 + i)), 32);
-//		ft_putstr("mask                :"); print_bits((mask & list->tetribit << (16 + i)) << (32 - j), 32);
-//		ft_putstr("map[] ^ mask        :"); print_bits(map[(j + size) / 32] ^ (mask & list->tetribit << (16 + i)) << (32 - j), 32);
-//		ft_putchar('\n');
 		map[(j + size) / 32] ^= (mask & tetri << (16 + i)) << (32 - j);
 		j -= size;
 		i -= list->width;
@@ -104,12 +93,9 @@ int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)
 	{
 		add_remove(map, list, size, pos);
 		list->position = pos;
-//		print_final_map(link, size);		// DEBUG tente imprime la map avec des lettres
-//		print_map(map, size, size, '#');	// DEBUG
 		if (fill_map(map, list->next, size, link))
 			return (1);
 		add_remove(map, list, size, pos);
-		list->position = -1;
 	}
 	return (0);
 }
@@ -155,21 +141,7 @@ void	search_map(t_fillist *list)
 
 
 
-
-
-	//////////////////////////// TEST ////////////////////////////
-//	// ce tableau permet de monter jusqu'a une map de 16*16
 	unsigned int	print;
-//	unsigned int	tab[8];
-//	tab[0] = 2656554334;
-//	tab[1] = 1394456818 ^ (1 << 11 | 1 << 22 | 1 << 4);
-//	tab[2] = 1494256918;
-//	tab[3] = 2656554334;
-//	tab[4] = 1592453883;
-//	tab[5] = 1444352908;
-//	tab[6] = 2154339230;
-//	tab[7] = 1576493154;
-//	print_map(tab, 10, 10, '#');
 	tmp = list;
 	while (tmp)
 	{
@@ -180,24 +152,6 @@ void	search_map(t_fillist *list)
 		ft_putchar('\n');
 		tmp = tmp->next;
 	}
-//	// quand add_remove_marchera la ligne d'apres imprimera la map avec les pixels du tetri rajoutes a la bonne place
-//		tmp = list;
-//		while (tmp)
-//		{
-//			print = tmp->tetribit;
-//			print <<= 16;
-//			print_map(&print, tmp->width, tmp->height, '#');		// test, imprime le tetri
-//			ft_putnbrendl(find_place(tab, tmp, 10, 0));
-//			add_remove(tab, tmp, 10, find_place(tab, tmp, 10, 0));
-//			ft_putchar('\n');					// DEBUG
-//			print_map(tab, 10, 10, '#');
-//			ft_putchar('\n');					// DEBUG
-//			tmp = tmp->next;
-//		}
-	//////////////////////////// TEST ////////////////////////////
-
-
-
 
 
 	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
