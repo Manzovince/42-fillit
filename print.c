@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:24:28 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/06 16:29:52 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/06 21:35:59 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	print_map(unsigned int *tab, int width, int height, char letter)
 	{
 		if (i && !(i % width))
 			ft_putchar('\n');
-		tab[i / 32] & (1 << (31 - i % 32)) ? ft_putchar(letter) : ft_putchar('.');
+		tab[i / 32] & (1 << (31 - i % 32)) ? ft_put_tetri_color(letter) : ft_putchar('.');
 		ft_putchar(' ');
 		i++;
 	}
@@ -87,7 +87,7 @@ void	print_map(unsigned int *tab, int width, int height, char letter)
 
 void	print_final_map(t_fillist *list, int size)
 {
-	unsigned int	print;	// DEBUG
+//	unsigned int	print;	// DEBUG
 	t_fillist	*tmp;
 	char		*map;
 	int			i;
@@ -110,10 +110,10 @@ void	print_final_map(t_fillist *list, int size)
 			if (1 << (15 - i) & tmp->tetribit && tmp->position != -1)	// DEBUG "&& tmp->position != -1" pour imprimer les bonnes lettres au coours du debug
 				map[tmp->position + i + j - 1] = tmp->letter;
 		}
-		ft_putstr("position: "); ft_putnbrendl(tmp->position);		// DEBUG
-		print = tmp->tetribit << 16;								// DEBUG
-		print_map(&print, tmp->width, tmp->height, tmp->letter);	// DEBUG
-		ft_putchar('\n');											// DEBUG
+//		ft_putstr("position: "); ft_putnbrendl(tmp->position);		// DEBUG
+//		print = tmp->tetribit << 16;								// DEBUG
+//		print_map(&print, tmp->width, tmp->height, tmp->letter);	// DEBUG
+//		ft_putchar('\n');											// DEBUG
 		tmp = tmp->next;
 	}
 	i = -1;
