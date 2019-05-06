@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:24:28 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/04 19:05:59 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:29:52 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	print_final_map(t_fillist *list, int size)
 		{
 			if (i && i % tmp->width == 0)
 				j += size - tmp->width;
-			if (1 << (15 - i) & tmp->tetribit)
+			if (1 << (15 - i) & tmp->tetribit && tmp->position != -1)	// DEBUG "&& tmp->position != -1" pour imprimer les bonnes lettres au coours du debug
 				map[tmp->position + i + j - 1] = tmp->letter;
 		}
 		ft_putstr("position: "); ft_putnbrendl(tmp->position);		// DEBUG
@@ -126,4 +126,5 @@ void	print_final_map(t_fillist *list, int size)
 		ft_putchar(' ');
 	}
 	ft_putchar('\n');
+	ft_putchar('\n');											// DEBUG
 }
