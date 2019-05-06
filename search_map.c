@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/03 16:05:23 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/06 16:25:03 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 ** function that recursively try to fill the map with the tetris
 */
 
-int		fill_map(unsigned int *map, t_fillist *list, int size)
+int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)
 {
 	int	pos;
 
@@ -89,8 +89,12 @@ int		fill_map(unsigned int *map, t_fillist *list, int size)
 	while ((pos = find_place(map, list, size, pos)))
 	{
 		add_remove(map, list, size, pos);
-		if (fill_map(map, list->next, size))
-			return (list->position = pos);
+		list->position = pos;
+		print_final_map(link, size);		// DEBUG tente imprime la map avec des lettres
+		print_map(map, size, size, '#');	// DEBUG
+		ft_putchar('\n');					// DEBUG
+		if (fill_map(map, list->next, size, link))
+			return (1);
 		add_remove(map, list, size, pos);
 	}
 	return (0);
@@ -136,7 +140,7 @@ void	search_map(t_fillist *list)
 	map = init_map(size);
 	
 	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
-	while (!fill_map(map, list, size))
+	while (!fill_map(map, list, size, list))
 		map = init_map(size++);
 	print_final_map(list, size);	// DEBUG
 	ft_putchar('\n');				// DEBUG

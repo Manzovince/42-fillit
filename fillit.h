@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/03 16:10:34 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/03 20:57:59 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void    print_tetri(unsigned int bits, int size); //TO DELETE BEFORE EVAL
 void	search_map(t_fillist *list);
 void	print_map(unsigned int *tab, int width, int height, char letter);
 void    print_final_map(t_fillist *list, int size);
+void	print_debug_map(t_fillist *list, int size, int position);
 
 #endif
