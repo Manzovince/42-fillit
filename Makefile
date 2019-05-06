@@ -6,7 +6,7 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/05/03 13:50:34 by hulamy           ###   ########.fr        #
+#    Updated: 2019/05/06 16:37:52 by hulamy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,4 +52,4 @@ clean:
 fclean: clean
 	/bin/rm -rf $(NAME)
 
-re: clean all
+re: fclean all
