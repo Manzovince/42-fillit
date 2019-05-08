@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/03 19:11:02 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/08 08:09:14 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ void	print_error(char *s)
 void	print_error_extended(int error)
 {
 	if (error == 1)
-		ft_putstr("error: File contains char other than . # \\n found.\n");
+		ft_putstr("error: File contains char other than '.','#' and '\\n'.\n");
 	if (error == 2)
 		ft_putstr("error: File contains more than 2 \\n in a row.\n");
 	if (error == 3)
-		ft_putstr("error: File contains less than 1 tetrimino or more than 26.\n");
+		ft_putstr("error: File contains less than 1 tetrimino"
+					"or more than 26.\n");
 	if (error == 4)
 		ft_putstr("\n\nerror: This tetrimino has more or less than 4 #.\n");
 	if (error == 5)
-		ft_putstr("\n\nerror: This tetrimino # are not well connected.\n");
+		ft_putstr("\n\nerror: This tetrimino # are not all connected.\n");
 	exit(1);
 }
 
