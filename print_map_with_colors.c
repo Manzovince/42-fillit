@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 20:27:22 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/08 08:04:05 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/08 09:02:39 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void ft_putchar_color(char c, char color)
 		write(1, MAG, 5);
 	else if (color == 'C')
 		write(1, CYN, 5);
-	else if (color == 'W')
+	else if (color == 'W' || !c)
 		write(1, RESET, 5);
 	ft_putchar(c);
 	write(1, RESET, 5);
