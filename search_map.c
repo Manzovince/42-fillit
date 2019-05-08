@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/06 23:28:01 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/08 17:54:32 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,20 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 	// change les bits du tetri sur la map a la position donnee
 	while (j >= pos)
 	{
-		map[j / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
-		map[(j + size) / 32] ^= (mask & tetri << (16 + i)) << (32 - j);
+		ft_putstr("j: "); ft_putnbrendl(j);
+//		ft_putstr("map[(j - 1) / 32]                         :"); print_bits(map[(j - 1) / 32], 32);
+//		ft_putstr("(mask & tetri << (16 + i)) >> (j - 1)     :"); print_bits((mask & tetri << (16 + i)) >> (j - 1), 32);
+		map[(j - 1) / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
+//		ft_putstr("map[(j - 1) / 32] ^ mask...               :"); print_bits(map[j / 32], 32);
+		if (j % 32 != 1)
+		{
+//			ft_putendl("if (j % 32 != 1) :");
+			ft_putstr("map[(j + size) / 32]                      :"); print_bits(map[(j + size) / 32], 32);
+			ft_putstr("(mask & tetri << (16 + i))                :"); print_bits((mask & tetri << (16 + i)), 32);
+			ft_putstr("(mask & tetri << (16 + i)) << (32 - j + 1):"); print_bits((mask & tetri << (16 + i)) << (32 - j + 1), 32);
+			map[(j + size) / 32] ^= (mask & tetri << (16 + i)) << (32 - j + 1);
+			ft_putstr("map[(j + size) / 32] ^ mask...            :"); print_bits(map[(j + size) / 32], 32);
+		}
 		j -= size;
 		i -= list->width;
 	}
@@ -82,20 +94,26 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 ** function that recursively try to fill the map with the tetris
 */
 
-int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)
+int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)	// DEBUG "link"
 {
 	int	pos;
 
 	pos = 0;
 	if (!list)
 		return (1);
+	unsigned int tmp = list->tetribit << 16; print_map(&tmp, list->width, list->height, list->letter);	// DEBUG
 	while ((pos = find_place(map, list, size, pos)))
 	{
 		add_remove(map, list, size, pos);
 		list->position = pos;
+							print_final_map(link, size);		// DEBUG
+							ft_putnbrendl(pos);
+							print_map(map, size, size, '#');	// DEBUG
+							ft_putchar('\n');
 		if (fill_map(map, list->next, size, link))
 			return (1);
 		add_remove(map, list, size, pos);
+							list->position = -1;				// DEBUG
 	}
 	return (0);
 }
@@ -157,6 +175,6 @@ void	search_map(t_fillist *list)
 	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
 	while (!fill_map(map, list, size, list))
 		map = init_map(size++);
-	print_final_map(list, size);	// DEBUG
-	print_map(map, size, size, '#');
+	print_final_map(list, size);		// DEBUG
+	print_map(map, size, size, '#');	// DEBUG
 }
