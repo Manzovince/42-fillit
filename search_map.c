@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/08 17:54:32 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/08 18:38:47 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 	{
 		// pour ne pas deborder a droite de la map
 		if (i % size == size - list->width + 1)
-			i += list->width;
+			i += list->width - 1;
 		else
 		{
 			tmp = 0;
@@ -71,20 +71,9 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 	// change les bits du tetri sur la map a la position donnee
 	while (j >= pos)
 	{
-		ft_putstr("j: "); ft_putnbrendl(j);
-//		ft_putstr("map[(j - 1) / 32]                         :"); print_bits(map[(j - 1) / 32], 32);
-//		ft_putstr("(mask & tetri << (16 + i)) >> (j - 1)     :"); print_bits((mask & tetri << (16 + i)) >> (j - 1), 32);
 		map[(j - 1) / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
-//		ft_putstr("map[(j - 1) / 32] ^ mask...               :"); print_bits(map[j / 32], 32);
 		if (j % 32 != 1)
-		{
-//			ft_putendl("if (j % 32 != 1) :");
-			ft_putstr("map[(j + size) / 32]                      :"); print_bits(map[(j + size) / 32], 32);
-			ft_putstr("(mask & tetri << (16 + i))                :"); print_bits((mask & tetri << (16 + i)), 32);
-			ft_putstr("(mask & tetri << (16 + i)) << (32 - j + 1):"); print_bits((mask & tetri << (16 + i)) << (32 - j + 1), 32);
 			map[(j + size) / 32] ^= (mask & tetri << (16 + i)) << (32 - j + 1);
-			ft_putstr("map[(j + size) / 32] ^ mask...            :"); print_bits(map[(j + size) / 32], 32);
-		}
 		j -= size;
 		i -= list->width;
 	}
@@ -101,19 +90,19 @@ int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)	// 
 	pos = 0;
 	if (!list)
 		return (1);
-	unsigned int tmp = list->tetribit << 16; print_map(&tmp, list->width, list->height, list->letter);	// DEBUG
+//	unsigned int tmp = list->tetribit << 16; print_map(&tmp, list->width, list->height, list->letter);	// DEBUG
 	while ((pos = find_place(map, list, size, pos)))
 	{
 		add_remove(map, list, size, pos);
 		list->position = pos;
-							print_final_map(link, size);		// DEBUG
-							ft_putnbrendl(pos);
-							print_map(map, size, size, '#');	// DEBUG
-							ft_putchar('\n');
+//							print_final_map(link, size);		// DEBUG
+//							ft_putnbrendl(pos);
+//							print_map(map, size, size, '#');	// DEBUG
+//							ft_putchar('\n');
 		if (fill_map(map, list->next, size, link))
 			return (1);
 		add_remove(map, list, size, pos);
-							list->position = -1;				// DEBUG
+//							list->position = -1;				// DEBUG
 	}
 	return (0);
 }
