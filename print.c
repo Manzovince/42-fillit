@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:24:28 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/08 17:52:14 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/08 19:46:03 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,9 @@ void	print_final_map(t_fillist *list, int size)
 	{
 		if (i && i % size == 0)
 			ft_putchar('\n');
-		ft_put_tetri_color(map[i]);
-		ft_putchar(' ');
+		ft_putchar(map[i]);
+//		ft_put_tetri_color(map[i]);
+//		ft_putchar(' ');
 	}
 	ft_putchar('\n');
 }

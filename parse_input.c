@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/06 16:30:45 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/09 11:45:08 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,9 @@ void	parse_input(char *input)
 			tetri[j++] = input[i++];
 		tetri[19] = '\0';
 		if (check_tetri_errors(tetri))
-		{
-			ft_putstr(tetri);
-			print_error_extended(check_tetri_errors(tetri));
-			//print_error("\n\nerror: This tetrimino is not valid.\n");
-		}
+			print_error("error\n");
+//			print_error("error: Wrong tetrimino.\n");
+//			print_error_extended(check_tetri_errors(tetri));
 		add_to_list(tetri, &list, letter++);
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;

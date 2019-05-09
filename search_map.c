@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/08 18:38:47 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/08 19:38:23 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,8 @@ void	search_map(t_fillist *list)
 		// imression pour tests
 		print = tmp->tetribit;
 		print <<= 16;
-		print_map(&print, tmp->width, tmp->height, tmp->letter);		// test, imprime le tetri
-		ft_putchar('\n');
+//		print_map(&print, tmp->width, tmp->height, tmp->letter);		// test, imprime le tetri
+//		ft_putchar('\n');
 		tmp = tmp->next;
 	}
 
@@ -165,5 +165,5 @@ void	search_map(t_fillist *list)
 	while (!fill_map(map, list, size, list))
 		map = init_map(size++);
 	print_final_map(list, size);		// DEBUG
-	print_map(map, size, size, '#');	// DEBUG
+//	print_map(map, size, size, '#');	// DEBUG
 }

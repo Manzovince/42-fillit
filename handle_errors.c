@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/08 08:09:14 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/09 12:45:25 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** Function that display error message *s on fd and exit program
 */
 
-void	print_error(char *s)
+void	print_error(char *str)
 {
-	write(2, s, strlen(s));
+	write(1, str, ft_strlen(str));
 	exit(1);
 }
 
@@ -33,14 +33,14 @@ void	print_error_extended(int error)
 	if (error == 1)
 		ft_putstr("error: File contains char other than '.','#' and '\\n'.\n");
 	if (error == 2)
-		ft_putstr("error: File contains more than 2 \\n in a row.\n");
+		ft_putstr("error: File contains more than 2 '\\n' in a row.\n");
 	if (error == 3)
-		ft_putstr("error: File contains less than 1 tetrimino"
+		ft_putstr("error: File contains less than 1 tetrimino "
 					"or more than 26.\n");
 	if (error == 4)
-		ft_putstr("\n\nerror: This tetrimino has more or less than 4 #.\n");
+		ft_putstr("error: Tetrimino has more or less than 4 #.\n");
 	if (error == 5)
-		ft_putstr("\n\nerror: This tetrimino # are not all connected.\n");
+		ft_putstr("error: Tetrimino # are not all connected.\n");
 	exit(1);
 }
 
@@ -62,8 +62,10 @@ int		check_file_errors(char *file)
 	{
 		if (file[i] != '.' && file[i] != '#' && file[i] != '\n')
 			return (1);
-		if (file[i] == '\n')
+		else if (file[i] == '\n')
 			line_nbr++;
+		if (file[i] == '\n' && line_nbr % 5 == 0 && file[i-1] != '\n')
+			print_error("error\n");
 		if (file[i] == '\n' && file[i+1] != '\0' && \
 			file[i+2] != '.' && file[i+2] != '#')
 			return (2);
@@ -109,17 +111,27 @@ int		check_tetri_errors(char *tetri)
 int		check_tetri_errors_proxy(char *tetri)
 {
 	int		i;
+	int		j;
 
 	i = 0;
+	j = 0;
 	while (tetri[i])
 	{
+		if (tetri[i] == '#' && tetri[i + 1] == '#')
+			j++;
+		if (tetri[i] == '#' && tetri[i - 1] == '#')
+			j++;
+		if (tetri[i] == '#' && tetri[i + 5] == '#')
+			j++;
+		if (tetri[i] == '#' && tetri[i - 5] == '#')
+			j++;
 		if (tetri[i] == '.' || tetri[i] == '\n')
 			i++;
 		else if (tetri[i] == '#' && (tetri[i + 1] == '#' || tetri[i - 1] == '#'
-				|| tetri[i + 5] == '#' || tetri[i - 5] == '#'))
+			|| tetri[i + 5] == '#' || tetri[i - 5] == '#'))
 			i++;
 		else
 			return (1);
 	}
-	return (0);
+	return ((j < 6) ? 1 : 0);
 }
