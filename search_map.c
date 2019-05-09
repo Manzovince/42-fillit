@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/08 18:38:47 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/09 18:03:46 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,50 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 	}
 }
 
+int		check_others(unsigned int *map, t_fillist *list, int size, int num)
+{
+	t_fillist	*tmp;
+	int			dots;
+	int			total;
+	int			i;
+	int			j;
+
+	dot = 0;
+	i = -1;
+	num *= 4;
+	total = size * size;
+	while (++i < total && dots <= total - num)
+	{
+		tmp = list->next;
+		j = 1;
+		while (verifier si i est un point)
+			i++;
+		while (j && tmp)
+		{
+			// si le tetri est trop a droite ou trop en bas il ne rentre pas ce n'est pas la peine de charcher
+			if (tmp->width > (size - i % size) || (total - i) <= (tmp->height * size))
+				tmp = tmp->next;
+			else if (tmp->tetribit ne rentre pas dans la place i)
+				tmp = tmp->next;
+			else
+				j = 0;
+		}
+		if (j)
+			dots++;
+	}
+	// verifie que les tetri restant puissent un par un se placer sur la map
+	// ca n'optimise qu'en fin de map donc ca ralentit les grosses map en fait
+//	while ((tmp = tmp->next))
+//		if (!find_place(map, tmp, size, 0))
+//			return (0);
+	return (1);
+}
+
 /*
 ** function that recursively try to fill the map with the tetris
 */
 
-int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)	// DEBUG "link"
+int		fill_map(unsigned int *map, t_fillist *list, int size, int num, t_fillist *link)	// DEBUG "link"
 {
 	int	pos;
 
@@ -95,14 +134,11 @@ int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)	// 
 	{
 		add_remove(map, list, size, pos);
 		list->position = pos;
-//							print_final_map(link, size);		// DEBUG
-//							ft_putnbrendl(pos);
-//							print_map(map, size, size, '#');	// DEBUG
-//							ft_putchar('\n');
-		if (fill_map(map, list->next, size, link))
+		print_final_map(link, size); ft_putnbrendl(pos); print_map(map, size, size, '#'); ft_putchar('\n'); // DEBUG
+		if (check_others(map, list, size, num) && fill_map(map, list->next, size, num, link))
 			return (1);
 		add_remove(map, list, size, pos);
-//							list->position = -1;				// DEBUG
+		list->position = -1;	// DEBUG
 	}
 	return (0);
 }
@@ -133,16 +169,16 @@ void	search_map(t_fillist *list)
 
 	unsigned int	*map;
 	int				size;
-	int				i;
+	int				num;
 
 	size = 2;
-	i = 1;
+	num = 1;
 	tmp = list;
 	// trouve le nombre de tetri en parcourant la liste chainee
 	while ((tmp = tmp->next))
-		i++;
+		num++;
 	// trouve la taille minimale de la map
-	while (size * size < i * 4)
+	while (size * size < num * 4)
 		size++;
 	map = init_map(size);
 
@@ -162,7 +198,7 @@ void	search_map(t_fillist *list)
 
 
 	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
-	while (!fill_map(map, list, size, list))
+	while (!fill_map(map, list, size, num, list))
 		map = init_map(size++);
 	print_final_map(list, size);		// DEBUG
 	print_map(map, size, size, '#');	// DEBUG
