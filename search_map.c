@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/10 20:39:19 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/10 20:45:35 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,21 @@
 ** function that look if a tretri fit in a place
 */
 
-unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int pos, int number, int place)
+unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int pos)
 {
 	unsigned int	tmp;
 	unsigned int	mask;
 	int				i;
 
-//	(void)number;
-//	(void)place;
-	(void)pos;
-
-	i = -1;
+	mask = ~0u << (32 - list->width);
+	i = (list->height - 1) * size + pos;
 	tmp = 0;
-	mask = ~0u << (32 - list->width);	// creer un mask avec les size bits de gauche a 1 (ex: 11111110000000000000000000000000)
-	while (++i < list->height)
+	while (i >= pos)
 	{
-		if (place >= 32)
-		{
-			place -= 32;
-			number++;
-		}
-		tmp <<= list->width;
-		tmp |= ((mask & (map[number] << place)) | (mask & (map[number + 1] >> (32 - place)))) >> (32 - list->width);
-		place += size;
+		tmp >>= list->width;
+		tmp |= (mask & (map[i / 32] << i)) | (mask & (map[(i / 32) + 1] >> (32 - i)));
+		i -= size;
 	}
-
-//	mask = ~0u << (32 - list->width);
-//	i = (list->height - 1) * size + pos;
-//	tmp = 0;
-//	while (i >= pos)
-//	{
-//		tmp >>= list->width;
-//		tmp |= (mask & (map[i / 32] << i)) | (mask & (map[(i / 32) + 1] >> (32 - i)));
-//		i -= size;
-//	}
-
 	return (!((tmp >> 16) & list->tetribit));
 }
 
@@ -60,27 +40,15 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int pos,
 
 int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 {
-	int	row;
-	int	number;
-	int place;
-
-	row = pos % size;
-	place = pos % 32;
-	number = pos / 32;
 	// boucle jusqu'a la dernier place pour le tetri dans la map ou qu'il entre dans un trou
 	while (pos < (size - list->height + 1) * size)
 	{
 		// pour ne pas deborder a droite de la map
-//		if (pos % size > size - list->width)
-		if (place >= 32 && ++number)
-			place -= 32;
-		if (row > size - list->width && (row = -1))
+		if (pos % size > size - list->width)
 			pos += list->width - 2;
-		else if (fit_in_place(tab, list, size, pos, number, place))
+		else if (fit_in_place(tab, list, size, pos))
 			return (pos + 1);
 		pos++;
-		row++;
-		place++;
 	}
 	return (0);
 }
