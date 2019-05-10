@@ -6,11 +6,36 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/09 18:03:46 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/10 17:00:08 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*
+** function that look if a tretri fit in a place
+*/
+
+unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int pos)
+{
+	unsigned int	tmp;
+	unsigned int	mask;
+	int				j;
+
+	mask = ~0u << (32 - list->width);	// creer un mask avec les size bits de gauche a 1 (ex: 11111110000000000000000000000000)
+	j = (list->height - 1) * size + pos;
+	tmp = 0;
+	while (j >= pos)
+	{
+		tmp >>= list->width;
+		tmp |= (mask & (map[j / 32] << j));
+		tmp |= (mask & (map[(j + list->width) / 32] >> (32 - j)));
+		j -= size;
+	}
+	if (!((tmp >> 16) & list->tetribit))
+		return (pos + 1);
+	return (0);
+}
 
 /*
 ** function that look for the first place in the map for a tetri
@@ -18,37 +43,15 @@
 
 int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 {
-	int				i;
-	int				j;
-	unsigned int	mask;
-	unsigned int	tmp;
-
-	// creer un mask avec les size bits de gauche a 1 (ex: 11111110000000000000000000000000)
-	mask = ~0u << (32 - list->width);
-	tmp = mask;
-	i = pos;
 	// boucle jusqu'a la dernier place pour le tetri dans la map ou qu'il fit dans un trou
-	while (i < (size - list->height + 1) * size)
+	while (pos < (size - list->height + 1) * size)
 	{
 		// pour ne pas deborder a droite de la map
-		if (i % size == size - list->width + 1)
-			i += list->width - 1;
-		else
-		{
-			tmp = 0;
-			// construit un tmp qui est une photo de la map de la taille du tetri a un emplacement donne
-			j = (list->height - 1) * size + i;
-			while (j >= i)
-			{
-				tmp >>= list->width;
-				tmp |= (mask & (tab[j / 32] << j));
-				tmp |= (mask & (tab[(j + list->width) / 32] >> (32 - j)));
-				j -= size;
-			}
-			if (!((tmp >> 16) & list->tetribit))
-				return (i + 1);
-			i++;
-		}
+		if (pos % size == size - list->width + 1)
+			pos += list->width - 2;
+		else if (fit_in_place(tab, list, size, pos))
+			return (pos + 1);
+		pos++;
 	}
 	return (0);
 }
@@ -79,6 +82,11 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 	}
 }
 
+/*
+** function that try to optimize the speed
+** TOTAL FAILURE :p
+*/
+
 int		check_others(unsigned int *map, t_fillist *list, int size, int num)
 {
 	t_fillist	*tmp;
@@ -87,7 +95,7 @@ int		check_others(unsigned int *map, t_fillist *list, int size, int num)
 	int			i;
 	int			j;
 
-	dot = 0;
+	dots = 0;
 	i = -1;
 	num *= 4;
 	total = size * size;
@@ -95,27 +103,27 @@ int		check_others(unsigned int *map, t_fillist *list, int size, int num)
 	{
 		tmp = list->next;
 		j = 1;
-		while (verifier si i est un point)
+		// saute les position pas vides
+		while (1 << (i % 32) & map[i % 32])
 			i++;
+		// pour chaque position vide regarde si chaque tetri non encode places peuvent y rentrer
 		while (j && tmp)
 		{
-			// si le tetri est trop a droite ou trop en bas il ne rentre pas ce n'est pas la peine de charcher
+			// si le tetri est trop a droite ou trop en bas il ne rentre pas ce n'est pas la peine de chercher donc on passe au tetri suivant
 			if (tmp->width > (size - i % size) || (total - i) <= (tmp->height * size))
 				tmp = tmp->next;
-			else if (tmp->tetribit ne rentre pas dans la place i)
+			// sinon verifier si on peut le mettre a cette position et si on ne peut pas passer au tetri suivant
+			else if (!fit_in_place(map, list, size, i))
 				tmp = tmp->next;
+			// si le tetri peut rentrer on arrete la boucle en mettant j = 0
 			else
 				j = 0;
 		}
+		// si j existe c que le tetri ne pouvait pas etre place donc on rajoute 1 au compteur de point isoles
 		if (j)
 			dots++;
 	}
-	// verifie que les tetri restant puissent un par un se placer sur la map
-	// ca n'optimise qu'en fin de map donc ca ralentit les grosses map en fait
-//	while ((tmp = tmp->next))
-//		if (!find_place(map, tmp, size, 0))
-//			return (0);
-	return (1);
+	return (dots > total - num);
 }
 
 /*
@@ -134,7 +142,7 @@ int		fill_map(unsigned int *map, t_fillist *list, int size, int num, t_fillist *
 	{
 		add_remove(map, list, size, pos);
 		list->position = pos;
-		print_final_map(link, size); ft_putnbrendl(pos); print_map(map, size, size, '#'); ft_putchar('\n'); // DEBUG
+//		print_final_map(link, size); ft_putnbrendl(pos); print_map(map, size, size, '#'); ft_putchar('\n'); // DEBUG
 		if (check_others(map, list, size, num) && fill_map(map, list->next, size, num, link))
 			return (1);
 		add_remove(map, list, size, pos);
