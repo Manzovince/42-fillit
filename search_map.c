@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/13 18:24:56 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/13 21:46:32 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,21 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 ** Test optimisation for not testing wrong maps when tetri are identical
 */
 
+int		compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b)
+{
+	if (tetri_a->tetribit != tetri_b->tetribit)
+		return (0);
+	if (tetri_a->width != tetri_b->width)
+		return (0);
+	if (tetri_a->height != tetri_b->height)
+			return (0);
+	return (1);
+}
+
+/*
+** Test optimisation for not testing wrong maps when tetri are identical
+*/
+
 int		check_same_tetri(t_fillist *list)
 {
 	t_fillist	*curr_tetri;
@@ -96,7 +111,7 @@ int		check_same_tetri(t_fillist *list)
 		next_tetri = curr_tetri->next;
 		while (next_tetri != NULL)
 		{
-			if (curr_tetri->tetribit == next_tetri->tetribit)
+			if (compare_tetri(curr_tetri, next_tetri))
 			{
 				if (next_tetri->same == NULL)
 					next_tetri->same = curr_tetri;
@@ -129,7 +144,7 @@ int		check_tetri_memory(t_fillist *list, int pos)
 			return (pos + 1);
 		}
 	}
-	return (pos);
+	return (0);
 }
 
 /*
@@ -149,12 +164,13 @@ int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)	// 
 		list->memory = (list->memory << 1) + 1;
 		add_remove(map, list, size, pos);
 		list->position = pos;
-		check_tetri_memory(list, pos);
+		if (check_tetri_memory(list, pos))
+			pos = check_tetri_memory(list, pos);
 		print_final_map(link, size);		// DEBUG
 //		ft_putnbrendl(pos);
 //		print_map(map, size, size, '#');	// DEBUG
 		ft_putchar('\n'); 					// DEBUG
-//		if (list->same && list->position == 1)
+//		if (list->same != NULL && check_tetri_memory)
 //		{
 //			list = list->next;
 //			if (fill_map(map, list->next, size, link))
@@ -223,7 +239,17 @@ void	search_map(t_fillist *list)
 	check_same_tetri(list);
 	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
 	while (!fill_map(map, list, size, list))
+	{
+		t_fillist *tmp;
+
+		tmp = list;
 		map = init_map(size++);
+		while (tmp != NULL)
+		{
+			tmp->memory = 0;
+			tmp = tmp->next;
+		}
+	}
 	print_final_map(list, size);		// DEBUG
 //	print_map(map, size, size, '#');	// DEBUG
 }
