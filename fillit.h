@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/08 17:52:19 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/13 17:56:19 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h> // for system call write
 #include <fcntl.h> // for system call open
+#include <stdbool.h>
 #include <stdio.h> // for printf (DELETE BEFORE EVAL)
 
 #include "libft/includes/libft.h"
@@ -34,6 +35,14 @@
 #define CYN   "\x1B[36m"
 #define RESET "\x1B[0m"
 
+//#define RED   "\e[41m"
+//#define GRN   "\e[42m"
+//#define YEL   "\e[43m"
+//#define BLU   "\e[44m"
+//#define MAG   "\e[45m"
+//#define CYN   "\e[46m"
+//#define RESET "\e[49m"
+
 /*
 **	STRUCTURE
 */
@@ -45,6 +54,8 @@ typedef struct			s_fillist
 	int					height;
 	int					position;
 	char				letter;
+	uint64_t			memory;
+	struct s_fillist	*same;
 	struct s_fillist	*next;
 }						t_fillist;
 
