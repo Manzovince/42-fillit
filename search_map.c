@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/10 20:45:35 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/15 17:46:55 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,36 @@
 ** function that look if a tretri fit in a place
 */
 
-unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int pos)
+//unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int pos)
+unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int pos, int number, int place)
 {
 	unsigned int	tmp;
 	unsigned int	mask;
 	int				i;
 
+//	/*
+	(void)pos;
+	unsigned int	tetri;
+	i = list->height;
+	tetri = list->tetribit << 16 >> list->width;
+	tmp = 0;
+	mask = ~0u << (32 - list->width);
+	while (i--)
+	{
+		if (tmp & tetri)
+			return (0);
+		if (place >= 32 && ++number)
+			place -= 32;
+		tmp = (mask & (map[number] << place)) | (mask & (map[number + 1] >> (32 - place)));
+		tetri <<= list->width;
+		place += size;
+	}
+	return (!(tmp & tetri));
+//	*/
+
+	/*
+	(void)place;
+	(void)number;
 	mask = ~0u << (32 - list->width);
 	i = (list->height - 1) * size + pos;
 	tmp = 0;
@@ -32,6 +56,7 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int pos)
 		i -= size;
 	}
 	return (!((tmp >> 16) & list->tetribit));
+	*/
 }
 
 /*
@@ -40,6 +65,36 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int pos)
 
 int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 {
+//	/*
+	int	row;		// designe la position de size*size sur la ligne du tableau
+	int	number;		// designe la position de pos dans l'int du tableau
+	int place;		// designe dans quel int tu tableau pos se trouve
+	int	limit;		// limit en hauteur du tableau a chercher pour la position du tetri
+
+	row = pos % size;
+	place = pos % 32;
+	number = pos / 32;
+	limit = (size - list->height + 1) * size;
+	while (pos < limit)
+	{
+		if (place >= 32 && ++number)
+			place -= 32;
+//		if (place != (pos % 32) || number != (pos / 32))	// pour verifier que place et number sont bien implementes
+//			ft_putendl("error");
+		if (row > size - list->width && (row = -1))
+		{
+			pos += list->width - 2;
+			place += list->width - 2;
+		}
+		else if (fit_in_place(tab, list, size, pos, number, place))
+			return (pos + 1);
+		pos++;
+		row++;
+		place++;
+	}
+//	*/
+
+	/*
 	// boucle jusqu'a la dernier place pour le tetri dans la map ou qu'il entre dans un trou
 	while (pos < (size - list->height + 1) * size)
 	{
@@ -50,6 +105,8 @@ int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 			return (pos + 1);
 		pos++;
 	}
+	*/
+
 	return (0);
 }
 
