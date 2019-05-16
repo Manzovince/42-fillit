@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/15 18:03:41 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/16 16:50:29 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,15 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int n, i
 ** function that look for the first place in the map for a tetri
 */
 
-int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
+int		find_place(unsigned int *tab, t_fillist *list, int size)
 {
 	int	place;		// designe la position sur la ligne du tableau de size*size
 	int	r;			// designe la position de pos dans l'int du tableau
 	int n;			// designe dans quel int tu tableau pos se trouve
 	int	limit;		// limit en hauteur du tableau a chercher pour la position du tetri
+	int pos;
 
+	pos = list->position;
 	place = pos % size;
 	r = pos % 32;
 	n = pos / 32;
@@ -65,7 +67,8 @@ int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 			r += list->width - 2;
 		}
 		else if (fit_in_place(tab, list, size, n, r))
-			return (pos + 1);
+			return ((list->position = pos + 1));
+//			return (pos + 1);
 		pos++;
 		place++;
 		r++;
@@ -77,7 +80,7 @@ int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
 ** function that add or remove a tetri on the map
 */
 
-void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
+void	add_remove(unsigned int *map, t_fillist *list, int size)
 {
 	unsigned int	mask;
 	unsigned short	tetri;
@@ -87,9 +90,9 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 	tetri = list->tetribit;
 	mask = ~0u << (32 - list->width);
 	i = (list->height - 1) * list->width;
-	j = (list->height - 1) * size + pos;
+	j = (list->height - 1) * size + list->position;
 	// change les bits du tetri sur la map a la position donnee
-	while (j >= pos)
+	while (j >= list->position)
 	{
 		map[(j - 1) / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
 		map[(j - 1) / 32 + 1] ^= (mask & tetri << (16 + i)) << (32 - j) << 1;
@@ -102,24 +105,47 @@ void	add_remove(unsigned int *map, t_fillist *list, int size, int pos)
 ** function that recursively try to fill the map with the tetris
 */
 
-int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)	// DEBUG "link"
+int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)	// DEBUG link sert uniquement pour afficher le debug
 {
-	int	pos;
+//	/*
+//	int	posx;
+//	int posy;
 
+//	posx = list->posx;
+//	posy = list->posy;
+	if (!list)
+		return (1);
+	list->position = 0;				// comme les positions sont marquees en dure dans la liste et non plus dans une petite variable
+									// au sein de la fonction, il faut remettre a zero la position a chaque  nouveau tour de map
+	while (find_place(map, list, size))
+	{
+//		pos = list->position;
+//		list->test = 1;	// DEBUG pour afficher la map a chaque etape
+		add_remove(map, list, size);
+//		print_final_map(link, size); ft_putnbrendl(pos); print_map(map, size, size, '#'); ft_putchar('\n'); // DEBUG
+		if (fill_map(map, list->next, size, link))
+			return (1);
+		add_remove(map, list, size);
+//		list->test = 0; // DEBUG pour afficher la map a chaque etape
+	}
+//	*/
+
+	/*
+	int	pos;
+	
 	pos = 0;
 	if (!list)
 		return (1);
-//	unsigned int tmp = list->tetribit << 16; print_map(&tmp, list->width, list->height, list->letter);	// DEBUG
 	while ((pos = find_place(map, list, size, pos)))
 	{
 		add_remove(map, list, size, pos);
 		list->position = pos;
-//		print_final_map(link, size); ft_putnbrendl(pos); print_map(map, size, size, '#'); ft_putchar('\n'); // DEBUG
 		if (fill_map(map, list->next, size, link))
 			return (1);
 		add_remove(map, list, size, pos);
-//		list->position = -1;	// DEBUG
 	}
+	*/
+
 	return (0);
 }
 

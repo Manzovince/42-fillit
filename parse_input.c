@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/06 16:30:45 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/16 15:30:57 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void	fill_list(char line[], t_fillist *list)
 	list->height = i;
 	// fabrique la ligne pour le tetriminos de la bonne largeur
 	list->tetribit = reduce_tetri(list->tetribit, list->width);
-	list->position = -1;	// DEBUG pour que print_final_map puisse imprimer correctement au fur et a mesure
+	list->position = 0;
+	list->test = 0;	// DEBUG pour que print_final_map puisse imprimer correctement au fur et a mesure
 }
 
 /*

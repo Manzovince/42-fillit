@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/08 17:52:19 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/16 15:31:15 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct			s_fillist
 	int					width;
 	int					height;
 	int					position;
+	int					test;
 	char				letter;
 	struct s_fillist	*next;
 }						t_fillist;

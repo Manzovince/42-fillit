@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:24:28 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/08 17:52:14 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/16 15:52:52 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	print_final_map(t_fillist *list, int size)
 		{
 			if (i && i % tmp->width == 0)
 				j += size - tmp->width;
-			if (1 << (15 - i) & tmp->tetribit && tmp->position != -1)	// DEBUG "&& tmp->position != -1" pour imprimer les bonnes lettres au coours du debug
+			if (1 << (15 - i) & tmp->tetribit/* && tmp->test == 1*/)	// DEBUG "&& tmp->position != -1" pour imprimer les bonnes lettres au coours du debug
 				map[tmp->position + i + j - 1] = tmp->letter;
 		}
 		tmp = tmp->next;
