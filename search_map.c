@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/16 16:50:29 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/17 17:06:41 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,20 @@
 ** function that look if a tretri fit in a place
 */
 
-unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int n, int r)
+unsigned int	fit_in_place(unsigned int *map, t_fillist *lst, int size, int i)
 {
 	unsigned int	tmp;
 	unsigned int	mask;
-	int				i;
-
 	unsigned int	tetri;
-	i = list->height;
-	tetri = list->tetribit << 16 >> list->width;
+	int				n;
+	int				r;
+
+	n = lst->num;
+	r = lst->rank;
+	i = lst->height;
+	tetri = lst->tetribit << 16 >> lst->width;
 	tmp = 0;
-	mask = ~0u << (32 - list->width);
+	mask = ~0u << (32 - lst->width);
 	while (i--)
 	{
 		if (tmp & tetri)
@@ -34,7 +37,7 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int n, i
 		if (r >= 32 && ++n)
 			r -= 32;
 		tmp = (mask & (map[n] << r)) | (mask & (map[n + 1] >> (32 - r)));
-		tetri <<= list->width;
+		tetri <<= lst->width;
 		r += size;
 	}
 	return (!(tmp & tetri));
@@ -44,34 +47,31 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *list, int size, int n, i
 ** function that look for the first place in the map for a tetri
 */
 
-int		find_place(unsigned int *tab, t_fillist *list, int size)
+int		find_place(unsigned int *map, t_fillist *list, int size)
 {
-	int	place;		// designe la position sur la ligne du tableau de size*size
-	int	r;			// designe la position de pos dans l'int du tableau
-	int n;			// designe dans quel int tu tableau pos se trouve
-	int	limit;		// limit en hauteur du tableau a chercher pour la position du tetri
+	int	limit;
 	int pos;
 
 	pos = list->position;
-	place = pos % size;
-	r = pos % 32;
-	n = pos / 32;
+	list->place = pos % size;
+	list->rank = pos % 32;
+	list->num = pos / 32;
 	limit = (size - list->height + 1) * size;
 	while (pos < limit)
 	{
-		if (r >= 32 && ++n)
-			r -= 32;
-		if (place > size - list->width && (place = -1))
+		if (list->rank >= 32 && ++list->num)
+			list->rank -= 32;
+		if (list->place > size - list->width)
 		{
+			list->place = -1;
 			pos += list->width - 2;
-			r += list->width - 2;
+			list->rank += list->width - 2;
 		}
-		else if (fit_in_place(tab, list, size, n, r))
+		else if (fit_in_place(map, list, size, 0))
 			return ((list->position = pos + 1));
-//			return (pos + 1);
 		pos++;
-		place++;
-		r++;
+		list->place++;
+		list->rank++;
 	}
 	return (0);
 }
@@ -105,91 +105,34 @@ void	add_remove(unsigned int *map, t_fillist *list, int size)
 ** function that recursively try to fill the map with the tetris
 */
 
-int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)	// DEBUG link sert uniquement pour afficher le debug
+int		fill_map(unsigned int *map, t_fillist *list, int size)
 {
-//	/*
-//	int	posx;
-//	int posy;
-
-//	posx = list->posx;
-//	posy = list->posy;
 	if (!list)
 		return (1);
-	list->position = 0;				// comme les positions sont marquees en dure dans la liste et non plus dans une petite variable
-									// au sein de la fonction, il faut remettre a zero la position a chaque  nouveau tour de map
+	list->position = 0;
 	while (find_place(map, list, size))
 	{
-//		pos = list->position;
-//		list->test = 1;	// DEBUG pour afficher la map a chaque etape
 		add_remove(map, list, size);
-//		print_final_map(link, size); ft_putnbrendl(pos); print_map(map, size, size, '#'); ft_putchar('\n'); // DEBUG
-		if (fill_map(map, list->next, size, link))
+		if (fill_map(map, list->next, size))
 			return (1);
 		add_remove(map, list, size);
-//		list->test = 0; // DEBUG pour afficher la map a chaque etape
 	}
-//	*/
-
-	/*
-	int	pos;
-	
-	pos = 0;
-	if (!list)
-		return (1);
-	while ((pos = find_place(map, list, size, pos)))
-	{
-		add_remove(map, list, size, pos);
-		list->position = pos;
-		if (fill_map(map, list->next, size, link))
-			return (1);
-		add_remove(map, list, size, pos);
-	}
-	*/
-
 	return (0);
-}
-
-/*
-** function that init the map to the right size fill with int equal to zeros
-*/
-
-unsigned int	*init_map(int i)
-{
-	unsigned int	*new;
-	int				size;
-
-	size = (i * i) / 32 + 1;
-	new = (unsigned int *)malloc(sizeof(*new) * size);
-	while (size)
-		new[size--] = 0;
-	return (new);
 }
 
 /*
 ** function that send to "fill_map" a map of a certain size and increment its size untill it's solved
 */
 
-void	search_map(t_fillist *list)
+int		search_map(t_fillist *list)
 {
 	t_fillist		*tmp;
-
 	unsigned int	*map;
 	int				size;
 	int				num;
+	int				i;
 
-	size = 2;
-	num = 1;
-	tmp = list;
-	// trouve le nombre de tetri en parcourant la liste chainee
-	while ((tmp = tmp->next))
-		num++;
-	// trouve la taille minimale de la map
-	while (size * size < num * 4)
-		size++;
-	map = init_map(size);
-
-
-
+	/////////////////////////////////////////////////// TEST
 	unsigned int	print;
 	tmp = list;
 	while (tmp)
@@ -197,15 +140,30 @@ void	search_map(t_fillist *list)
 		// imression pour tests
 		print = tmp->tetribit;
 		print <<= 16;
-		print_map(&print, tmp->width, tmp->height, tmp->letter);		// test, imprime le tetri
+		print_map(&print, tmp->width, tmp->height, tmp->letter);
 		ft_putchar('\n');
 		tmp = tmp->next;
 	}
+	/////////////////////////////////////////////////// TEST
 
-
-	// lance la recursive fill_map en augmentant la taille de la map tant qu'il n'y a pas de solution
-	while (!fill_map(map, list, size, list))
-		map = init_map(size++);
-	print_final_map(list, size);		// DEBUG
-	print_map(map, size, size, '#');	// DEBUG
+	size = 2;
+	num = 1;
+	tmp = list;
+	while ((tmp = tmp->next))
+		num++;
+	while (size * size < num * 4)
+		size++;
+	i = 0;
+	while (!i)
+	{
+		num = (size * size) / 32 + 1;
+		if (!(map = (unsigned int *)malloc(sizeof(*map) * num)))
+			return (0);
+		while (num)
+			map[num--] = 0;
+		i = fill_map(map, list, size++);
+	}
+	print_final_map(list, size - 1);		// DEBUG
+	print_map(map, size - 1, size - 1, '#');	// DEBUG
+	return (--size);
 }
