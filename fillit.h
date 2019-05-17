@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/13 17:56:19 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/17 18:37:47 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ typedef struct			s_fillist
 	int					width;
 	int					height;
 	int					position;
+	int					place;
+	int					rank;
+	int					num;
+	int					test;
 	char				letter;
 	uint64_t			memory;
 	struct s_fillist	*same;
@@ -66,7 +70,7 @@ typedef struct			s_fillist
 char	*read_file(char *file);
 void	print_error(char *s);
 void	print_error_extended(int error);
-void    parse_input(char *input);
+int	    parse_input(char *input, t_fillist **list);
 int		check_file_errors(char *file);
 int		check_tetri_errors(char *tetri);
 int		check_tetri_errors_proxy(char *tetri);
@@ -74,9 +78,9 @@ int		add_to_list(char *square, t_fillist **list, char letter);
 void    fill_list(char line[], t_fillist *list);
 void    print_bits(unsigned int bits, int size); //TO DELETE BEFORE EVAL
 void    print_tetri(unsigned int bits, int size); //TO DELETE BEFORE EVAL
-void	search_map(t_fillist *list);
+int		search_map(t_fillist *list);
 void	print_map(unsigned int *tab, int width, int height, char letter);
-void    print_final_map(t_fillist *list, int size);
+void    print_final_map(t_fillist *list, int size, int flag);
 void	ft_put_tetri_color(char c);
 
 #endif

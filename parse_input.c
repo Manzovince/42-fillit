@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/13 17:13:08 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/17 18:40:30 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	fill_list(char line[], t_fillist *list)
 	list->height = i;
 	// fabrique la ligne pour le tetriminos de la bonne largeur
 	list->tetribit = reduce_tetri(list->tetribit, list->width);
-	list->position = -1;	// DEBUG pour que print_final_map puisse imprimer correctement au fur et a mesure
+	list->position = 0;
+	list->test = 0;	// DEBUG pour que print_final_map puisse imprimer correctement au fur et a mesure
 }
 
 /*
@@ -124,9 +125,8 @@ int		add_to_list(char *line, t_fillist **list, char letter)
 ** Function that parse a file and put each tetrimino in a linked list
 */
 
-void	parse_input(char *input)
+int		parse_input(char *input, t_fillist **list)
 {
-	static t_fillist	*list = NULL;
 	char				tetri[20];
 	int					i;
 	int					j;
@@ -144,9 +144,10 @@ void	parse_input(char *input)
 			print_error("error\n");
 //			print_error("error: Wrong tetrimino.\n");
 //			print_error_extended(check_tetri_errors(tetri));
-		add_to_list(tetri, &list, letter++);
+		add_to_list(tetri, list, letter++);
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
-	search_map(list);
+	int size = search_map(*list);
+	return (size);
 }

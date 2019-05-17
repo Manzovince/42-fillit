@@ -6,7 +6,7 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/05/06 16:37:52 by hulamy           ###   ########.fr        #
+#    Updated: 2019/05/17 17:11:53 by hulamy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LDLIBS = -lft
 
 SRCS = $(shell find . -depth 1 -type f -not -name '.*' -not -name 'test*' -name '*.c')
 
-TRASH = $(shell find . -depth 1 -type f -name '*.dSYM')
+TRASH = $(shell find . -depth 1 -name '*.dSYM')
 TRASH += $(shell find . -depth 1 -type f -name '*.o')
 TRASH += $(shell find . -depth 1 -type f -name '*.swp')
 TRASH += $(shell find . -depth 1 -type f -name '*.swo')
