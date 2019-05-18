@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/17 18:40:30 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/18 14:17:14 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ unsigned short	reduce_tetri(unsigned short tetri, int width)
 /*
 ** Function that transforme a tetriminos char* into a short of 16 bites
 ** and then fills it and its reversed into the list
+**
+** 1)	transforme la ligne de . et # en un short de 0 et 1
+** 2)	cree un mask avec des 1 sur la colonne de droite (#...#...#...#...)
+** 3)	utilise le mask pour trouver la largeur que prend le tetriminos
+** 4)	deplace le tetriminos tout en haut a gauche
+** 		(i - list->width = le nombre de colonne vide a gauche)
+** 5)	trouve la hauteur du tetri
+** 6)	fabrique la ligne pour le tetriminos de la bonne largeur
 */
 
 void	fill_list(char line[], t_fillist *list)
@@ -65,12 +73,9 @@ void	fill_list(char line[], t_fillist *list)
 	unsigned int	mask;
 	int				i;
 
-	// transforme la ligne de . et # en un short de 0 et 1
 	list->tetribit = tab_to_bin(line);
 	list->memory = 0;
-	// cree un mask avec des 1 sur la colonne de droite (#...#...#...#...)
 	mask = (1 << 15) | (1 << 11) | (1 << 7) | (1 << 3);
-	// utilise le mask pour trouver la largeur que prend le tetriminos
 	i = 0;
 	while (!(mask & list->tetribit) && i++ < 4)
 		mask >>= 1;
@@ -78,19 +83,14 @@ void	fill_list(char line[], t_fillist *list)
 	while (mask & list->tetribit && ++i < 4)
 		mask >>= 1;
 	list->width = i - list->width;
-	// deplace le tetriminos tout en haut a gauche
-	//(i - list->width = le nombre de colonne vide a gauche)
 	list->tetribit <<= (i - list->width);
 	while (!(list->tetribit & (~0u << 12)))
 		list->tetribit <<= 4;
-	// trouve la hauteur du tetri
 	i = 0;
 	while (i < 4 && list->tetribit & (~0u << 28 >> (i * 4 + 16)))
 		i++;
 	list->height = i;
-	// fabrique la ligne pour le tetriminos de la bonne largeur
 	list->tetribit = reduce_tetri(list->tetribit, list->width);
-	list->position = 0;
 	list->test = 0;	// DEBUG pour que print_final_map puisse imprimer correctement au fur et a mesure
 }
 

@@ -6,11 +6,48 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/17 18:31:44 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/18 15:16:26 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*
+**	OLD VERSION of find_place and fit_in_place all in one but with a lot of divisions and modulo
+**
+**	int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
+**	{
+**		int				i;
+**		int				j;
+**		unsigned int	mask;
+**		unsigned int	tmp;
+**	
+**		mask = ~0u << (32 - list->width);
+**		tmp = mask;
+**		i = pos;
+**		while (i < (size - list->height + 1) * size)
+**		{
+**			if (i % size == size - list->width + 1)
+**				i += list->width - 1;
+**			else
+**			{
+**				tmp = 0;
+**				j = (list->height - 1) * size + i;
+**				while (j >= i)
+**				{
+**					tmp >>= list->width;
+**					tmp |= (mask & (tab[j / 32] << j));
+**					tmp |= (mask & (tab[(j + list->width) / 32] >> (32 - j)));
+**					j -= size;
+**				}
+**				if (!((tmp >> 16) & list->tetribit))
+**					return (i + 1);
+**				i++;
+**			}
+**		}
+**		return (0);
+**	}
+*/
 
 /*
 ** function that look if a tretri fit in a place
@@ -91,7 +128,6 @@ void	add_remove(unsigned int *map, t_fillist *list, int size)
 	mask = ~0u << (32 - list->width);
 	i = (list->height - 1) * list->width;
 	j = (list->height - 1) * size + list->position;
-	// change les bits du tetri sur la map a la position donnee
 	while (j >= list->position)
 	{
 		map[(j - 1) / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
