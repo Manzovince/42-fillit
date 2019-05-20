@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/20 15:41:59 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/20 15:50:12 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,6 @@ int		check_same_tetri(t_fillist *list, int num)
 	curr_tetri = list;
 	while (curr_tetri != NULL)
 	{
-		curr_tetri->same = NULL;
 		i = 0;
 		if (!(curr_tetri->memory = (unsigned int *)malloc(sizeof(*curr_tetri->memory) * num)))
 			return (0);
@@ -342,6 +341,7 @@ int		search_map(t_fillist *list)
 			map[num--] = 0;
 		i = fill_map(map, list, size++);
 	}
+	ft_putendl("result in binary :");
 	print_map(map, size - 1, size - 1, '#');	// DEBUG
 	return (--size);
 }

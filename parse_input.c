@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/18 14:17:14 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/20 15:43:57 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	fill_list(char line[], t_fillist *list)
 		i++;
 	list->height = i;
 	list->tetribit = reduce_tetri(list->tetribit, list->width);
+	list->same = NULL;
 	list->test = 0;	// DEBUG pour que print_final_map puisse imprimer correctement au fur et a mesure
 }
 
