@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/17 18:40:30 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/20 13:44:23 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ unsigned short	reduce_tetri(unsigned short tetri, int width)
 	unsigned int	mask;
 	unsigned int	tmp;
 
-	// cree un mask avec des 1 a gauche sur la largeur du tetriminos
 	mask = ~0u << (32 - width) >> 16;
-	// fabrique la ligne pour le tetriminos de la bonne largeur
 	tmp = tetri;
 	tmp = (mask & tetri);
 	tmp |= ((mask & tetri << 4) >> width);
@@ -65,12 +63,9 @@ void	fill_list(char line[], t_fillist *list)
 	unsigned int	mask;
 	int				i;
 
-	// transforme la ligne de . et # en un short de 0 et 1
 	list->tetribit = tab_to_bin(line);
 	list->memory = 0;
-	// cree un mask avec des 1 sur la colonne de droite (#...#...#...#...)
 	mask = (1 << 15) | (1 << 11) | (1 << 7) | (1 << 3);
-	// utilise le mask pour trouver la largeur que prend le tetriminos
 	i = 0;
 	while (!(mask & list->tetribit) && i++ < 4)
 		mask >>= 1;
@@ -78,20 +73,16 @@ void	fill_list(char line[], t_fillist *list)
 	while (mask & list->tetribit && ++i < 4)
 		mask >>= 1;
 	list->width = i - list->width;
-	// deplace le tetriminos tout en haut a gauche
-	//(i - list->width = le nombre de colonne vide a gauche)
 	list->tetribit <<= (i - list->width);
 	while (!(list->tetribit & (~0u << 12)))
 		list->tetribit <<= 4;
-	// trouve la hauteur du tetri
 	i = 0;
 	while (i < 4 && list->tetribit & (~0u << 28 >> (i * 4 + 16)))
 		i++;
 	list->height = i;
-	// fabrique la ligne pour le tetriminos de la bonne largeur
 	list->tetribit = reduce_tetri(list->tetribit, list->width);
 	list->position = 0;
-	list->test = 0;	// DEBUG pour que print_final_map puisse imprimer correctement au fur et a mesure
+	list->test = 0;		// DEBUG pour que print_final_map puisse imprimer correctement au fur et a mesure
 }
 
 /*
@@ -142,8 +133,6 @@ int		parse_input(char *input, t_fillist **list)
 		tetri[19] = '\0';
 		if (check_tetri_errors(tetri))
 			print_error("error\n");
-//			print_error("error: Wrong tetrimino.\n");
-//			print_error_extended(check_tetri_errors(tetri));
 		add_to_list(tetri, list, letter++);
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
