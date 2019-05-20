@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/20 13:43:34 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/20 15:18:43 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct			s_fillist
 	int					num;
 	int					test;
 	char				letter;
-	uint64_t			memory;
+	unsigned int		*memory;
 	struct s_fillist	*same;
 	struct s_fillist	*next;
 }						t_fillist;
