@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/20 15:50:12 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/21 15:27:37 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,19 @@ int		check_tetri_memory(t_fillist *list, int pos)
 	return (0);
 }
 
+void	remove_tetri_memory(t_fillist *list, int pos)
+{
+	t_fillist		*tetri;
+	unsigned int	mask;
+
+	tetri = list;
+	mask = 1 << ((pos % 32) - 1);
+	if (tetri->same != NULL)
+		tetri->same->memory[pos / 32] ^= mask;
+	else
+		tetri->memory[pos / 32] ^= mask;
+}
+
 /*
 ** Function that recursively try to fill the map with the tetris
 */
@@ -247,6 +260,7 @@ int		fill_map(unsigned int *map, t_fillist *list, int size)
 			if (fill_map(map, list->next, size))
 				return (1);
 		add_remove(map, list, size);
+//		remove_tetri_memory(list, list->position);
 	}
 	return (0);
 }
