@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/21 15:27:37 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/24 14:48:33 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,50 +205,10 @@ void	add_remove(unsigned int *map, t_fillist *list, int size)
 }
 
 /*
-** Test optimisation for not testing wrong maps when tetri are identical
-*/
-
-int		check_tetri_memory(t_fillist *list, int pos)
-{
-	t_fillist		*tetri;
-	unsigned int	mask;
-
-	tetri = list;
-	mask = 1 << ((pos % 32) - 1);
-	if (tetri->same != NULL)
-	{
-		if (!(tetri->same->memory[pos / 32] & mask))
-		{
-			tetri->same->memory[pos / 32] |= mask;
-			return (1);
-		}
-	}
-	else
-	{
-		tetri->memory[pos / 32] |= mask;
-		return (1);
-	}
-	return (0);
-}
-
-void	remove_tetri_memory(t_fillist *list, int pos)
-{
-	t_fillist		*tetri;
-	unsigned int	mask;
-
-	tetri = list;
-	mask = 1 << ((pos % 32) - 1);
-	if (tetri->same != NULL)
-		tetri->same->memory[pos / 32] ^= mask;
-	else
-		tetri->memory[pos / 32] ^= mask;
-}
-
-/*
 ** Function that recursively try to fill the map with the tetris
 */
 
-int		fill_map(unsigned int *map, t_fillist *list, int size)
+int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)
 {
 	if (!list)
 		return (1);
@@ -256,57 +216,19 @@ int		fill_map(unsigned int *map, t_fillist *list, int size)
 	while (find_place(map, list, size))
 	{
 		add_remove(map, list, size);
+		
+							list->test = 1;						// DEBUG
+//							print_final_map(link, size, 1);		// DEBUG
+//							ft_putchar('\n');					// DEBUG
+
 		if (check_tetri_memory(list, list->position))
-			if (fill_map(map, list->next, size))
+			if (fill_map(map, list->next, size, link))
 				return (1);
 		add_remove(map, list, size);
 //		remove_tetri_memory(list, list->position);
-	}
-	return (0);
-}
 
-/*
-** Test optimisation for not testing wrong maps when tetri are identical
-*/
+							list->test = 0;						// DEBUG
 
-int		compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b)
-{
-	if (tetri_a->tetribit != tetri_b->tetribit)
-		return (0);
-	if (tetri_a->width != tetri_b->width)
-		return (0);
-	if (tetri_a->height != tetri_b->height)
-			return (0);
-	return (1);
-}
-
-/*
-** Test optimisation for not testing wrong maps when tetri are identical
-*/
-
-int		check_same_tetri(t_fillist *list, int num)
-{
-	t_fillist	*curr_tetri;
-	t_fillist	*next_tetri;
-	int			i;
-
-	curr_tetri = list;
-	while (curr_tetri != NULL)
-	{
-		i = 0;
-		if (!(curr_tetri->memory = (unsigned int *)malloc(sizeof(*curr_tetri->memory) * num)))
-			return (0);
-		while (i < num)
-			curr_tetri->memory[i++] = 0;
-		next_tetri = curr_tetri->next;
-		while (next_tetri != NULL)
-		{
-			if (compare_tetri(curr_tetri, next_tetri))
-				if (next_tetri->same == NULL)
-					next_tetri->same = curr_tetri;
-			next_tetri = next_tetri->next;
-		}
-		curr_tetri = curr_tetri->next;
 	}
 	return (0);
 }
@@ -329,9 +251,18 @@ int		search_map(t_fillist *list)
 	while (tmp)
 	{
 		// imression pour tests
+		check_same_tetri(list, 1);
 		print = tmp->tetribit;
 		print <<= 16;
 		print_map(&print, tmp->width, tmp->height, tmp->letter);
+		if (tmp->same)
+		{
+			print = tmp->same->tetribit;
+			print <<= 16;
+			ft_putstr("same --> ");
+			ft_putchar(tmp->same->letter);
+			ft_putchar('\n');
+		}
 		ft_putchar('\n');
 		tmp = tmp->next;
 	}
@@ -347,15 +278,16 @@ int		search_map(t_fillist *list)
 	i = 0;
 	while (!i)
 	{
+		ft_putnbrendl(size);
 		num = (size * size) / 32 + 1;
 		if (!(map = (unsigned int *)malloc(sizeof(*map) * num)))
 			return (0);
 		check_same_tetri(list, num);
 		while (num)
 			map[num--] = 0;
-		i = fill_map(map, list, size++);
+		i = fill_map(map, list, size++, list);
 	}
-	ft_putendl("result in binary :");
+	ft_putendl("result in binary :");			// DEBUG (pas dans le main car besoin de map)
 	print_map(map, size - 1, size - 1, '#');	// DEBUG
 	return (--size);
 }

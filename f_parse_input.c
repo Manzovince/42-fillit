@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/20 15:43:57 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/24 18:04:46 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int		add_to_list(char *line, t_fillist **list, char letter)
 ** Function that parse a file and put each tetrimino in a linked list
 */
 
-int		parse_input(char *input, t_fillist **list)
+int		parse_input(char *input, t_fillist **list, int *dope)
 {
 	char				tetri[20];
 	int					i;

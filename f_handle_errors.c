@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/09 12:45:25 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/24 18:02:08 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	print_error(char *str)
 {
 	write(1, str, ft_strlen(str));
-	exit(1);
+//	exit(1);
 }
 
 /*
@@ -28,8 +28,13 @@ void	print_error(char *str)
 ** and exit program
 */
 
-void	print_error_extended(int error)
+void	print_error_extended(int error, int *dope)
 {
+	if (!dope[3])
+	{
+		print_error("error\n");
+		exit(0);
+	}
 	if (error == 1)
 		ft_putstr("error: File contains char other than '.','#' and '\\n'.\n");
 	if (error == 2)
@@ -41,7 +46,7 @@ void	print_error_extended(int error)
 		ft_putstr("error: Tetrimino has more or less than 4 #.\n");
 	if (error == 5)
 		ft_putstr("error: Tetrimino # are not all connected.\n");
-	exit(1);
+//	exit(1);
 }
 
 /*
@@ -51,7 +56,7 @@ void	print_error_extended(int error)
 ** - two \n in a row
 */
 
-int		check_file_errors(char *file)
+void	check_file_errors(char *file, int *dope)
 {
 	int		i;
 	int		line_nbr;
@@ -61,19 +66,18 @@ int		check_file_errors(char *file)
 	while (file[i])
 	{
 		if (file[i] != '.' && file[i] != '#' && file[i] != '\n')
-			return (1);
+			print_error_extended(1, dope);
 		else if (file[i] == '\n')
 			line_nbr++;
 		if (file[i] == '\n' && line_nbr % 5 == 0 && file[i-1] != '\n')
-			print_error("error\n");
+			print_error("error\n");		// est-ce que ca n'imprime pas error deux fois ??
 		if (file[i] == '\n' && file[i+1] != '\0' && \
 			file[i+2] != '.' && file[i+2] != '#')
-			return (2);
+			print_error_extended(2, dope);
 		i++;
 	}
 	if (line_nbr < 4 || line_nbr > 129)
-		return (3);
-	return (0);
+		print_error_extended(3, dope);
 }
 
 /*
