@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/24 18:02:29 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/27 18:21:58 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** e : error extended (error message more precise AND no error for too much tetri)
 */
 
-int		*create_dope(char *av)
+int		*create_dope(char *av, int mdp)
 {
 	char	*comp;
 	int		*dope;
@@ -34,17 +34,13 @@ int		*create_dope(char *av)
 	i = 0;
 	while (i < 4)
 		dope[i++] = 0;
+	if (!mdp)
+		return (dope);
 	i = -1;
 	while (++i < 4 && (j = -1))
 		while (av[++j])
 			if (comp[i] == av[j])
 				dope[i] = 1;
-
-	ft_putendl(av);
-	i = -1;
-	while (++i < 4)
-		ft_putnbr(dope[i]);
-	ft_putchar('\n');
 	return (dope);
 }
 
@@ -57,7 +53,7 @@ int		is_mdp(int ac, char **av)
 	char	*mdp;
 	int		i;
 
-	if (ac != 4)
+	if (ac < 3 || ac > 4)
 		return (0);
 	mdp = "trompette";
 	i = 0;
@@ -65,6 +61,8 @@ int		is_mdp(int ac, char **av)
 		i++;
 	if (av[2][i] || mdp[i])
 		return (0);
+	if (ac == 3)
+		return (print_flags_usage());
 	return (1);
 }
 
@@ -78,11 +76,12 @@ int		main(int ac, char **av)
 	char		*input;
 	int			*dope;
 	int			size;
+	int			mdp;
 
 	list = NULL;
-	if (ac == 2 || is_mdp(ac, av))
+	dope = create_dope(av[3], (mdp = is_mdp(ac, av)));
+	if (ac == 2 || mdp)
 	{
-		dope = create_dope(av[3]);
 		if (!(input = read_file(av[1])))
 		{
 			if (dope[3])
@@ -92,14 +91,7 @@ int		main(int ac, char **av)
 		}
 		check_file_errors(input, dope);
 		size = parse_input(input, &list, dope);
-
-		ft_putchar('\n');						// DEBUG
-		ft_putendl("result for humans :");		// DEBUG
-		print_final_map(list, size, 1);			// DEBUG
-		ft_putchar('\n');						// DEBUG
-		ft_putendl("result for moulinette :");	// DEBUG
-
-		print_final_map(list, size, 0);
+		print_final_map(list, size);
 	}
 	else
 		print_error("usage: Please submit a file.\n> ./fillit file.fillit\n");

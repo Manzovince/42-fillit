@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/24 18:04:46 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/27 19:43:06 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ unsigned short	reduce_tetri(unsigned short tetri, int width)
 	unsigned int	mask;
 	unsigned int	tmp;
 
-	// cree un mask avec des 1 a gauche sur la largeur du tetriminos
 	mask = ~0u << (32 - width) >> 16;
-	// fabrique la ligne pour le tetriminos de la bonne largeur
-	tmp = tetri;
 	tmp = (mask & tetri);
 	tmp |= ((mask & tetri << 4) >> width);
 	tmp |= ((mask & tetri << 8) >> (2 * width));
@@ -66,9 +63,12 @@ unsigned short	reduce_tetri(unsigned short tetri, int width)
 ** 		(i - list->width = le nombre de colonne vide a gauche)
 ** 5)	trouve la hauteur du tetri
 ** 6)	fabrique la ligne pour le tetriminos de la bonne largeur
+**
+** list->test is used to debug the backtracking, allowing to print the
+** map each time without the previous tries
 */
 
-void	fill_list(char line[], t_fillist *list)
+void			fill_list(char line[], t_fillist *list)
 {
 	unsigned int	mask;
 	int				i;
@@ -92,7 +92,7 @@ void	fill_list(char line[], t_fillist *list)
 	list->height = i;
 	list->tetribit = reduce_tetri(list->tetribit, list->width);
 	list->same = NULL;
-	list->test = 0;	// DEBUG pour que print_final_map puisse imprimer correctement au fur et a mesure
+	list->test = 0;
 }
 
 /*
@@ -100,7 +100,7 @@ void	fill_list(char line[], t_fillist *list)
 ** linked each time needed
 */
 
-int		add_to_list(char *line, t_fillist **list, char letter)
+int				add_to_list(char *line, t_fillist **lst, char letter, int *dope)
 {
 	t_fillist	*tmp;
 	t_fillist	*test;
@@ -108,17 +108,19 @@ int		add_to_list(char *line, t_fillist **list, char letter)
 	if (!(tmp = (t_fillist*)malloc(sizeof(*tmp))))
 		return (0);
 	tmp->next = NULL;
-	test = *list;
+	test = *lst;
 	if (!test)
-		*list = tmp;
+		*lst = tmp;
 	else
 	{
-		while(test->next)
+		while (test->next)
 			test = test->next;
 		test->next = tmp;
 	}
 	fill_list(line, tmp);
 	tmp->letter = letter;
+	tmp->dope = dope;
+	tmp->start = *lst;
 	return (1);
 }
 
@@ -126,12 +128,13 @@ int		add_to_list(char *line, t_fillist **list, char letter)
 ** Function that parse a file and put each tetrimino in a linked list
 */
 
-int		parse_input(char *input, t_fillist **list, int *dope)
+int				parse_input(char *input, t_fillist **list, int *dope)
 {
 	char				tetri[20];
 	int					i;
 	int					j;
 	int					letter;
+	int					size;
 
 	i = 0;
 	letter = 'A';
@@ -145,10 +148,10 @@ int		parse_input(char *input, t_fillist **list, int *dope)
 			print_error("error\n");
 //			print_error("error: Wrong tetrimino.\n");
 //			print_error_extended(check_tetri_errors(tetri));
-		add_to_list(tetri, list, letter++);
+		add_to_list(tetri, list, letter++, dope);
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;
 	}
-	int size = search_map(*list);
+	size = search_map(*list);
 	return (size);
 }

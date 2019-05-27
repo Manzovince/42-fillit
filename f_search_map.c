@@ -6,115 +6,11 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/24 14:48:33 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/27 19:30:37 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-/*
-**	OLD VERSION of find_place and fit_in_place all in one but with a lot of divisions and modulo
-**
-**	int		find_place(unsigned int *tab, t_fillist *list, int size, int pos)
-**	{
-**		int				i;
-**		int				j;
-**		unsigned int	mask;
-**		unsigned int	tmp;
-**	
-**		mask = ~0u << (32 - list->width);
-**		tmp = mask;
-**		i = pos;
-**		while (i < (size - list->height + 1) * size)
-**		{
-**			if (i % size == size - list->width + 1)
-**				i += list->width - 1;
-**			else
-**			{
-**				tmp = 0;
-**				j = (list->height - 1) * size + i;
-**				while (j >= i)
-**				{
-**					tmp >>= list->width;
-**					tmp |= (mask & (tab[j / 32] << j));
-**					tmp |= (mask & (tab[(j + list->width) / 32] >> (32 - j)));
-**					j -= size;
-**				}
-**				if (!((tmp >> 16) & list->tetribit))
-**					return (i + 1);
-**				i++;
-**			}
-**		}
-**		return (0);
-**	}
-*/
-
-/*
-** function that try to optimize the speed
-** SECOND ATTEMPT
-** by finding the isolated dots whille fillling the map
-** untill they get more numerous than the max amount available
-** TOTAL FAILURE :p
-**
-**	int		check_others(unsigned int *map, t_fillist *list, int size, int num)
-**	{
-**		t_fillist	*tmp;
-**		int			dots;
-**		int			total;
-**		int			i;
-**		int			j;
-**	
-**		dots = 0;
-**		i = -1;
-**		num *= 4;
-**		total = size * size;
-**		while (++i < total && dots <= total - num)
-**		{
-**			tmp = list->next;
-**			j = 1;
-**			// saute les position pas vides
-**			while (1 << (i % 32) & map[i % 32])
-**				i++;
-**			// pour chaque position vide regarde si chaque tetri non encode places peuvent y rentrer
-**			while (j && tmp)
-**			{
-**				// si le tetri est trop a droite ou trop en bas il ne rentre pas ce n'est pas la peine de chercher donc on passe au tetri suivant
-**				if (tmp->width > (size - i % size) || (total - i) <= (tmp->height * size))
-**					tmp = tmp->next;
-**				// sinon verifier si on peut le mettre a cette position et si on ne peut pas passer au tetri suivant
-**				else if (!fit_in_place(map, list, size, i))
-**					tmp = tmp->next;
-**				// si le tetri peut rentrer on arrete la boucle en mettant j = 0
-**				else
-**					j = 0;
-**			}
-**			// si j existe c que le tetri ne pouvait pas etre place donc on rajoute 1 au compteur de point isoles
-**			if (j)
-**				dots++;
-**		}
-**		return (dots > total - num);
-**	}
-*/
-
-/*
-** function that try to optimize the speed
-** FIRST ATTEMPT
-** by verifying if the place left is enough to place at least
-** one of each tetri left
-** TOTAL FAILURE :p
-**
-**	int		check_others(unsigned int *map, t_fillist *list, int size, int num)
-**	{
-**		t_fillist	*tmp;
-**	
-**		// verifie que les tetri restant puissent un par un se placer sur la map
-**		// ca n'optimise qu'en fin de map donc ca ralentit les grosses map en fait
-**		while ((tmp = tmp->next))
-**			if (!find_place(map, tmp, size, 0))
-**				return (0);
-**		return (1);
-**	}
-*/
 
 /*
 ** function that look if a tretri fit in a place
@@ -151,7 +47,7 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *lst, int size, int i)
 ** function that look for the first place in the map for a tetri
 */
 
-int		find_place(unsigned int *map, t_fillist *list, int size)
+int				find_place(unsigned int *map, t_fillist *list, int size)
 {
 	int	limit;
 	int pos;
@@ -184,7 +80,7 @@ int		find_place(unsigned int *map, t_fillist *list, int size)
 ** function that add or remove a tetri on the map
 */
 
-void	add_remove(unsigned int *map, t_fillist *list, int size)
+void			add_remove(unsigned int *map, t_fillist *list, int size)
 {
 	unsigned int	mask;
 	unsigned short	tetri;
@@ -208,7 +104,7 @@ void	add_remove(unsigned int *map, t_fillist *list, int size)
 ** Function that recursively try to fill the map with the tetris
 */
 
-int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)
+int				fill_map(unsigned int *map, t_fillist *list, int size)
 {
 	if (!list)
 		return (1);
@@ -216,28 +112,31 @@ int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)
 	while (find_place(map, list, size))
 	{
 		add_remove(map, list, size);
-		
-							list->test = 1;						// DEBUG
-//							print_final_map(link, size, 1);		// DEBUG
-//							ft_putchar('\n');					// DEBUG
-
-		if (check_tetri_memory(list, list->position))
-			if (fill_map(map, list->next, size, link))
+		list->test = 1;
+		if (list->dope[0])
+		{
+			print_letter_map(list->start, size, 1);
+			ft_putchar('\n');
+		}
+		if (list->dope[1])
+			if (check_tetri_memory(list, list->position))
+				if (fill_map(map, list->next, size))
+					return (1);
+		if (!list->dope[1])
+			if (fill_map(map, list->next, size))
 				return (1);
 		add_remove(map, list, size);
-//		remove_tetri_memory(list, list->position);
-
-							list->test = 0;						// DEBUG
-
+		list->test = 0;
 	}
 	return (0);
 }
 
 /*
-** function that send to "fill_map" a map of a certain size and increment its size untill it's solved
+** function that send to "fill_map" a map of a certain size
+** and increment its size untill it's solved
 */
 
-int		search_map(t_fillist *list)
+int				search_map(t_fillist *list)
 {
 	t_fillist		*tmp;
 	unsigned int	*map;
@@ -245,32 +144,9 @@ int		search_map(t_fillist *list)
 	int				num;
 	int				i;
 
-	/////////////////////////////////////////////////// TEST
-	unsigned int	print;
-	tmp = list;
-	while (tmp)
-	{
-		// imression pour tests
-		check_same_tetri(list, 1);
-		print = tmp->tetribit;
-		print <<= 16;
-		print_map(&print, tmp->width, tmp->height, tmp->letter);
-		if (tmp->same)
-		{
-			print = tmp->same->tetribit;
-			print <<= 16;
-			ft_putstr("same --> ");
-			ft_putchar(tmp->same->letter);
-			ft_putchar('\n');
-		}
-		ft_putchar('\n');
-		tmp = tmp->next;
-	}
-	/////////////////////////////////////////////////// TEST
-
 	size = 2;
 	num = 1;
-	tmp = list;
+	tmp = print_tetri(list);
 	while ((tmp = tmp->next))
 		num++;
 	while (size * size < num * 4)
@@ -278,16 +154,13 @@ int		search_map(t_fillist *list)
 	i = 0;
 	while (!i)
 	{
-		ft_putnbrendl(size);
 		num = (size * size) / 32 + 1;
 		if (!(map = (unsigned int *)malloc(sizeof(*map) * num)))
 			return (0);
 		check_same_tetri(list, num);
 		while (num)
 			map[num--] = 0;
-		i = fill_map(map, list, size++, list);
+		i = fill_map(map, list, size++);
 	}
-	ft_putendl("result in binary :");			// DEBUG (pas dans le main car besoin de map)
-	print_map(map, size - 1, size - 1, '#');	// DEBUG
-	return (--size);
+	return (print_binary_map(map, size, list->dope));
 }
