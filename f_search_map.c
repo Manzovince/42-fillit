@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/28 11:56:18 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/28 17:33:43 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *lst, int size, int i)
 			return (0);
 		if (r >= 32 && ++n)
 			r -= 32;
-		tmp = (mask & (map[n] << r)) | (mask & (map[n + 1] >> (32 - r)));
+		tmp = (mask & (map[n] << r));
+		if (n + 1 < lst->total_num)
+			tmp |= (mask & (map[n + 1] >> (32 - r)));
 		tetri <<= lst->width;
 		r += size;
 	}
@@ -94,7 +96,7 @@ void			add_remove(unsigned int *map, t_fillist *list, int size)
 	while (j >= list->position)
 	{
 		map[(j - 1) / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
-		if (map[(j - 1) / 32 + 1])
+		if ((j - 1) / 32 + 1 < list->total_num)
 			map[(j - 1) / 32 + 1] ^= (mask & tetri << (16 + i)) << (32 - j) << 1;
 		j -= size;
 		i -= list->width;
