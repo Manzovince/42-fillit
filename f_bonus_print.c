@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 13:46:29 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/27 19:33:09 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/28 09:57:40 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_fillist	*print_tetri(t_fillist *list)
 				print = tmp->same->tetribit;
 				print <<= 16;
 				ft_putstr("same --> ");
-				ft_putchar(tmp->same->letter);
+				ft_put_tetri_color(tmp->same->letter);
 				ft_putchar('\n');
 			}
 			ft_putchar('\n');

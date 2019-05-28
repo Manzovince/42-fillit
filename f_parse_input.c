@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/27 19:43:06 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/28 10:44:43 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,11 @@ int				parse_input(char *input, t_fillist **list, int *dope)
 		while (j < 19)
 			tetri[j++] = input[i++];
 		tetri[19] = '\0';
+		// "wrong tetrimino" utile ?
 		if (check_tetri_errors(tetri))
-			print_error("error\n");
+//			print_error("error\n");
 //			print_error("error: Wrong tetrimino.\n");
-//			print_error_extended(check_tetri_errors(tetri));
+			print_error_extended(check_tetri_errors(tetri), dope);
 		add_to_list(tetri, list, letter++, dope);
 		while (input[i] && input[i] != '.' && input[i] != '#')
 			i++;

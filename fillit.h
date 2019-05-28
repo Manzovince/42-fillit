@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/27 19:26:04 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/28 12:15:39 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,21 @@
 
 /*
 **	STRUCTURE
+** tetribit : tetri ecrit en binaire dans un short de 16 bits
+** width : largeur du tetri
+** height : hauteur du tetri
+** position : memorise la position d tetri bit a bit
+** place : position sur l'axe des abscisses de la map (position % size)
+** rank : position de 1 a 32 dans l'int du tableau d'int (position % 32)
+** num : memorise dans quel int du tableau on se trouve (position / 32)
+** total_num : le nombre d'int dans le tableau d'int
+** test :
+** letter :
+** dope :
+** memory :
+** same :
+** next :
+** start :
 */
 typedef struct			s_fillist
 {

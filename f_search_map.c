@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/27 19:30:37 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/28 11:56:18 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void			add_remove(unsigned int *map, t_fillist *list, int size)
 	while (j >= list->position)
 	{
 		map[(j - 1) / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
-		map[(j - 1) / 32 + 1] ^= (mask & tetri << (16 + i)) << (32 - j) << 1;
+		if (map[(j - 1) / 32 + 1])
+			map[(j - 1) / 32 + 1] ^= (mask & tetri << (16 + i)) << (32 - j) << 1;
 		j -= size;
 		i -= list->width;
 	}
