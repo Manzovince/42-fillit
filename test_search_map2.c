@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/20 15:41:59 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/24 14:41:08 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,27 +215,43 @@ int		check_tetri_memory(t_fillist *list, int pos)
 
 	tetri = list;
 	mask = 1 << ((pos % 32) - 1);
-	if (tetri->same != NULL)
+	if (tetri->same)
 	{
 		if (!(tetri->same->memory[pos / 32] & mask))
-		{
-			tetri->same->memory[pos / 32] |= mask;
-			return (1);
-		}
+			return (tetri->same->memory[pos / 32] |= mask);
 	}
 	else
 	{
-		tetri->memory[pos / 32] |= mask;
-		return (1);
+//		if (!(tetri->memory[pos / 32] & mask))
+			return (tetri->memory[pos / 32] |= mask);
 	}
 	return (0);
+}
+
+void	remove_tetri_memory(t_fillist *list, int pos)
+{
+	t_fillist		*tetri;
+	unsigned int	mask;
+
+	tetri = list;
+	mask = 1 << ((pos % 32) - 1);
+	if (tetri->same != NULL)
+	{
+		if ((tetri->same->memory[pos / 32] & mask))
+			tetri->same->memory[pos / 32] ^= mask;
+	}
+	else
+	{
+		if ((tetri->memory[pos / 32] & mask))
+			tetri->memory[pos / 32] ^= mask;
+	}
 }
 
 /*
 ** Function that recursively try to fill the map with the tetris
 */
 
-int		fill_map(unsigned int *map, t_fillist *list, int size)
+int		fill_map(unsigned int *map, t_fillist *list, int size, t_fillist *link)
 {
 	if (!list)
 		return (1);
@@ -243,10 +259,19 @@ int		fill_map(unsigned int *map, t_fillist *list, int size)
 	while (find_place(map, list, size))
 	{
 		add_remove(map, list, size);
-		if (check_tetri_memory(list, list->position))
-			if (fill_map(map, list->next, size))
+		
+							list->test = 1;						// DEBUG
+//							print_final_map(link, size, 1);		// DEBUG
+//							ft_putchar('\n');					// DEBUG
+
+//		if (check_tetri_memory(list, list->position))
+			if (fill_map(map, list->next, size, link))
 				return (1);
 		add_remove(map, list, size);
+//		remove_tetri_memory(list, list->position);
+
+							list->test = 0;						// DEBUG
+
 	}
 	return (0);
 }
@@ -279,7 +304,6 @@ int		check_same_tetri(t_fillist *list, int num)
 	curr_tetri = list;
 	while (curr_tetri != NULL)
 	{
-		curr_tetri->same = NULL;
 		i = 0;
 		if (!(curr_tetri->memory = (unsigned int *)malloc(sizeof(*curr_tetri->memory) * num)))
 			return (0);
@@ -316,9 +340,18 @@ int		search_map(t_fillist *list)
 	while (tmp)
 	{
 		// imression pour tests
+		check_same_tetri(list, 1);
 		print = tmp->tetribit;
 		print <<= 16;
 		print_map(&print, tmp->width, tmp->height, tmp->letter);
+		if (tmp->same)
+		{
+			print = tmp->same->tetribit;
+			print <<= 16;
+			ft_putstr("same --> ");
+			ft_putchar(tmp->same->letter);
+			ft_putchar('\n');
+		}
 		ft_putchar('\n');
 		tmp = tmp->next;
 	}
@@ -334,14 +367,16 @@ int		search_map(t_fillist *list)
 	i = 0;
 	while (!i)
 	{
+		ft_putnbrendl(size);
 		num = (size * size) / 32 + 1;
 		if (!(map = (unsigned int *)malloc(sizeof(*map) * num)))
 			return (0);
 		check_same_tetri(list, num);
 		while (num)
 			map[num--] = 0;
-		i = fill_map(map, list, size++);
+		i = fill_map(map, list, size++, list);
 	}
+	ft_putendl("result in binary :");			// DEBUG (pas dans le main car besoin de map)
 	print_map(map, size - 1, size - 1, '#');	// DEBUG
 	return (--size);
 }

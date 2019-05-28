@@ -6,37 +6,18 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:24:28 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/17 17:24:54 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/27 19:47:11 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-** DELETE BEFORE EVAL - TEST FUNCTION
-** Prints a ligne of size bits
+** function that print a map of height and width
+** usefull to print tetris
 */
 
-void	print_bits(unsigned int bits, int size)
-{
-	unsigned int	mask;
-
-	mask = 1 << (size - 1);
-	while (mask)
-	{
-		(bits & mask) ? write(1, "#", 1) : write(1, ".", 1);
-		write(1, " ", 1);
-		mask >>= 1;
-	}
-	write(1, "\n", 1);
-}
-
-/*
-** DELETE BEFORE EVAL - TEST FUNCTION
-** Print a map of height and width
-*/
-
-void	print_map(unsigned int *tab, int width, int height, char letter)
+void	print_sized_map(unsigned int *tab, int width, int height, char letter)
 {
 	int				i;
 	unsigned int	mask;
@@ -50,7 +31,10 @@ void	print_map(unsigned int *tab, int width, int height, char letter)
 	{
 		if (i && !(i % width))
 			ft_putchar('\n');
-		tab[i / 32] & (1 << (31 - i % 32)) ? ft_put_tetri_color(letter) : ft_putchar('.');
+		if (tab[i / 32] & (1 << (31 - i % 32)))
+			ft_put_tetri_color(letter);
+		else
+			ft_putchar('.');
 		ft_putchar(' ');
 		i++;
 	}
@@ -59,46 +43,78 @@ void	print_map(unsigned int *tab, int width, int height, char letter)
 
 /*
 ** Print the final map with the letters
+** if flag value is 0 -> print moulinette version
+** if flag value is 0 -> print in color
 */
 
-void	print_final_map(t_fillist *list, int size, int flag)	// DEBUG flag vaut 0 pour imprimer comme rendu et 1 pour imprimer en couleur
+char	*init_print_map(t_fillist *list, int size)
 {
-	t_fillist	*tmp;
 	char		*map;
 	int			i;
 	int			j;
 
 	map = (char *)malloc(sizeof(*map) * (size * size + 1));
-	map[size*size] = '\0';
+	map[size * size] = '\0';
 	i = -1;
 	while (++i < size * size)
 		map[i] = '.';
-	tmp = list;
-	while (tmp)
+	while (list)
 	{
 		j = 0;
 		i = -1;
-		while (++i < tmp->width * tmp->height)
+		while (++i < list->width * list->height)
 		{
-			if (i && i % tmp->width == 0)
-				j += size - tmp->width;
-			if (1 << (15 - i) & tmp->tetribit/* && tmp->test == 1*/)	// DEBUG "&& tmp->position != -1" pour imprimer les bonnes lettres au coours du debug
-				map[tmp->position + i + j - 1] = tmp->letter;
+			if (i && i % list->width == 0)
+				j += size - list->width;
+			if (1 << (15 - i) & list->tetribit && list->test == 1)
+				map[list->position + i + j - 1] = list->letter;
 		}
-		tmp = tmp->next;
+		list = list->next;
 	}
+	return (map);
+}
+
+/*
+** Function that print the map with color if flag = 1
+** or for moulinette if flag = 0;
+*/
+
+void	print_letter_map(t_fillist *list, int size, int flag)
+{
+	int			i;
+	char		*map;
+
+	map = init_print_map(list, size);
 	i = -1;
 	while (++i < size * size)
 	{
 		if (i && i % size == 0)
 			ft_putchar('\n');
-		if (flag == 0)						// DEBUG imprim comme rendu
+		if (flag == 0)
 			ft_putchar(map[i]);
-		else								// DEBUG imprim avec couleurs
+		else
 		{
 			ft_put_tetri_color(map[i]);
 			ft_putchar(' ');
 		}
 	}
 	ft_putchar('\n');
+}
+
+/*
+** Function that print the map
+*/
+
+void	print_final_map(t_fillist *list, int size)
+{
+	if (list->dope[2])
+	{
+		ft_putendl("result for humans :");
+		print_letter_map(list, size, 1);
+		ft_putchar('\n');
+		ft_putendl("result for moulinette :");
+	}
+	print_letter_map(list, size, 0);
+	if (list->dope[2])
+		ft_putchar('\n');
 }
