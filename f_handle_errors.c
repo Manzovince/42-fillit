@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/28 17:27:17 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/28 19:35:38 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ int		check_tetri_errors_proxy(char *tetri)
 	j = 0;
 	while (tetri[i])
 	{
-		if (tetri[i] == '#' && tetri[i + 1] == '#')
+		if (i < 19 && tetri[i] == '#' && tetri[i + 1] == '#')
 			j++;
-		if (tetri[i] == '#' && tetri[i - 1] == '#')
+		if (i > 0 && tetri[i] == '#' && tetri[i - 1] == '#')
 			j++;
-		if (tetri[i] == '#' && tetri[i + 5] == '#')
+		if (i < 15 && tetri[i] == '#' && tetri[i + 5] == '#')
 			j++;
-		if (tetri[i] == '#' && tetri[i - 5] == '#')
+		if (i > 4 && tetri[i] == '#' && tetri[i - 5] == '#')
 			j++;
 		if (tetri[i] == '.' || tetri[i] == '\n')
 			i++;
