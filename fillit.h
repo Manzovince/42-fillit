@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/28 16:51:44 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/29 13:09:41 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,23 +139,6 @@ char			*init_print_map(t_fillist *list, int size);
 void			print_letter_map(t_fillist *list, int size, int flag);
 void		    print_final_map(t_fillist *list, int size);
 
-<<<<<<< HEAD
-char	*read_file(char *file);
-void	print_error(char *s);
-void	print_error_extended(int error);
-int	    parse_input(char *input, t_fillist **list);
-int		check_file_errors(char *file);
-int		check_tetri_errors(char *tetri);
-int		check_tetri_errors_proxy(char *tetri);
-int		add_to_list(char *square, t_fillist **list, char letter);
-void    fill_list(char line[], t_fillist *list);
-void    print_bits(unsigned int bits, int size);
-void    print_tetri(unsigned int bits, int size);
-int		search_map(t_fillist *list);
-void	print_map(unsigned int *tab, int width, int height, char letter);
-void    print_final_map(t_fillist *list, int size, int flag);
-=======
->>>>>>> master
-void	ft_put_tetri_color(char c);
+void			ft_put_tetri_color(char c);
 
 #endif
