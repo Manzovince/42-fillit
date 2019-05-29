@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   search_map.c                                       :+:      :+:    :+:   */
+/*   f_search_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/28 18:19:15 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/29 13:37:51 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,14 +135,14 @@ int				fill_map(unsigned int *map, t_fillist *list, int size)
 }
 
 /*
-** function that send to "fill_map" a map of a certain size
+** Function that send to "fill_map" a map of a certain size
 ** and increment its size untill it's solved
 */
 
 int				search_map(t_fillist *list)
 {
 	t_fillist		*tmp;
-	unsigned int	*map;
+	unsigned int	*map = NULL;
 	int				size;
 	int				num;
 	int				i;

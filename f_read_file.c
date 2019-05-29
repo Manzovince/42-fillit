@@ -18,11 +18,11 @@
 
 char	*read_file(char *file)
 {
-	char	buf[BUFF_SIZE];
-	int		fd;
-	int		rv;
-	int		i;
-	char	*result;
+	char		buf[BUFF_SIZE];
+	int			fd;
+	size_t		rv;
+	int			i;
+	char		*result;
 
 	if (((fd = open(file, O_RDONLY)) < 0) \
 		|| ((rv = read(fd, &buf, BUFF_SIZE)) < 0) \

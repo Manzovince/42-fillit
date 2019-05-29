@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/28 16:51:44 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/29 13:31:37 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 # define FILLIT_H
 
 #include <stdlib.h>
-#include <unistd.h> // for system call write
-#include <fcntl.h> // for system call open
+#include <unistd.h>
+#include <fcntl.h>
 #include <stdbool.h>
-#include <stdio.h> // for printf (DELETE BEFORE EVAL)
 
 #include "libft/includes/libft.h"
 
@@ -35,6 +34,10 @@
 #define CYN   "\x1B[36m"
 #define RESET "\x1B[0m"
 
+/*
+** Color for full block tetriminos when printing colored map
+** (don't forget to comment all #define COLOR above)
+*/
 //#define RED   "\e[41m"
 //#define GRN   "\e[42m"
 //#define YEL   "\e[43m"
@@ -53,12 +56,12 @@
 ** rank : position de 1 a 32 dans l'int du tableau d'int (position % 32)
 ** num : memorise dans quel int du tableau on se trouve (position / 32)
 ** test :
-** letter :
-** dope :
-** memory :
-** same :
-** next :
-** start :
+** letter : letter of the tetrimino for printing final map
+** dope : flags for details, optimisation, printing and error
+** memory : positions already tested by a tetrimino in bitwise
+** same : pointer to previous identical tetrimino
+** next : pointer to next tetrimino
+** start : pointer to first tetrimino of input file
 */
 typedef struct			s_fillist
 {
@@ -140,6 +143,6 @@ char			*init_print_map(t_fillist *list, int size);
 void			print_letter_map(t_fillist *list, int size, int flag);
 void		    print_final_map(t_fillist *list, int size);
 
-void	ft_put_tetri_color(char c);
+void			ft_put_tetri_color(char c);
 
 #endif
