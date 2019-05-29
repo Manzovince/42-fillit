@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/29 15:52:44 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/29 15:55:03 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	print_error(char *str)
 }
 
 /*
-** Function that display error message *s on fd
-** with more informations
-** and exit program
+** Function that display error message *s on fd with more informations
 */
 
 void	print_error_extended(int error, int *dope)

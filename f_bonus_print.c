@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 13:46:29 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/28 09:57:40 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/29 16:25:52 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_fillist	*print_tetri(t_fillist *list)
 			print = tmp->tetribit;
 			print <<= 16;
 			print_sized_map(&print, tmp->width, tmp->height, tmp->letter);
-			if (tmp->same)
+			if (tmp->same && list->dope[1])
 			{
 				print = tmp->same->tetribit;
 				print <<= 16;

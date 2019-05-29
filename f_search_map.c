@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/29 13:37:51 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:23:03 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,6 @@ int				search_map(t_fillist *list)
 			map[num] = 0;
 		i = fill_map(map, list, size++);
 	}
+		free(map);
 	return (print_binary_map(map, size, list->dope));
 }
