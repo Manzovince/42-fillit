@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 14:42:46 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/28 13:03:46 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/28 17:00:32 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		check_same_tetri(t_fillist *list, int num)
 	int			i;
 
 	curr_tetri = list;
-	while (curr_tetri != NULL/* && list->dope[1]*/)
+	while (curr_tetri != NULL)
 	{
 		i = 0;
 		if (!(curr_tetri->memory =
@@ -78,6 +78,7 @@ int		check_same_tetri(t_fillist *list, int num)
 					next_tetri->same = curr_tetri;
 			next_tetri = next_tetri->next;
 		}
+		curr_tetri->total_num = num;
 		curr_tetri = curr_tetri->next;
 	}
 	return (0);

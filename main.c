@@ -6,11 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/05/20 13:41:00 by vmanzoni         ###   ########.fr       */
-=======
-/*   Updated: 2019/05/27 18:21:58 by hulamy           ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2019/05/28 17:26:07 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +93,7 @@ int		main(int ac, char **av)
 		print_final_map(list, size, 0);			// DEBUG
 =======
 		if (!(input = read_file(av[1])))
-		{
-			if (dope[3])
-				print_error("error: Could not read file.\n");
-			else
-				print_error("error\n");
-		}
+			print_error(dope[3] ? "error: Could not read file.\n" : "error\n");
 		check_file_errors(input, dope);
 		size = parse_input(input, &list, dope);
 		print_final_map(list, size);
