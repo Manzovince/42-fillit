@@ -18,7 +18,7 @@ Le but de ce projet est d’agencer les Tetriminos entre eux pour former le plus
 
 ## BONUS
 - [x] Best error handler (more details on why there is an error.)
-- [x] Optimisation
+- [x] Optimisation (skip when tetri with same shape was already tested on map)
 - [x] Add colors to tetri when printing result map
 - [x] Flag for debbuging (print every step in backtracking)
 - [x] Adding flags (and password for blocking more args on moulinette)
