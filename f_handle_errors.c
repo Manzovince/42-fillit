@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/29 13:48:44 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/29 13:56:55 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	check_file_errors(char *file, int *dope)
 			print_error_extended(1, dope);
 		else if (file[i] == '\n')
 			line_nbr++;
-		// le if suivant verifie quoi
 		if (file[i] == '\n' && line_nbr % 5 == 0 && file[i-1] != '\n')
 			print_error("error\n");
 		if (file[i] == '\n' && file[i+1] != '\0' && \
