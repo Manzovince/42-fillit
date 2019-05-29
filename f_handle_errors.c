@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/29 13:23:02 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/29 13:48:44 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,7 @@ int		check_tetri_errors_proxy(char *tetri)
 			j++;
 		if (i > 4 && tetri[i] == '#' && tetri[i - 5] == '#')
 			j++;
-		if (tetri[i] == '.' || tetri[i] == '\n')
-			i++;
-		else if (tetri[i] == '#' && (tetri[i + 1] == '#' || tetri[i - 1] == '#'
-			|| tetri[i + 5] == '#' || tetri[i - 5] == '#'))
-			i++;
-		else
-			return (1);
+		i++;
 	}
 	return ((j < 6) ? 1 : 0);
 }
