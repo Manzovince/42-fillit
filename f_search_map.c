@@ -142,7 +142,7 @@ int				fill_map(unsigned int *map, t_fillist *list, int size)
 int				search_map(t_fillist *list)
 {
 	t_fillist		*tmp;
-	unsigned int	*map;
+	unsigned int	*map = NULL;
 	int				size;
 	int				num;
 	int				i;
