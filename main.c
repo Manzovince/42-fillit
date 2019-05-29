@@ -6,14 +6,14 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/29 13:12:03 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/29 13:27:14 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-** function that put the flags for bonus into a tab of int
+** Function that put the flags for bonus into a tab of int
 **
 ** d : debug print (print the map during the backtracking)
 ** o : optimisation ultra fast but with some errors still
@@ -45,7 +45,7 @@ int		*create_dope(char *av, int mdp)
 }
 
 /*
-** function that check if the password is good to unlock the flags
+** Function that check if the password is good to unlock the flags
 */
 
 int		is_mdp(int ac, char **av)
@@ -67,7 +67,7 @@ int		is_mdp(int ac, char **av)
 }
 
 /*
-** main function
+** Main function
 */
 
 int		main(int ac, char **av)
@@ -82,9 +82,6 @@ int		main(int ac, char **av)
 	dope = create_dope(av[3], (mdp = is_mdp(ac, av)));
 	if (ac == 2 || mdp)
 	{
-//		ft_putnbrendl(size);
-//		print_final_map(list, size, 1);			// DEBUG
-//		print_final_map(list, size, 0);			// DEBUG
 		if (!(input = read_file(av[1])))
 			print_error(dope[3] ? "error: Could not read file.\n" : "error\n");
 		check_file_errors(input, dope);
