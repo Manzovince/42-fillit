@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/28 17:26:07 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/29 13:12:03 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,14 @@ int		main(int ac, char **av)
 	dope = create_dope(av[3], (mdp = is_mdp(ac, av)));
 	if (ac == 2 || mdp)
 	{
-<<<<<<< HEAD
-		if (!(input = read_file(argv[1])))
-			print_error("error\n");
-		if (check_file_errors(input))
-			print_error("error\n");
-		size = parse_input(input, &list);
-		ft_putnbrendl(size);
-		print_final_map(list, size, 1);			// DEBUG
-		print_final_map(list, size, 0);			// DEBUG
-=======
+//		ft_putnbrendl(size);
+//		print_final_map(list, size, 1);			// DEBUG
+//		print_final_map(list, size, 0);			// DEBUG
 		if (!(input = read_file(av[1])))
 			print_error(dope[3] ? "error: Could not read file.\n" : "error\n");
 		check_file_errors(input, dope);
 		size = parse_input(input, &list, dope);
 		print_final_map(list, size);
->>>>>>> master
 	}
 	else
 		print_error("usage: Please submit a file.\n> ./fillit file.fillit\n");
