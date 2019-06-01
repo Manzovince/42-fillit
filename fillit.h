@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/29 13:31:37 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/06/01 13:44:51 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int				print_flags_usage(void);
 */
 int				check_same_tetri(t_fillist *list, int num);
 int				compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b);
+t_fillist		*clean_list_memory(t_fillist *list, t_fillist *tmp);
 int				check_tetri_memory(t_fillist *list, int pos);
 
 /*
@@ -101,6 +102,7 @@ int				check_tetri_memory(t_fillist *list, int pos);
 */
 int				main(int argc, char **argv);
 int				*create_dope(char *av, int mdp);
+void			clean_list(t_fillist *list, t_fillist *tmp);
 int				is_mdp(int ac, char **av);
 
 /*

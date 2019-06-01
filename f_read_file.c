@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 12:09:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/28 18:36:35 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/29 16:10:58 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*read_file(char *file)
 {
 	char		buf[BUFF_SIZE];
 	int			fd;
-	size_t		rv;
+	int			rv;
 	int			i;
 	char		*result;
 

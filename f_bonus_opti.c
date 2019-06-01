@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 14:42:46 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/28 17:00:32 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 13:46:56 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,21 @@ int		compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b)
 }
 
 /*
+** Function that free the list->memory each time it's malloc
+*/
+
+t_fillist	*clean_list_memory(t_fillist *list, t_fillist *tmp)
+{
+	while (tmp)
+	{
+		if (tmp->memory)
+			free(tmp->memory);
+		tmp = tmp->next;
+	}
+	return (list);
+}
+
+/*
 ** Test optimisation for not testing wrong maps when tetri are identical
 */
 
@@ -61,7 +76,8 @@ int		check_same_tetri(t_fillist *list, int num)
 	t_fillist	*next_tetri;
 	int			i;
 
-	curr_tetri = list;
+	curr_tetri = clean_list_memory(list, list);
+//	curr_tetri = list;
 	while (curr_tetri != NULL)
 	{
 		i = 0;

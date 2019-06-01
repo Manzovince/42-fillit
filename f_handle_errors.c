@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/29 13:56:55 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/05/29 15:55:03 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	print_error(char *str)
 }
 
 /*
-** Function that display error message *s on fd
-** with more informations
-** and exit program
+** Function that display error message *s on fd with more informations
 */
 
 void	print_error_extended(int error, int *dope)
@@ -35,13 +33,16 @@ void	print_error_extended(int error, int *dope)
 	if (error == 1)
 		print_error("error: File contains char other than '.','#' and '\\n'\n");
 	if (error == 2)
-		print_error("error: File contains more than 2 '\\n' in a row\n");
+		print_error("error: File contains two tetriminos not" 
+					"separated by a '\\n'\n");
 	if (error == 3)
+		print_error("error: File contains more than 2 '\\n' in a row\n");
+	if (error == 4)
 		print_error("error: File contains less than 1 tetrimino "
 					"or more than 26\n");
-	if (error == 4)
-		print_error("error: Tetrimino has more or less than 4 #\n");
 	if (error == 5)
+		print_error("error: Tetrimino has more or less than 4 #\n");
+	if (error == 6)
 		print_error("error: Tetrimino # are not all connected\n");
 	print_error("error\n");
 }
@@ -67,14 +68,14 @@ void	check_file_errors(char *file, int *dope)
 		else if (file[i] == '\n')
 			line_nbr++;
 		if (file[i] == '\n' && line_nbr % 5 == 0 && file[i-1] != '\n')
-			print_error("error\n");
+			print_error_extended(2, dope);
 		if (file[i] == '\n' && file[i+1] != '\0' && \
 			file[i+2] != '.' && file[i+2] != '#')
-			print_error_extended(2, dope);
+			print_error_extended(3, dope);
 		i++;
 	}
 	if (line_nbr < 4 || line_nbr > 129)
-		print_error_extended(3, dope);
+		print_error_extended(4, dope);
 }
 
 /*
@@ -101,7 +102,7 @@ int		check_tetri_errors(char *tetri)
 		i++;
 	}
 	if (htg != 4 || dot != 12 || check_tetri_errors_proxy(tetri))
-		return (4 + check_tetri_errors_proxy(tetri));
+		return (5 + check_tetri_errors_proxy(tetri));
 	return (0);
 }
 
