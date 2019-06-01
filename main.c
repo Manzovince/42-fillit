@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/06/01 14:40:58 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 15:27:22 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		*create_dope(char *av, int mdp)
 
 	comp = "dope";
 	if (!(dope = (int*)malloc(sizeof(*dope) * 4)))
-		return (NULL);
+		return (0);
 	i = 0;
 	while (i < 4)
 		dope[i++] = 0;
