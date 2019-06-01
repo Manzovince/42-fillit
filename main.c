@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/06/01 13:41:46 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 14:40:58 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** d : debug print (print the map during the backtracking)
 ** o : optimisation ultra fast but with some errors still
 ** p : print extended (print the tetri and the map in different formats)
-** e : error extended (error message more precise AND no error for too much tetri)
+** e : error extended (message more precise AND no error if too much tetri)
 */
 
 int		*create_dope(char *av, int mdp)
@@ -95,7 +95,8 @@ int		main(int ac, char **av)
 	int			mdp;
 
 	list = NULL;
-	dope = create_dope(av[3], (mdp = is_mdp(ac, av)));
+	mdp = is_mdp(ac, av);
+	dope = create_dope(av[3], mdp);
 	if (ac == 2 || mdp)
 	{
 		if (!(input = read_file(av[1])))

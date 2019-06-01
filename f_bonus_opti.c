@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 14:42:46 by hulamy            #+#    #+#             */
-/*   Updated: 2019/06/01 13:46:56 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 14:11:32 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Test optimisation for not testing wrong maps when tetri are identical
 */
 
-int		check_tetri_memory(t_fillist *list, int pos)
+int			check_tetri_memory(t_fillist *list, int pos)
 {
 	t_fillist		*tetri;
 	unsigned int	mask;
@@ -40,7 +40,7 @@ int		check_tetri_memory(t_fillist *list, int pos)
 ** Test optimisation for not testing wrong maps when tetri are identical
 */
 
-int		compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b)
+int			compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b)
 {
 	if (tetri_a->tetribit != tetri_b->tetribit)
 		return (0);
@@ -70,14 +70,13 @@ t_fillist	*clean_list_memory(t_fillist *list, t_fillist *tmp)
 ** Test optimisation for not testing wrong maps when tetri are identical
 */
 
-int		check_same_tetri(t_fillist *list, int num)
+int			check_same_tetri(t_fillist *list, int num)
 {
 	t_fillist	*curr_tetri;
 	t_fillist	*next_tetri;
 	int			i;
 
 	curr_tetri = clean_list_memory(list, list);
-//	curr_tetri = list;
 	while (curr_tetri != NULL)
 	{
 		i = 0;
