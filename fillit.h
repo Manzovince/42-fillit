@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/06/01 14:34:31 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 15:12:00 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int				main(int argc, char **argv);
 **	read_file.c
 */
 char			*read_file(char *file);
+void			init_num_and_size(int num, int *size, t_fillist *tmp);
 
 /*
 **	handle_errors.c

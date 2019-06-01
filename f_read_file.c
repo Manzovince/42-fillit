@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 12:09:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/29 16:10:58 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 15:12:03 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ char	*read_file(char *file)
 	result[i] = '\0';
 	close(fd);
 	return (result);
+}
+
+/*
+**	Function that init num and size for search_map
+*/
+
+void	init_num_and_size(int num, int *size, t_fillist *tmp)
+{
+	while ((tmp = tmp->next))
+		num++;
+	while (*size * *size < num * 4)
+		(*size)++;
 }
