@@ -6,18 +6,13 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 20:27:22 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/08 09:02:39 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/06/01 14:27:30 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void ft_putchar_color(char c, char color)
+void	ft_putchar_color(char c, char color)
 {
 	if (color == 'R')
 		write(1, RED, 5);

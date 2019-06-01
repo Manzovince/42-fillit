@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/06/01 13:38:26 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 14:19:22 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** function that look if a tretri fit in a place
 */
 
-unsigned int	fit_in_place(unsigned int *map, t_fillist *lst, int size, int i)
+unsigned int	fit_in_place(unsigned int *map, t_fillist *lst, int sze, int i)
 {
 	unsigned int	tmp;
 	unsigned int	mask;
@@ -40,7 +40,7 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *lst, int size, int i)
 		if (n + 1 < lst->total_num)
 			tmp |= (mask & (map[n + 1] >> (32 - r)));
 		tetri <<= lst->width;
-		r += size;
+		r += sze;
 	}
 	return (!(tmp & tetri));
 }
@@ -84,20 +84,20 @@ int				find_place(unsigned int *map, t_fillist *list, int size)
 
 void			add_remove(unsigned int *map, t_fillist *list, int size)
 {
-	unsigned int	mask;
+	unsigned int	msk;
 	unsigned short	tetri;
 	int				i;
 	int				j;
 
 	tetri = list->tetribit;
-	mask = ~0u << (32 - list->width);
+	msk = ~0u << (32 - list->width);
 	i = (list->height - 1) * list->width;
 	j = (list->height - 1) * size + list->position;
 	while (j >= list->position)
 	{
-		map[(j - 1) / 32] ^= (mask & tetri << (16 + i)) >> (j - 1);
+		map[(j - 1) / 32] ^= (msk & tetri << (16 + i)) >> (j - 1);
 		if ((j - 1) / 32 + 1 < list->total_num)
-			map[(j - 1) / 32 + 1] ^= (mask & tetri << (16 + i)) << (32 - j) << 1;
+			map[(j - 1) / 32 + 1] ^= (msk & tetri << (16 + i)) << (32 - j) << 1;
 		j -= size;
 		i -= list->width;
 	}
@@ -142,7 +142,7 @@ int				fill_map(unsigned int *map, t_fillist *list, int size)
 int				search_map(t_fillist *list)
 {
 	t_fillist		*tmp;
-	unsigned int	*map = NULL;
+	unsigned int	*map;
 	int				size;
 	int				num;
 	int				i;
@@ -165,6 +165,5 @@ int				search_map(t_fillist *list)
 			map[num] = 0;
 		i = fill_map(map, list, size++);
 	}
-		free(map);
 	return (print_binary_map(map, size, list->dope));
 }

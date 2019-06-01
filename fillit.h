@@ -6,19 +6,19 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/06/01 13:44:51 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 14:34:31 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdbool.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdbool.h>
 
-#include "libft/includes/libft.h"
+# include "libft/includes/libft.h"
 
 /*
 ** DEFINE
@@ -26,25 +26,13 @@
 
 # define BUFF_SIZE 1024
 
-#define RED   "\x1B[31m"
-#define GRN   "\x1B[32m"
-#define YEL   "\x1B[33m"
-#define BLU   "\x1B[34m"
-#define MAG   "\x1B[35m"
-#define CYN   "\x1B[36m"
-#define RESET "\x1B[0m"
-
-/*
-** Color for full block tetriminos when printing colored map
-** (don't forget to comment all #define COLOR above)
-*/
-//#define RED   "\e[41m"
-//#define GRN   "\e[42m"
-//#define YEL   "\e[43m"
-//#define BLU   "\e[44m"
-//#define MAG   "\e[45m"
-//#define CYN   "\e[46m"
-//#define RESET "\e[49m"
+# define RED   "\x1B[31m"
+# define GRN   "\x1B[32m"
+# define YEL   "\x1B[33m"
+# define BLU   "\x1B[34m"
+# define MAG   "\x1B[35m"
+# define CYN   "\x1B[36m"
+# define RESET "\x1B[0m"
 
 /*
 **	STRUCTURE
@@ -63,7 +51,7 @@
 ** next : pointer to next tetrimino
 ** start : pointer to first tetrimino of input file
 */
-typedef struct			s_fillist
+typedef struct	s_fillist
 {
 	unsigned short		tetribit;
 	int					width;
@@ -80,7 +68,15 @@ typedef struct			s_fillist
 	struct s_fillist	*same;
 	struct s_fillist	*next;
 	struct s_fillist	*start;
-}						t_fillist;
+}				t_fillist;
+
+/*
+**	bonus_opti.c
+*/
+int				check_tetri_memory(t_fillist *list, int pos);
+int				compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b);
+t_fillist		*clean_list_memory(t_fillist *list, t_fillist *tmp);
+int				check_same_tetri(t_fillist *list, int num);
 
 /*
 **	bonus_print.c
@@ -90,20 +86,12 @@ int				print_binary_map(unsigned int *map, int size, int *dope);
 int				print_flags_usage(void);
 
 /*
-**	bonus_opti.c
-*/
-int				check_same_tetri(t_fillist *list, int num);
-int				compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b);
-t_fillist		*clean_list_memory(t_fillist *list, t_fillist *tmp);
-int				check_tetri_memory(t_fillist *list, int pos);
-
-/*
 **	main.c
 */
-int				main(int argc, char **argv);
 int				*create_dope(char *av, int mdp);
-void			clean_list(t_fillist *list, t_fillist *tmp);
 int				is_mdp(int ac, char **av);
+void			clean_list(t_fillist *list, t_fillist *tmp);
+int				main(int argc, char **argv);
 
 /*
 **	read_file.c
@@ -122,11 +110,11 @@ int				check_tetri_errors_proxy(char *tetri);
 /*
 **	parse_input.c
 */
-int			    parse_input(char *input, t_fillist **list, int *dope);
-int				add_to_list(char *sqr, t_fillist **lst, char lett, int *dope);
-void		    fill_list(char line[], t_fillist *list);
-unsigned short	reduce_tetri(unsigned short tetri, int width);
 unsigned short	tab_to_bin(char line[]);
+unsigned short	reduce_tetri(unsigned short tetri, int width);
+void			fill_list(char line[], t_fillist *list);
+int				add_to_list(char *sqr, t_fillist **lst, char lett, int *dope);
+int				parse_input(char *input, t_fillist **list, int *dope);
 
 /*
 **	search_map.c
@@ -140,11 +128,15 @@ int				search_map(t_fillist *list);
 /*
 **	print.c
 */
-void			print_sized_map(unsigned int *tab, int width, int height, char letter);
+void			print_sized_map(unsigned int *tab, int wdth, int hgt, char ltr);
 char			*init_print_map(t_fillist *list, int size);
 void			print_letter_map(t_fillist *list, int size, int flag);
-void		    print_final_map(t_fillist *list, int size);
+void			print_final_map(t_fillist *list, int size);
 
+/*
+**	print_map_with_colors.c
+*/
+void			ft_putchar_color(char c, char color);
 void			ft_put_tetri_color(char c);
 
 #endif

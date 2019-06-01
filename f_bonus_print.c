@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 13:46:29 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/29 16:25:52 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 14:17:43 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int			print_binary_map(unsigned int *map, int size, int *dope)
 		print_sized_map(map, size, size, '#');
 		ft_putchar('\n');
 	}
+	free(map);
 	return (size);
 }
 
