@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:48:14 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/28 19:05:05 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/05/29 19:08:15 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int				add_to_list(char *line, t_fillist **lst, char letter, int *dope)
 	tmp->letter = letter;
 	tmp->dope = dope;
 	tmp->start = *lst;
+	tmp->memory = NULL;
 	return (1);
 }
 

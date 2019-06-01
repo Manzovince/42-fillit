@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/29 13:31:37 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/06/01 12:27:09 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 ** place : position sur l'axe des abscisses de la map (position % size)
 ** rank : position de 1 a 32 dans l'int du tableau d'int (position % 32)
 ** num : memorise dans quel int du tableau on se trouve (position / 32)
-** test :
+** test : to print the tetri during the backtracking, test is a boolean
 ** letter : letter of the tetrimino for printing final map
 ** dope : flags for details, optimisation, printing and error
 ** memory : positions already tested by a tetrimino in bitwise
@@ -85,16 +85,16 @@ typedef struct			s_fillist
 /*
 **	bonus_print.c
 */
-t_fillist		*print_tetri(t_fillist *list);
+int				print_tetri(t_fillist *list, int size);
 int				print_binary_map(unsigned int *map, int size, int *dope);
 int				print_flags_usage(void);
 
 /*
 **	bonus_opti.c
 */
-int				check_same_tetri(t_fillist *list, int num);
-int				compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b);
 int				check_tetri_memory(t_fillist *list, int pos);
+int				compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b);
+int				check_same_tetri(t_fillist *list, int num);
 
 /*
 **	main.c

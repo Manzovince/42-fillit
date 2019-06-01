@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 14:42:46 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/28 17:00:32 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 12:31:29 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		check_tetri_memory(t_fillist *list, int pos)
 	mask = 1 << ((pos % 32) - 1);
 	if (tetri->same)
 	{
+//		ft_putstr("tetri->same->memory"); ft_putstr((char *)tetri->same->memory); ft_putstr(" -- "); ft_putnbrendl(pos / 32);
 		if (!(tetri->same->memory[pos / 32] & mask))
 			return (tetri->same->memory[pos / 32] |= mask);
 	}
@@ -65,7 +66,7 @@ int		check_same_tetri(t_fillist *list, int num)
 	while (curr_tetri != NULL)
 	{
 		i = 0;
-		if (!(curr_tetri->memory =
+		if (!curr_tetri->memory && !(curr_tetri->memory =
 					(unsigned int *)malloc(sizeof(*curr_tetri->memory) * num)))
 			return (0);
 		while (i < num)
@@ -81,5 +82,5 @@ int		check_same_tetri(t_fillist *list, int num)
 		curr_tetri->total_num = num;
 		curr_tetri = curr_tetri->next;
 	}
-	return (0);
+	return (1);
 }
