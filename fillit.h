@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/06/01 12:27:09 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 14:03:45 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,20 @@
 
 /*
 **	STRUCTURE
-** tetribit : tetri ecrit en binaire dans un short de 16 bits
-** width : largeur du tetri
-** height : hauteur du tetri
-** position : memorise la position d tetri bit a bit
-** place : position sur l'axe des abscisses de la map (position % size)
-** rank : position de 1 a 32 dans l'int du tableau d'int (position % 32)
-** num : memorise dans quel int du tableau on se trouve (position / 32)
-** test : to print the tetri during the backtracking, test is a boolean
-** letter : letter of the tetrimino for printing final map
-** dope : flags for details, optimisation, printing and error
-** memory : positions already tested by a tetrimino in bitwise
-** same : pointer to previous identical tetrimino
-** next : pointer to next tetrimino
-** start : pointer to first tetrimino of input file
+** tetribit	: tetri ecrit en binaire dans un short de 16 bits
+** width	: largeur du tetri
+** height	: hauteur du tetri
+** position	: memorise la position d tetri bit a bit
+** place 	: position sur l'axe des abscisses de la map (position % size)
+** rank		: position de 1 a 32 dans l'int du tableau d'int (position % 32)
+** num		: memorise dans quel int du tableau on se trouve (position / 32)
+** test		: to print the tetri during the backtracking, test is a boolean
+** letter	: letter of the tetrimino for printing final map
+** dope		: flags for details, optimisation, printing and error
+** memory	: positions already tested by a tetrimino in bitwise
+** same		: pointer to previous identical tetrimino
+** next		: pointer to next tetrimino
+** start	: pointer to first tetrimino of input file
 */
 typedef struct			s_fillist
 {
@@ -94,6 +94,7 @@ int				print_flags_usage(void);
 */
 int				check_tetri_memory(t_fillist *list, int pos);
 int				compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b);
+t_fillist		*clean_list_memory(t_fillist *list, t_fillist *tmp);
 int				check_same_tetri(t_fillist *list, int num);
 
 /*
@@ -101,6 +102,7 @@ int				check_same_tetri(t_fillist *list, int num);
 */
 int				main(int argc, char **argv);
 int				*create_dope(char *av, int mdp);
+void			clean_list(t_fillist *list, t_fillist *tmp);
 int				is_mdp(int ac, char **av);
 
 /*

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus.c                                            :+:      :+:    :+:   */
+/*   f_bonus_opti.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/24 14:42:46 by hulamy            #+#    #+#             */
-/*   Updated: 2019/06/01 12:31:29 by hulamy           ###   ########.fr       */
+/*   Created: 2019/06/01 14:06:37 by hulamy            #+#    #+#             */
+/*   Updated: 2019/06/01 14:06:40 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		check_tetri_memory(t_fillist *list, int pos)
 	mask = 1 << ((pos % 32) - 1);
 	if (tetri->same)
 	{
-//		ft_putstr("tetri->same->memory"); ft_putstr((char *)tetri->same->memory); ft_putstr(" -- "); ft_putnbrendl(pos / 32);
 		if (!(tetri->same->memory[pos / 32] & mask))
 			return (tetri->same->memory[pos / 32] |= mask);
 	}
@@ -53,6 +52,21 @@ int		compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b)
 }
 
 /*
+** Function that free the list->memory each time it's malloc
+*/
+
+t_fillist	*clean_list_memory(t_fillist *list, t_fillist *tmp)
+{
+	while (tmp)
+	{
+		if (tmp->memory)
+			free(tmp->memory);
+		tmp = tmp->next;
+	}
+	return (list);
+}
+
+/*
 ** Test optimisation for not testing wrong maps when tetri are identical
 */
 
@@ -62,7 +76,7 @@ int		check_same_tetri(t_fillist *list, int num)
 	t_fillist	*next_tetri;
 	int			i;
 
-	curr_tetri = list;
+	curr_tetri = clean_list_memory(list, list);
 	while (curr_tetri != NULL)
 	{
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:20:48 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/05/29 19:09:11 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 13:58:49 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,22 @@ int		is_mdp(int ac, char **av)
 }
 
 /*
+** Function that free the list
+*/
+
+void	clean_list(t_fillist *list, t_fillist *tmp)
+{
+	tmp = list;
+	while (list)
+	{
+		list = tmp->next;
+		free(tmp->memory);
+		free(tmp);
+		tmp = list;
+	}
+}
+
+/*
 ** Main function
 */
 
@@ -88,8 +104,10 @@ int		main(int ac, char **av)
 		size = parse_input(input, &list, dope);
 		print_final_map(list, size);
 		free(input);
+		clean_list(list, list);
 	}
 	else
 		print_error("usage: Please submit a file.\n> ./fillit file.fillit\n");
+	free(dope);
 	return (0);
 }
