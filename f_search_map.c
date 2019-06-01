@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/06/01 14:19:22 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 15:12:08 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,12 +148,8 @@ int				search_map(t_fillist *list)
 	int				i;
 
 	size = 2;
-	num = 1;
 	tmp = print_tetri(list);
-	while ((tmp = tmp->next))
-		num++;
-	while (size * size < num * 4)
-		size++;
+	init_num_and_size(1, &size, tmp);
 	i = 0;
 	while (!i)
 	{
@@ -164,6 +160,8 @@ int				search_map(t_fillist *list)
 		while (num--)
 			map[num] = 0;
 		i = fill_map(map, list, size++);
+		if (!i)
+			free(map);
 	}
 	return (print_binary_map(map, size, list->dope));
 }
