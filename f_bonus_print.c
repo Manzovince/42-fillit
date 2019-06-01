@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   f_bonus_print.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 13:46:29 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/28 09:57:40 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 14:00:58 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int			print_binary_map(unsigned int *map, int size, int *dope)
 		print_sized_map(map, size, size, '#');
 		ft_putchar('\n');
 	}
+	free(map);
 	return (size);
 }
 
