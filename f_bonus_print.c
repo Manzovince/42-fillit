@@ -59,7 +59,6 @@ int			print_binary_map(unsigned int *map, int size, int *dope)
 		print_sized_map(map, size, size, '#');
 		ft_putchar('\n');
 	}
-	free(map);
 	return (size);
 }
 

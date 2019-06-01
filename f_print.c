@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   f_print.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,8 +13,8 @@
 #include "fillit.h"
 
 /*
-** function that print a map of height and width
-** usefull to print tetris
+** Function that print a map of height and width
+** useful to print tetris
 */
 
 void	print_sized_map(unsigned int *tab, int width, int height, char letter)
@@ -44,7 +44,7 @@ void	print_sized_map(unsigned int *tab, int width, int height, char letter)
 /*
 ** Print the final map with the letters
 ** if flag value is 0 -> print moulinette version
-** if flag value is 0 -> print in color
+** if flag value is p -> print in color
 */
 
 char	*init_print_map(t_fillist *list, int size)
@@ -53,7 +53,8 @@ char	*init_print_map(t_fillist *list, int size)
 	int			i;
 	int			j;
 
-	map = (char *)malloc(sizeof(*map) * (size * size + 1));
+	if (!(map = (char *)malloc(sizeof(*map) * (size * size + 1))))
+		return (NULL);
 	map[size * size] = '\0';
 	i = -1;
 	while (++i < size * size)

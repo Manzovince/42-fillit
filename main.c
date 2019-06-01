@@ -30,7 +30,7 @@ int		*create_dope(char *av, int mdp)
 
 	comp = "dope";
 	if (!(dope = (int*)malloc(sizeof(*dope) * 4)))
-		return (NULL);
+		return (0);
 	i = 0;
 	while (i < 4)
 		dope[i++] = 0;
@@ -110,5 +110,6 @@ int		main(int ac, char **av)
 	else
 		print_error("usage: Please submit a file.\n> ./fillit file.fillit\n");
 	free(dope);
+	while (1) ;
 	return (0);
 }
