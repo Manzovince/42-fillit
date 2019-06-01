@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:24:28 by hulamy            #+#    #+#             */
-/*   Updated: 2019/05/27 19:47:11 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 13:56:50 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	print_letter_map(t_fillist *list, int size, int flag)
 		}
 	}
 	ft_putchar('\n');
+	free(map);
 }
 
 /*
