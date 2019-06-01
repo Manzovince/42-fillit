@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/06/01 14:49:01 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/01 15:53:31 by vmanzoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	check_file_errors(char *file, int *dope)
 			print_error_extended(3, dope);
 		i++;
 	}
+	if (file[i - 1] == '\n')
+		print_error_extended(3, dope);
 	if (line_nbr < 4)
 		print_error_extended(4, dope);
 	if (!dope[3] && line_nbr > 129)
