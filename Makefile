@@ -6,7 +6,7 @@
 #    By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 13:24:35 by vmanzoni          #+#    #+#              #
-#    Updated: 2019/05/29 14:03:03 by vmanzoni         ###   ########.fr        #
+#    Updated: 2019/06/01 16:57:51 by hulamy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,17 @@ CFLAGS += -Wall -Wextra -Werror
 LDFLAGS = -L./libft/
 LDLIBS = -lft
 
-SRCS = $(shell find . -depth 1 -type f -not -name '.*' -not -name 'test*' -name '*.c')
+SRCS = main.c \
+	   f_bonus_opti.c \
+	   f_bonus_print.c \
+	   f_handle_errors.c \
+	   f_parse_input.c \
+	   f_print.c \
+	   f_print_map_with_colors.c \
+	   f_read_file.c \
+	   f_search_map.c
 
-TRASH = $(shell find . -depth 1 -name '*.dSYM')
-TRASH += $(shell find . -depth 1 -type f -name '*.o')
-TRASH += $(shell find . -depth 1 -type f -name '*.swp')
-TRASH += $(shell find . -depth 1 -type f -name '*.swo')
-TRASH += $(shell find . -depth 1 -type f -name '*.swn')
+OBJS = $(SRCS:.c=.o)
 
 # - - - - - - - - - - - - - - - #
 #          RULES                #
@@ -37,19 +41,16 @@ TRASH += $(shell find . -depth 1 -type f -name '*.swn')
 
 all: $(NAME)
 
-$(NAME): $(SRCS)
+$(NAME): $(OBJS)
+	make -C ./libft/
 	$(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
 
-debug: $(SRCS)
-	$(CC) -g $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
-
-lib:
-	make -C ./libft/
-
 clean:
-	/bin/rm -rf $(TRASH)
+	make clean -C libft/
+	/bin/rm -rf $(OBJS)
 
 fclean: clean
+	make fclean -C libft/
 	/bin/rm -rf $(NAME)
 
 re: fclean all
