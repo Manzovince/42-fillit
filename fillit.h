@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:34:46 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/06/01 15:12:00 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/03 21:53:09 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 
-# include "libft/includes/libft.h"
+# include "libft/libft.h"
 
 /*
 ** DEFINE
