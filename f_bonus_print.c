@@ -24,20 +24,20 @@ t_fillist	*print_tetri(t_fillist *list)
 	tmp = list;
 	if (list->dope[2])
 	{
+		check_same_tetri(list, 1);
 		while (tmp)
 		{
-			check_same_tetri(list, 1);
 			print = tmp->tetribit;
 			print <<= 16;
 			print_sized_map(&print, tmp->width, tmp->height, tmp->letter);
 			if (tmp->same && list->dope[1])
 			{
-				print = tmp->same->tetribit;
-				print <<= 16;
 				ft_putstr("same --> ");
 				ft_put_tetri_color(tmp->same->letter);
 				ft_putchar('\n');
 			}
+			if (list->dope[1] && tmp->memory)
+				ft_putendl("have a copy");
 			ft_putchar('\n');
 			tmp = tmp->next;
 		}

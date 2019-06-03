@@ -23,17 +23,13 @@ CFLAGS += -Wall -Wextra -Werror
 LDFLAGS = -L./libft/
 LDLIBS = -lft
 
-SRCS = main.c \
-	   f_bonus_opti.c \
-	   f_bonus_print.c \
-	   f_handle_errors.c \
-	   f_parse_input.c \
-	   f_print.c \
-	   f_print_map_with_colors.c \
-	   f_read_file.c \
-	   f_search_map.c
+SRCS = $(shell find . -depth 1 -type f -not -name '.*' -not -name 'test*' -name '*.c')
 
-OBJS = $(SRCS:.c=.o)
+TRASH = $(shell find . -depth 1 -name '*.dSYM')
+TRASH += $(shell find . -depth 1 -type f -name '*.o')
+TRASH += $(shell find . -depth 1 -type f -name '*.swp')
+TRASH += $(shell find . -depth 1 -type f -name '*.swo')
+TRASH += $(shell find . -depth 1 -type f -name '*.swn')
 
 # - - - - - - - - - - - - - - - #
 #          RULES                #
@@ -41,16 +37,19 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	make -C ./libft/
+$(NAME): $(SRCS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
 
+debug: $(SRCS)
+	$(CC) -g $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
+
+lib:
+	make -C ./libft/
+
 clean:
-	make clean -C libft/
-	/bin/rm -rf $(OBJS)
+	/bin/rm -rf $(TRASH)
 
 fclean: clean
-	make fclean -C libft/
 	/bin/rm -rf $(NAME)
 
 re: fclean all

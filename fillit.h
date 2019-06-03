@@ -37,19 +37,20 @@
 /*
 **	STRUCTURE
 ** tetribit : tetri ecrit en binaire dans un short de 16 bits
-** width : largeur du tetri
-** height : hauteur du tetri
+** width    : largeur du tetri
+** height   : hauteur du tetri
 ** position : memorise la position d tetri bit a bit
-** place : position sur l'axe des abscisses de la map (position % size)
-** rank : position de 1 a 32 dans l'int du tableau d'int (position % 32)
-** num : memorise dans quel int du tableau on se trouve (position / 32)
-** test :
-** letter : letter of the tetrimino for printing final map
-** dope : flags for details, optimisation, printing and error
-** memory : positions already tested by a tetrimino in bitwise
-** same : pointer to previous identical tetrimino
-** next : pointer to next tetrimino
-** start : pointer to first tetrimino of input file
+** place    : position sur l'axe des abscisses de la map (position % size)
+** rank     : position de 1 a 32 dans l'int du tableau d'int (position % 32)
+** num      : memorise dans quel int du tableau on se trouve (position / 32)
+** total_num: memorise le nombre d'int dans le tableau
+** test     :
+** letter   : letter of the tetrimino for printing final map
+** dope     : flags for details, optimisation, printing and error
+** memory   : positions already tested by a tetrimino in bitwise
+** same     : pointer to previous identical tetrimino
+** next     : pointer to next tetrimino
+** start    : pointer to first tetrimino of input file
 */
 typedef struct	s_fillist
 {

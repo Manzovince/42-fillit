@@ -52,7 +52,7 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *lst, int sze, int i)
 int				find_place(unsigned int *map, t_fillist *list, int size)
 {
 	int	limit;
-	int pos;
+	int	pos;
 
 	pos = list->position;
 	list->place = pos % size;
@@ -103,17 +103,44 @@ void			add_remove(unsigned int *map, t_fillist *list, int size)
 	}
 }
 
+void	clean_memory(t_fillist *list, int pos, int mem)
+{
+	t_fillist		*tmp;
+	unsigned int	mask;
+
+	tmp = list->start;
+	while (tmp)
+	{
+		if (tmp->memory)
+		{
+			pos = mem;
+			while (pos >= list->position)
+			{
+				mask = ~(1 << ((pos % 32) - 1));
+				tmp->memory[pos / 32] &= mask;
+				pos--;
+			}
+		}
+		tmp = tmp->next;
+	}
+}
+
 /*
 ** Function that recursively try to fill the map with the tetris
 */
 
 int				fill_map(unsigned int *map, t_fillist *list, int size)
 {
+	int	pos;
+
 	if (!list)
 		return (1);
+	pos = list->position;
 	list->position = 0;
 	while (find_place(map, list, size))
 	{
+//		if (list->position < pos)
+//			clean_memory(list, pos, pos);
 		add_remove(map, list, size);
 		list->test = 1;
 		if (list->dope[0])
@@ -149,7 +176,8 @@ int				search_map(t_fillist *list)
 
 	size = 2;
 	tmp = print_tetri(list);
-	init_num_and_size(1, &size, tmp);
+//	init_num_and_size(1, &size, tmp);
+	size = 10;
 	i = 0;
 	while (!i)
 	{
@@ -157,6 +185,8 @@ int				search_map(t_fillist *list)
 		if (!(map = (unsigned int *)malloc(sizeof(*map) * num)))
 			return (0);
 		check_same_tetri(list, num);
+		if (list->dope[2])
+			ft_putnbrendl(size);
 		while (num--)
 			map[num] = 0;
 		i = fill_map(map, list, size++);
