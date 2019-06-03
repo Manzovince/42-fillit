@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/06/03 09:54:05 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/03 13:00:28 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ unsigned int	fit_in_place(unsigned int *map, t_fillist *lst, int sze, int i)
 int				find_place(unsigned int *map, t_fillist *list, int size)
 {
 	int	limit;
-	int	pos;
+	int pos;
 
 	pos = list->position;
 	list->place = pos % size;
@@ -103,46 +103,19 @@ void			add_remove(unsigned int *map, t_fillist *list, int size)
 	}
 }
 
-void	clean_memory(t_fillist *list, int pos, int mem)
-{
-	t_fillist		*tmp;
-	unsigned int	mask;
-
-	tmp = list->start;
-	while (tmp)
-	{
-		if (tmp->memory)
-		{
-			pos = mem;
-			while (pos >= list->position)
-			{
-				mask = ~(1 << ((pos % 32) - 1));
-				tmp->memory[pos / 32] &= mask;
-				pos--;
-			}
-		}
-		tmp = tmp->next;
-	}
-}
-
 /*
 ** Function that recursively try to fill the map with the tetris
 */
 
 int				fill_map(unsigned int *map, t_fillist *list, int size)
 {
-	int	pos;
-
 	if (!list)
 		return (1);
-	pos = list->position;
 	list->position = 0;
 	while (find_place(map, list, size))
 	{
 		add_remove(map, list, size);
 		list->test = 1;
-		if (list->position < pos)
-			clean_memory(list, pos, pos);
 		if (list->dope[0])
 		{
 			print_letter_map(list->start, size, 1);

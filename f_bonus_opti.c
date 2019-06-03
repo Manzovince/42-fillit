@@ -6,7 +6,7 @@
 /*   By: hulamy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 14:42:46 by hulamy            #+#    #+#             */
-/*   Updated: 2019/06/01 14:11:32 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/03 12:51:22 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@ int			check_tetri_memory(t_fillist *list, int pos)
 
 	tetri = list;
 	mask = 1 << ((pos % 32) - 1);
-	if (!tetri->same && !tetri->memory)
-		return(1);
 	if (tetri->same)
 	{
 		if (!(tetri->same->memory[pos / 32] & mask))
 			return (tetri->same->memory[pos / 32] |= mask);
 	}
-	else if (tetri->memory)
+	else
 	{
 		if (!(tetri->memory[pos / 32] & mask))
 			return (tetri->memory[pos / 32] |= mask);
@@ -44,8 +42,6 @@ int			check_tetri_memory(t_fillist *list, int pos)
 
 int			compare_tetri(t_fillist *tetri_a, t_fillist *tetri_b)
 {
-	if (tetri_a->same)
-		return (0);
 	if (tetri_a->tetribit != tetri_b->tetribit)
 		return (0);
 	if (tetri_a->width != tetri_b->width)
@@ -83,22 +79,20 @@ int			check_same_tetri(t_fillist *list, int num)
 	curr_tetri = clean_list_memory(list, list);
 	while (curr_tetri != NULL)
 	{
+		i = 0;
+		if (!(curr_tetri->memory =
+					(unsigned int *)malloc(sizeof(*curr_tetri->memory) * num)))
+			return (0);
+		while (i < num)
+			curr_tetri->memory[i++] = 0;
 		next_tetri = curr_tetri->next;
 		while (next_tetri != NULL)
 		{
 			if (compare_tetri(curr_tetri, next_tetri))
-			{
-				i = 0;
-				if (!(curr_tetri->memory =
-					(unsigned int *)malloc(sizeof(*curr_tetri->memory) * num)))
-				return (0);
-				while (i < num)
-					curr_tetri->memory[i++] = 0;
-				next_tetri->same = curr_tetri;
-			}
+				if (next_tetri->same == NULL)
+					next_tetri->same = curr_tetri;
 			next_tetri = next_tetri->next;
 		}
-		curr_tetri->position = 0;
 		curr_tetri->total_num = num;
 		curr_tetri = curr_tetri->next;
 	}

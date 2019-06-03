@@ -121,7 +121,6 @@ int				add_to_list(char *line, t_fillist **lst, char letter, int *dope)
 	tmp->letter = letter;
 	tmp->dope = dope;
 	tmp->start = *lst;
-	tmp->memory = NULL;
 	return (1);
 }
 
