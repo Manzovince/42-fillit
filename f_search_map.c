@@ -6,7 +6,7 @@
 /*   By: hulamy <hulamy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 20:47:22 by hulamy            #+#    #+#             */
-/*   Updated: 2019/06/01 15:12:08 by hulamy           ###   ########.fr       */
+/*   Updated: 2019/06/03 09:54:05 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,10 @@ int				fill_map(unsigned int *map, t_fillist *list, int size)
 	list->position = 0;
 	while (find_place(map, list, size))
 	{
-//		if (list->position < pos)
-//			clean_memory(list, pos, pos);
 		add_remove(map, list, size);
 		list->test = 1;
+		if (list->position < pos)
+			clean_memory(list, pos, pos);
 		if (list->dope[0])
 		{
 			print_letter_map(list->start, size, 1);
@@ -176,8 +176,7 @@ int				search_map(t_fillist *list)
 
 	size = 2;
 	tmp = print_tetri(list);
-//	init_num_and_size(1, &size, tmp);
-	size = 10;
+	init_num_and_size(1, &size, tmp);
 	i = 0;
 	while (!i)
 	{
