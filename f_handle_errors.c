@@ -6,7 +6,7 @@
 /*   By: vmanzoni <vmanzoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:29:05 by vmanzoni          #+#    #+#             */
-/*   Updated: 2019/06/01 15:53:31 by vmanzoni         ###   ########.fr       */
+/*   Updated: 2019/06/01 18:58:08 by hulamy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	print_error_extended(int error, int *dope)
 	if (error == 5)
 		print_error("error: File contains more than 26 tetriminos\n");
 	if (error == 6)
-		print_error("error: Tetrimino has more or less than 4 #\n");
-	if (error == 7)
 		print_error("error: Tetrimino # are not all connected\n");
+	if (error == 7)
+		print_error("error: Tetrimino has more or less than 4 #\n");
 	print_error("error\n");
 }
 
@@ -77,7 +77,7 @@ void	check_file_errors(char *file, int *dope)
 	}
 	if (file[i - 1] == '\n')
 		print_error_extended(3, dope);
-	if (line_nbr < 4)
+	if (line_nbr < 3)
 		print_error_extended(4, dope);
 	if (!dope[3] && line_nbr > 129)
 		print_error_extended(5, dope);
