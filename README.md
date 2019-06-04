@@ -2,7 +2,7 @@
 
 Team: **hulamy** and **vmanzoni**
 
-Le but de ce projet est d’agencer les Tetriminos entre eux pour former le plus petit carré possible, sachant que ce carré peut présenter des trous quand les pièces données ne s’emboîtent pas parfaitement.
+Le but de ce projet est d’agencer les Tetriminos entre eux pour former le plus petit carré possible, sachant que ce carré peut présenter des trous quand les pièces données ne s’emboîtent pas parfaitement.
 
 ## To do
 
@@ -14,7 +14,7 @@ Le but de ce projet est d’agencer les Tetriminos entre eux pour former le plus
 - [x] Backtracking for smallest square
 - [x] Transform tetriminos to letters
 - [x] Print result (Can be done with above step)
-- [ ] Free everything (NO LEAKS)
+- [x] Free everything (NO LEAKS)
 
 ## BONUS
 - [x] Best error handler (more details on why there is an error.)
