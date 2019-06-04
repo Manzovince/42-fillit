@@ -2,6 +2,8 @@
 
 Team: **hulamy** and **vmanzoni**
 
+Grade: 100/100
+
 Le but de ce projet est d’agencer les Tetriminos entre eux pour former le plus petit carré possible, sachant que ce carré peut présenter des trous quand les pièces données ne s’emboîtent pas parfaitement.
 
 ## To do
